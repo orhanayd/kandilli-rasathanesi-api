@@ -66,7 +66,10 @@
                 unset($node['Depth']); // eski büyük harf verisini siliyoruz.
                 $node['lokasyon']=trim(preg_replace('/\s+/', ' ', $node['lokasyon'])); // gereksiz boşlukları siliyoruz.
                 $exploded=explode(')', $node['lokasyon']); // verileri parçalıyoruz. revize ve deprem bölgesi gibi verileri almak için.
-
+                $node['lng']=(double)$node['lng'];
+                $node['lat']=(double)$node['lat'];
+                $node['mag']=(double)$node['mag'];
+                $node['depth']=(double)$node['depth'];
                 /**
                  * eğer parçalanan veri varsa ve 2 den büyükse veri.
                  */
@@ -89,6 +92,7 @@
                 $node['date']=$node['name']; // date bilgisi atıyoruz. deprem tarih bilgisi name içinde geliyor.
                 unset($node['name']); // işimiz kalmadığından siliyoruz.
                 $node['hash']=md5($node['date'].$node['timestamp'].$node['lokasyon'].$node['lat'].$node['lng'].$node['mag'].$node['depth']); // benzersiz deprem hashi oluşturoruz.
+                $node['hash2']=md5($node['lat'].$node['lng']); // benzersiz deprem hashi oluşturoruz.
                 $jsnode[$key]=$node;
             }
             return array_reverse($jsnode);
