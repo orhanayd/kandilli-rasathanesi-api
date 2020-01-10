@@ -1,5 +1,5 @@
 # Kandilli Rasathanesi API
-Kandilli Rasathanesi'nin yayınladığı son depremler listesi için API.
+Kandilli Rasathanesi'nin yayınladığı son depremler listesi için API. (last minute earthquakes in turkey parsing from Kandilli Observatory XML)
 
 ## API Endpoint
 https://api.orhanaydogdu.com.tr/deprem/live.php
