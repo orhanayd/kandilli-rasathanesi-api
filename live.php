@@ -3,7 +3,7 @@
     header("Access-Control-Allow-Origin: *");
     header('Content-type: application/json');
 
-    include("env.php");
+    include("funcs.php");
 
     $main_response=array("status"=>false);
     $result=[];
@@ -68,6 +68,7 @@
                 $exploded=explode(')', $node['lokasyon']); // verileri parçalıyoruz. revize ve deprem bölgesi gibi verileri almak için.
                 $node['lng']=(double)$node['lng'];
                 $node['lat']=(double)$node['lat'];
+                $node['coordinates']=[(double)$node['lng'], (double)$node['lat']];
                 $node['mag']=(double)$node['mag'];
                 $node['depth']=(double)$node['depth'];
                 /**
@@ -89,6 +90,7 @@
                 }
 
                 $node['timestamp']=getUnixTime(str_replace('.', '/', $node['name'])); // gelen tarih bilgisiniz unix timestampe çeviyoruz.
+                $node['date_stamp']=gmdate("Y-m-d", $node['timestamp']+3600*(-3+date("I"))); // gelen tarih bilgisiniz unix timestampe çeviyoruz.
                 $node['date']=$node['name']; // date bilgisi atıyoruz. deprem tarih bilgisi name içinde geliyor.
                 unset($node['name']); // işimiz kalmadığından siliyoruz.
                 $node['hash']=md5($node['date'].$node['timestamp'].$node['lokasyon'].$node['lat'].$node['lng'].$node['mag'].$node['depth']); // benzersiz deprem hashi oluşturoruz.
@@ -114,7 +116,14 @@
     /**
      * eğer xml başarılı bir şekilde işlendiyse.
      */
-    if(count($result)>0){
+    $count = count($result);
+    if($count>0){
+        if(isset($_GET['limit']) && $count > (int)$_GET['limit']){
+            $_GET['limit'] = (int)$_GET['limit'];
+            if($_GET['limit']>0){
+                $result = array_slice($result, 0, $_GET['limit']);
+            }
+        }
         $main_response['status']=true;
         $main_response['result']=$result;
     }
