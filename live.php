@@ -5,8 +5,14 @@
 
     include("funcs.php");
 
-    $main_response=array("status"=>false);
+    $main_response=array(
+        "status"=>false, 
+        "tryed"=>0,
+        "serverloadms"=>floor(microtime(true) * 1000),
+        "desc"=>"Gerçekten amacına kullanın, İletişimden çekinmeyin lütfen info@orhanaydogdu.com.tr"
+    );
     $result=[];
+    $xml = false;
 
     /**
      * @param string $dateStr string biçiminde tarih bilgisi
@@ -100,11 +106,26 @@
             return array_reverse($jsnode);
         }
     }
-    
-    /**
-     * xml çekiyoruz.
-     */
-    $xml = @simplexml_load_file($_ENV['api']."?v=".time());
+
+    $tryed = 0;
+    function getResult(){
+        global $tryed;
+        /**
+         * xml çekiyoruz.
+         */
+        $xmlData = @simplexml_load_file($_ENV['api']."?v=".time());
+        if(!$xmlData){
+            $tryed++;
+            sleep(1);
+            if($tryed<=5){
+                return getResult();
+            }
+        }
+        return $xmlData;
+    }
+
+    $xml = getResult();
+
 
     /**
      * eğer xml çekildiyse parçamalak için functionu çağıyoruz.
@@ -112,6 +133,7 @@
     if($xml){
         $result=xml2js($xml);
     }
+    $main_response['tryed'] = $tryed;  
     
     /**
      * eğer xml başarılı bir şekilde işlendiyse.
@@ -125,6 +147,7 @@
             }
         }
         $main_response['status']=true;
+        $main_response['serverloadms']= floor(microtime(true) * 1000)-$main_response['serverloadms'];
         $main_response['result']=$result;
     }
     
