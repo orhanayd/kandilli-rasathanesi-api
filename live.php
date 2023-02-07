@@ -9,7 +9,7 @@
         "status"=>false, 
         "tryed"=>0,
         "serverloadms"=>floor(microtime(true) * 1000),
-        "desc"=>"Gerçekten amacına kullanın, İletişimden çekinmeyin lütfen info@orhanaydogdu.com.tr"
+        "desc"=>"Gerçekten amacına uygun kullanın, Lütfen iletişimden çekinmeyin: info@orhanaydogdu.com.tr"
     );
     $result=[];
     $xml = false;
@@ -117,7 +117,7 @@
         if(!$xmlData){
             $tryed++;
             sleep(1);
-            if($tryed<=5){
+            if($tryed<=2){
                 return getResult();
             }
         }
