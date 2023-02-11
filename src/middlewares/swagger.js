@@ -17,8 +17,8 @@ module.exports = {
     notRequiredAsNullable: false,
     exposeApiDocs: true,
     exposeSwaggerUI: true,
-    swaggerUIPath: '/api-docs',
-    apiDocsPath: '/api-docs-download',
+    swaggerUIPath: '/deprem/api-docs',
+    apiDocsPath: '/deprem/api-docs-download.json',
     swaggerUiOptions: {
         swaggerOptions: {
             persistAuthorization: true

@@ -33,7 +33,7 @@ module.exports.get = async (limit = null) => {
 };
 
 module.exports.archive = async (date = helpers.date.moment.moment().format('Y-MM-DD'), limit = null) => {
-    let query = await new db.MongoDB.CRUD('earthquake', 'data').find({ date_day: date }, [0, limit], {}, { _id: -1 });
+    let query = await new db.MongoDB.CRUD('earthquake', 'data').find({ date_stamp: date }, [0, limit], {}, { _id: -1 });
     if (query === false) {
         throw new Error('kandilli archive find db error!');
     }

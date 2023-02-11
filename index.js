@@ -26,7 +26,7 @@ expressJSDocSwagger(app)(middlewares.swagger);
 app.use(express.json({ limit: '50mb' }));
 
 //routes;
-app.get('/status', (req, res) => {
+app.get('/deprem/status', (req, res) => {
     return res.json(
         {
             status: true,

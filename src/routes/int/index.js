@@ -4,7 +4,7 @@ const services = require('../../services');
 const middlewares = require('../../middlewares');
 
 /**
- * GET /int/earthquakes
+ * GET deprem/int/earthquakes
  * @summary api earthquakes save endpoint for cron
  * @tags INT
  * @security HeaderAuthCron

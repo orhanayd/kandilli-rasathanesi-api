@@ -38,7 +38,7 @@ module.exports.archive = (req, res, next) => {
     try {
         let query = {
             limit: 100,
-            date: helpers.date.moment.moment().format('Y-MM-DD')
+            date: helpers.date.moment.moment().format('YYYY-MM-DD')
         };
 
         if (req.query.limit && typeof req.query.limit === 'string') {
@@ -50,9 +50,10 @@ module.exports.archive = (req, res, next) => {
 
         if (req.query.date && typeof req.query.date === 'string') {
             req.query.date = req.query.date.toString();
-            if (!helpers.date.moment.isValid(req.query.date, 'Y-MM-DD')) {
+            if (!helpers.date.moment.isValid(req.query.date, 'YYYY-MM-DD')) {
                 throw new Error('date wrong param!');
             }
+            query.date = req.query.date;
         }
 
         req.query = query;

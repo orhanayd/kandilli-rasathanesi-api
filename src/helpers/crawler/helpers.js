@@ -22,8 +22,8 @@ module.exports.kandilli_models = (data, limit = null) => {
                     lokasyon: data[index]['@_lokasyon'],
                     lat: data[index]['@_lat'],
                     lng: data[index]['@_lng'],
-                    mag: data[index]['@_mag'],
-                    depth: data[index]['@_Depth'],
+                    mag: parseFloat(data[index]['@_mag']),
+                    depth: parseFloat(data[index]['@_Depth']),
                     coordinates: [
                         data[index]['@_lng'],
                         data[index]['@_lat']
