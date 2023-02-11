@@ -1,1 +1,4 @@
 env.php
+node_modules
+old
+.env

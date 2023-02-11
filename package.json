@@ -1,0 +1,34 @@
+{
+  "name": "kandilli-service-api",
+  "version": "1.0.0",
+  "description": "Kandilli Rasathanesi'nin yayınladığı son depremler listesi için API. (last minute earthquakes in turkey parsing from Kandilli Observatory XML)",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start index.js --name kandilli-service -i 2 --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orhanayd/kandilli-rasathanesi-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orhanayd/kandilli-rasathanesi-api/issues"
+  },
+  "homepage": "https://github.com/orhanayd/kandilli-rasathanesi-api#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-jsdoc-swagger": "^1.8.0",
+    "fast-xml-parser": "^4.1.1",
+    "md5": "^2.3.0",
+    "moment-timezone": "^0.5.34",
+    "mongodb": "^5.0.1",
+    "morgan": "^1.10.0",
+    "nanoid": "3.3.4",
+    "nope-redis": "^1.0.2"
+  }
+}
