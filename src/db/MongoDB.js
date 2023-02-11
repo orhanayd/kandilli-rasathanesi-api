@@ -1,6 +1,11 @@
+/**
+ * Created from @orhanayd
+ * For MongoDB easy use!
+ */
+
 const { MongoClient, ObjectId } = require('mongodb');
 const { customAlphabet } = require('nanoid');
-const is_dev = true;
+const constants = require('../constants');
 
 /*
 * @class
@@ -110,7 +115,7 @@ class CRUD {
     constructor(db, collection) {
         this.db = db;
         this.collection = collection;
-        if (is_dev) {
+        if (process.env.NODE_ENV === constants.STAGES.DEV) {
             this.db = 'dev_' + this.db;
         }
     }

@@ -11,8 +11,8 @@ router.use('/int', int);
 router.use('/kandilli', kandilli);
 
 /**
- *          !!!!  OLD ENDPOINTS DEPRECATED !!!!
- *      WILL BE DISABLED IN TIME
+ *      !!!!  It has been added for compatibility for those using the old endpoint !!!!
+ *      !!!! WILL BE DISABLED IN TIME !!!!
  */
 router.get('/', [controller.kandilli.archive], services.kandilli.archive);
 router.get('/live.php', [controller.kandilli.live], services.kandilli.live);

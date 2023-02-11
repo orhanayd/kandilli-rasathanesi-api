@@ -4,7 +4,6 @@ const logger = require('morgan');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const app = express();
-const constants = require('./src/constants');
 const middlewares = require('./src/middlewares');
 const db = require('./src/db');
 
@@ -42,7 +41,11 @@ app.use(require('./src/routes'));
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         console.error(err);
-        let response = constants.RESPONSE.SERVER_ERROR();
+        let response = {
+            status: false,
+            desc: '',
+            httpStatus: 500
+        };
         response.desc = err.message;
         return res.status(response.httpStatus).send(response); // Bad request
     }
