@@ -9,6 +9,7 @@ const alwaysArray = [
 ];
 
 module.exports.get = async (limit = null) => {
+    const cacheKey = 'kandilli/raw';
     const parser = new XMLParser({
         ignoreAttributes: false,
         ignoreDeclaration: true,
@@ -18,11 +19,16 @@ module.exports.get = async (limit = null) => {
             if (alwaysArray.indexOf(jpath) !== -1) return true;
         }
     });
-    let response = await axios.get(process.env.KANDILLI_XML + '?v=' + helpers.date.moment.timestampMS());
-    if (!response && response.data) {
-        return false;
+    let response = db.nopeRedis.getItem(cacheKey);
+    if (!response) {
+        response = await axios.get(process.env.KANDILLI_XML + '?v=' + helpers.date.moment.timestampMS());
+        if (!response && response.data) {
+            return false;
+        }
+        response = response.data;
+        db.nopeRedis.setItem(cacheKey, response, 30);
     }
-    let data = parser.parse(response.data);
+    let data = parser.parse(response);
     if (!data.eqlist || !data.eqlist.earhquake) {
         return false;
     }
@@ -30,12 +36,4 @@ module.exports.get = async (limit = null) => {
         console.error('Kandilli crawler is not Array!');
     }
     return helpers_crawler.kandilli_models(data.eqlist.earhquake.reverse(), limit);
-};
-
-module.exports.archive = async (date = helpers.date.moment.moment().format('Y-MM-DD'), limit = null) => {
-    let query = await new db.MongoDB.CRUD('earthquake', 'data').find({ date_stamp: date }, [0, limit], {}, { _id: -1 });
-    if (query === false) {
-        throw new Error('kandilli archive find db error!');
-    }
-    return query;
 };

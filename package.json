@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=PROD pm2 start index.js --name kandilli-service -i 2",
-    "dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service -i 1 --watch",
+    "dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service-dev -i 1 --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/orhanayd/kandilli-rasathanesi-api#readme",
   "dependencies": {
+    "@turf/turf": "^6.5.0",
     "axios": "^0.26.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",

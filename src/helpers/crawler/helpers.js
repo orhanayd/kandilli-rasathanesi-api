@@ -1,4 +1,6 @@
 const helpers = require('../../helpers');
+const db = require('../../db');
+const helpers_crawler = require('../index');
 
 module.exports.kandilli_models = (data, limit = null) => {
     try {
@@ -17,6 +19,7 @@ module.exports.kandilli_models = (data, limit = null) => {
             data[index]['@_lat'] = parseFloat(data[index]['@_lat']);
             model_data.push(
                 {
+                    earthquake_id: db.MongoDB.id(),
                     title: data[index]['@_lokasyon'],
                     date: data[index]['@_name'],
                     lokasyon: data[index]['@_lokasyon'],
@@ -35,9 +38,10 @@ module.exports.kandilli_models = (data, limit = null) => {
                             data[index]['@_lat']
                         ]
                     },
+                    location_properties: helpers_crawler.earthquakes.location_properties(data[index]['@_lng'], data[index]['@_lat']),
                     rev,
-                    date_stamp: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('Y-MM-DD'),
-                    date_day: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('Y-MM-DD'),
+                    date_stamp: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('YYYY-MM-DD'),
+                    date_day: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('YYYY-MM-DD'),
                     date_hour: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('HH:mm:ss'),
                     timestamp: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('X'),
                     location_tz: 'Europe/Istanbul'

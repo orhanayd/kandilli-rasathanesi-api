@@ -26,18 +26,7 @@ expressJSDocSwagger(app)(middlewares.swagger);
 app.use(express.json({ limit: '50mb' }));
 
 //routes;
-app.get('/deprem/status', (req, res) => {
-    return res.json(
-        {
-            status: true,
-            desc: 'kandilli rasathanesi api service',
-            nope_redis: {}
-        }
-    );
-});
-
 app.use(require('./src/routes'));
-
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         console.error(err);

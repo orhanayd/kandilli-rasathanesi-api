@@ -54,7 +54,7 @@ module.exports.connector = async (connectionString = null) => {
 function toObjector(query) {
     try {
         // neler object id ye çevirilecek ?
-        let keys = [];
+        let keys = ['_id'];
         // array ise farklı şekilde handle ediyoruz.
         if (Array.isArray(query)) {
             for (let index = 0; index < query.length; index++) {

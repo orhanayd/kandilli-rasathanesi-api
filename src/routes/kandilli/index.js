@@ -4,7 +4,7 @@ const services = require('../../services');
 const controller = require('../../controller');
 
 /**
- * GET deprem/kandilli/live
+ * GET /deprem/kandilli/live
  * @param {number} limit.query - limit param limit
  * @summary api earthquakes live endpoint from kandilli
  * @tags KANDILLI
@@ -14,7 +14,7 @@ const controller = require('../../controller');
 router.get('/live', [controller.kandilli.live], services.kandilli.live);
 
 /**
- * GET deprem/kandilli/archive
+ * GET /deprem/kandilli/archive
  * @param {number} limit.query - limit param limit
  * @param {string} date.query.required - date param YYYY-MM-DD
  * @summary api earthquakes archive endpoint from kandilli
