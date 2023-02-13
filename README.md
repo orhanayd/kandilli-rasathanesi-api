@@ -12,7 +12,7 @@ https://api.orhanaydogdu.com.tr/deprem/api-docs/
 - Depremin zaman bilgileri ve depreme özel ID.
 - **Tarih bazlı** deprem listesi
 
-#####https://api.orhanaydogdu.com.tr/deprem/kandilli/live
+##### https://api.orhanaydogdu.com.tr/deprem/kandilli/live
 ##### Örnek cevap:
 
 ```json
