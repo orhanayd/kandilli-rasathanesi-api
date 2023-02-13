@@ -63,7 +63,7 @@ https://api.orhanaydogdu.com.tr/deprem/api-docs/
 			}
 		}]
 	},
-	"rev": null,
+	"rev": null, -> Kandilli revize bilgisi
 	"date_stamp": "2023-02-13",
 	"date_day": "2023-02-13",
 	"date_hour": "06:33:53",
