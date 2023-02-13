@@ -11,15 +11,16 @@ module.exports.location_properties = (lng, lat) => {
         }
         const polyFC = turf.featureCollection(features);
         let closestPoly = null;
-        let minDistance = Infinity;
+        let minDistance = null;
         let epiCenter = null;
         for (let index = 0; index < polyFC.features.length; index++) {
             let pointOnPoly = turf.pointOnFeature(polyFC.features[index].geometry.coordinates);
             let isInside = turf.booleanPointInPolygon(turfPoint, polyFC.features[index].geometry.coordinates);
             let distance = turf.distance(turfPoint, pointOnPoly, { units: 'meters' });
-            if (distance < minDistance) {
+            if (!minDistance || (distance < minDistance && !isInside)) {
                 closestPoly = polyFC.features[index];
-                closestPoly.distance = distance;
+                closestPoly.properties.distance = distance;
+                minDistance = distance;
             }
             if (isInside) {
                 epiCenter = polyFC.features[index];
