@@ -38,7 +38,7 @@ https://api.orhanaydogdu.com.tr/deprem/api-docs/
 			"name": "?" -> Depremin epicenterı
 		},
 		"airports": [{ -> En yakın havalimanları ve uzaklıkları
-			"distance": 54244.23451722934,
+			"distance": 54244.23451722934, -> Bu havalimanına metre cinsinden uzaklığı
 			"name": "Tekirdağ Çorlu Havalimanı",
 			"code": "TEQ", -> havalimanı kodu
 			"coordinates": { -> havalimanın geojson bilgisi
