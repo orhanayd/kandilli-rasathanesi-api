@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
         httpStatus: 200,
         serverloadms: helpers.date.moment.timestampMS(),
         desc: '',
+        metadata: {},
         result: []
     };
     try {
@@ -15,7 +16,8 @@ module.exports = async (req, res) => {
             responseBody.status = false;
             responseBody.desc = 'Veri alınamadı!';
         }
-        responseBody.result = kandilli_data;
+        responseBody.result = kandilli_data.data;
+        responseBody.metadata = kandilli_data.metadata;
     } catch (error) {
         console.error(error);
         responseBody.desc = error.message || '';

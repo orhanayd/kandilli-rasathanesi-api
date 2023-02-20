@@ -48,7 +48,7 @@ module.exports.kandilli_models = (data, limit = null) => {
                 }
             );
         }
-        return model_data;
+        return { data: model_data, metadata: { total: data.length } };
     } catch (error) {
         console.error(error);
         return false;

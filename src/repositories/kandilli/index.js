@@ -61,10 +61,32 @@ module.exports.update = async (earhquake_id, update) => {
     return await new db.MongoDB.CRUD('earthquake', 'data').update({ earhquake_id }, { $set: update });
 };
 
-module.exports.archive = async (date = helpers.date.moment.moment().format('YYYY-MM-DD'), limit = null) => {
-    let query = await new db.MongoDB.CRUD('earthquake', 'data').find({ date_stamp: date }, [0, limit], {}, { _id: -1 });
+module.exports.archive = async (
+    date = helpers.date.moment.moment().format('YYYY-MM-DD'),
+    date_end = helpers.date.moment.moment().format('YYYY-MM-DD'),
+    limit = 0
+) => {
+    let match = { date_stamp: { $gte: date, $lte: date_end } };
+    let agg = [];
+    agg.push({ $match: match });
+    if (limit > 0) {
+        agg.push({ $limit: limit });
+    }
+    let query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(
+        [
+            {
+                $facet: {
+                    data: agg,
+                    metadata: [{ $match: match }, { $count: 'total' }]
+                }
+            }
+        ]
+    );
     if (query === false) {
         throw new Error('kandilli archive find db error!');
     }
-    return query;
+    if (query.length > 0) {
+        return query[0];
+    }
+    return { data: [], metadata: [] };
 };

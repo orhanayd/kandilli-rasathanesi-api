@@ -8,15 +8,17 @@ module.exports = async (req, res) => {
         httpStatus: 200,
         serverloadms: helpers.date.moment.timestampMS(),
         desc: '',
+        metadata: {},
         result: []
     };
     try {
-        const kandilli_data = await repositories.kandilli.archive(req.query.date, req.query.limit);
+        const kandilli_data = await repositories.kandilli.archive(req.query.date, req.query.date_end, req.query.limit);
         if (!kandilli_data) {
             responseBody.status = false;
             responseBody.desc = 'Veri alınamadı!';
         }
-        responseBody.result = kandilli_data;
+        responseBody.result = kandilli_data.data;
+        responseBody.metadata = kandilli_data.metadata[0];
     } catch (error) {
         console.error(error);
         responseBody.desc = error.message || '';
