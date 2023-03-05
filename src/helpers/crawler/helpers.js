@@ -43,6 +43,7 @@ module.exports.kandilli_models = (data, limit = null) => {
                     date_stamp: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('YYYY-MM-DD'),
                     date_day: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('YYYY-MM-DD'),
                     date_hour: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('HH:mm:ss'),
+                    date_time: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'),
                     timestamp: helpers.date.moment.moment(data[index]['@_name'], 'Y.M.D HH:mm:ss').format('X'),
                     location_tz: 'Europe/Istanbul'
                 }
