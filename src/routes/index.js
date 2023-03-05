@@ -7,9 +7,13 @@ const controller = require('../controller');
 
 const int = require('./int');
 const kandilli = require('./kandilli');
+const statics = require('./statics');
+const data = require('./data');
 
 router.use('/deprem/int', int);
 router.use('/deprem/kandilli', kandilli);
+router.use('/deprem/statics', statics);
+router.use('/deprem/data', data);
 
 
 /**
@@ -33,8 +37,8 @@ router.get('/deprem/status', async (req, res) => {
  *      !!!!  It has been added for compatibility for those using the old endpoint !!!!
  *      !!!! WILL BE DISABLED IN TIME !!!!
  */
-router.get('/deprem/', [controller.kandilli.archive], services.kandilli.archive);
+router.get('/deprem/', [controller.kandilli.live], services.kandilli.live);
 router.get('/deprem/live.php', [controller.kandilli.live], services.kandilli.live);
-router.get('/deprem/index.php', [controller.kandilli.archive], services.kandilli.archive);
+router.get('/deprem/index.php', [controller.kandilli.live], services.kandilli.live);
 
 module.exports = router;

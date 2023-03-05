@@ -61,18 +61,26 @@ module.exports.update = async (earhquake_id, update) => {
     return await new db.MongoDB.CRUD('earthquake', 'data').update({ earhquake_id }, { $set: update });
 };
 
-module.exports.archive = async (
+module.exports.list = async (
     date = helpers.date.moment.moment().format('YYYY-MM-DD'),
     date_end = helpers.date.moment.moment().format('YYYY-MM-DD'),
-    limit = 0
+    skip = 0,
+    limit = 0,
+    sort = null
 ) => {
     let match = { date_stamp: { $gte: date, $lte: date_end } };
     let agg = [];
     agg.push({ $match: match });
+    if (sort) {
+        agg.push({ $sort: sort });
+    }
+    if (skip > 0) {
+        agg.push({ $skip: skip });
+    }
     if (limit > 0) {
         agg.push({ $limit: limit });
     }
-    let query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(
+    const query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(
         [
             {
                 $facet: {

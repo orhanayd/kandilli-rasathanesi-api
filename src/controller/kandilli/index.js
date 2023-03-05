@@ -8,8 +8,16 @@ module.exports.live = (req, res, next) => {
     };
     try {
         let query = {
-            limit: null
+            skip: null,
+            limit: 100
         };
+
+        if (req.query.skip && typeof req.query.skip === 'string') {
+            query.skip = parseInt(req.query.skip, 10);
+            if (isNaN(query.skip)) {
+                throw new Error('isNaN skip!');
+            }
+        }
 
         if (req.query.limit && typeof req.query.limit === 'string') {
             query.limit = parseInt(req.query.limit, 10);
@@ -37,6 +45,7 @@ module.exports.archive = (req, res, next) => {
     };
     try {
         let query = {
+            skip: 0,
             limit: 100,
             date: helpers.date.moment.moment().format('YYYY-MM-DD'),
             date_end: helpers.date.moment.moment().format('YYYY-MM-DD'),
@@ -49,6 +58,15 @@ module.exports.archive = (req, res, next) => {
             }
             if (query.limit > 1000) {
                 query.limit = 1000;
+            }
+        }
+        if (req.query.skip && typeof req.query.skip === 'string') {
+            query.skip = parseInt(req.query.skip, 10);
+            if (isNaN(query.skip)) {
+                throw new Error('isNaN skip!');
+            }
+            if (query.skip > 1000) {
+                query.skip = 1000;
             }
         }
 
