@@ -29,8 +29,8 @@ module.exports.search = (req, res, next) => {
             }
         }
 
-        if (typeof req.body.geoSearch === 'object') {
-            if (typeof req.body.geoSearch.lon !== 'number' && typeof req.body.geoSearch.lat !== 'number') {
+        if (typeof req.body.geoNear === 'object') {
+            if (typeof req.body.geoNear.lon !== 'number' && typeof req.body.geoNear.lat !== 'number') {
                 throw new Error('lat or lon is not a number!');
             }
             body.geoNear = {
@@ -40,12 +40,12 @@ module.exports.search = (req, res, next) => {
                 },
                 distanceField: 'distance'
             };
-            body.geoNear.near.coordinates[0] = parseFloat(req.body.geoSearch.lon);
-            body.geoNear.near.coordinates[1] = parseFloat(req.body.geoSearch.lat);
-            if (typeof req.body.geoSearch.maxDistance === 'number') {
-                body.geoNear.maxDistance = parseInt(req.body.geoSearch.maxDistance, 10);
-                if (isNaN(req.body.geoSearch.maxDistance)) {
-                    throw new Error('isNaN geoSearch maxDistance!');
+            body.geoNear.near.coordinates[0] = parseFloat(req.body.geoNear.lon);
+            body.geoNear.near.coordinates[1] = parseFloat(req.body.geoNear.lat);
+            if (typeof req.body.geoNear.maxDistance === 'number') {
+                body.geoNear.maxDistance = parseInt(req.body.geoNear.maxDistance, 10);
+                if (isNaN(req.body.geoNear.maxDistance)) {
+                    throw new Error('isNaN geoNear maxDistance!');
                 }
             }
         }

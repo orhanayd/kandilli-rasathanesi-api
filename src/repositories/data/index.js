@@ -24,16 +24,14 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
         if (project) {
             agg.push({ $project: project });
         }
-        const query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(
-            agg
-        );
+        const query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(agg);
         if (query === false) {
             throw new Error('kandilli archive search db error!');
         }
         if (query.length > 0) {
             return query;
         }
-        return { data: [], metadata: [] };
+        return [];
     } catch (error) {
         console.error(error);
         return false;
