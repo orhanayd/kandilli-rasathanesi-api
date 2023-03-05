@@ -4,14 +4,10 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
     try {
         let agg = [];
         if (geoNear) {
-            agg.push(
-                {
-                    $geoNear: geoNear
-                }
-            );
-        } else {
-            agg.push({ $match: match });
+            match = { ...match, ...geoNear };
         }
+        agg.push({ $match: match });
+
         if (sort) {
             agg.push({ $sort: sort });
         }

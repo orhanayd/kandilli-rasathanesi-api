@@ -8,7 +8,7 @@ const controller = require('../../controller');
  * @typedef {object} DataSearchGeoNear
  * @property {number} lon.required - earthquake geonear longitude
  * @property {number} lat.required - earthquake geonear latitude
- * @property {number} maxDistance - earthquake geonear search max distance with meter
+ * @property {number} radiusMeter - earthquake geonear search radiusMeter
  */
 
 /**

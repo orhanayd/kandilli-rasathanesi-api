@@ -33,21 +33,18 @@ module.exports.search = (req, res, next) => {
             if (typeof req.body.geoNear.lon !== 'number' && typeof req.body.geoNear.lat !== 'number') {
                 throw new Error('lat or lon is not a number!');
             }
-            body.geoNear = {
-                near: {
-                    type: 'Point',
-                    coordinates: []
-                },
-                distanceField: 'distance'
-            };
-            body.geoNear.near.coordinates[0] = parseFloat(req.body.geoNear.lon);
-            body.geoNear.near.coordinates[1] = parseFloat(req.body.geoNear.lat);
-            if (typeof req.body.geoNear.maxDistance === 'number') {
-                body.geoNear.maxDistance = parseInt(req.body.geoNear.maxDistance, 10);
-                if (isNaN(req.body.geoNear.maxDistance)) {
-                    throw new Error('isNaN geoNear maxDistance!');
+            if (typeof req.body.geoNear.radiusMeter !== 'number') {
+                req.body.geoNear.radiusMeter = parseInt(req.body.geoNear.radiusMeter, 10);
+                if (isNaN(req.body.geoNear.radiusMeter)) {
+                    throw new Error('radiusMeter isNaN!');
                 }
             }
+            body.geoNear = {
+                geojson: { $geoWithin: { $centerSphere: [[], 0] } }
+            };
+            body.geoNear.geojson['$geoWithin']['$centerSphere'][0][0] = parseFloat(req.body.geoNear.lon);
+            body.geoNear.geojson['$geoWithin']['$centerSphere'][0][1] = parseFloat(req.body.geoNear.lat);
+            body.geoNear.geojson['$geoWithin']['$centerSphere'][1] = helpers.metersToRadios(req.body.geoNear.radiusMeter);
         }
 
         if (typeof req.body.sort === 'string') {
