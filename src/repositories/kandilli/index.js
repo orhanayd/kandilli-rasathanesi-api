@@ -1,20 +1,19 @@
 const db = require('../../db');
 const helpers = require('../../helpers');
 
-module.exports.multiSave = async (data) => {
+module.exports.multiSave = async (data, collection = 'data_v2') => {
     try {
         if (data.length < 1) {
             return true;
         }
         let mustInsert = [];
         for (let index = 0; index < data.length; index++) {
-            let find = await this.get(
-                data[index].date,
-                data[index].lokasyon,
+            const find = await this.checkIsInserted(
+                data[index].date_time,
                 data[index].mag,
                 data[index].depth,
-                data[index].lng,
-                data[index].lat
+                data[index].geojson.coordinates[0],
+                data[index].geojson.coordinates[1]
             );
             if (find === false) {
                 continue;
@@ -26,7 +25,7 @@ module.exports.multiSave = async (data) => {
         if (mustInsert.length < 1) {
             return true;
         }
-        let insert = await new db.MongoDB.CRUD('earthquake', 'data').insertMany(mustInsert);
+        const insert = await new db.MongoDB.CRUD('earthquake', collection).insertMany(mustInsert);
         if (insert === false) {
             throw new Error('db insert error!');
         }
@@ -37,11 +36,11 @@ module.exports.multiSave = async (data) => {
     }
 };
 
-module.exports.get = async (date, lokasyon, mag, depth, lng, lat) => {
+module.exports.checkIsInserted = async (date_time, mag, depth, lng, lat) => {
     try {
-        let query = await new db.MongoDB.CRUD('earthquake', 'data').find(
+        const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').find(
             {
-                date, lokasyon, mag, depth, lng, lat
+                date_time, mag, depth, 'geojson.coordinates.0': lng, 'geojson.coordinates.1': lat
             }
         );
         if (query === false) {
@@ -58,21 +57,22 @@ module.exports.get = async (date, lokasyon, mag, depth, lng, lat) => {
 };
 
 module.exports.update = async (earhquake_id, update) => {
-    return await new db.MongoDB.CRUD('earthquake', 'data').update({ earhquake_id }, { $set: update });
+    return await new db.MongoDB.CRUD('earthquake', 'data_v2').update({ earhquake_id }, { $set: update });
 };
 
 module.exports.list = async (
-    date = helpers.date.moment.moment().format('YYYY-MM-DD'),
-    date_end = helpers.date.moment.moment().format('YYYY-MM-DD'),
+    date_starts = helpers.date.moment.moment().add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+    date_ends = helpers.date.moment.moment().format('YYYY-MM-DD HH:mm:ss'),
     skip = 0,
     limit = 0,
     sort = null
 ) => {
-    let match = { date_stamp: { $gte: date, $lte: date_end } };
+    let match = { date_time: { $gte: date_starts, $lte: date_ends } };
     let agg = [];
-    agg.push({ $match: match });
+    let agg2 = [];
+    agg2.push({ $match: match });
     if (sort) {
-        agg.push({ $sort: sort });
+        agg2.push({ $sort: sort });
     }
     if (skip > 0) {
         agg.push({ $skip: skip });
@@ -80,12 +80,13 @@ module.exports.list = async (
     if (limit > 0) {
         agg.push({ $limit: limit });
     }
-    const query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(
+    const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(
         [
+            ...agg2,
             {
                 $facet: {
                     data: agg,
-                    metadata: [{ $match: match }, { $count: 'total' }]
+                    metadata: [{ $count: 'total' }]
                 }
             }
         ]

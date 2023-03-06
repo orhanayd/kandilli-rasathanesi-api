@@ -9,18 +9,26 @@ module.exports = async (req, res) => {
         httpStatus: 200,
         serverloadms: helpers.date.moment.timestampMS(),
         desc: '',
-        metadata: {},
+        metadata: {
+            date_starts: helpers.date.moment.moment().add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+            date_ends: helpers.date.moment.moment().format('YYYY-MM-DD HH:mm:ss')
+        },
         result: []
     };
     try {
-        const live_date = helpers.date.moment.moment().format('YYYY-MM-DD');
         let kandilli_data;
         const key = `kandilli/live/${req.query.skip}/${req.query.limit}`;
         const check_noperedis = db.nopeRedis.getItem(key);
         if (check_noperedis) {
             kandilli_data = check_noperedis;
         } else {
-            kandilli_data = await repositories.kandilli.list(live_date, live_date, req.query.skip, req.query.limit, { _id: -1 });
+            kandilli_data = await repositories.kandilli.list(
+                responseBody.metadata.date_starts,
+                responseBody.metadata.date_ends,
+                req.query.skip,
+                req.query.limit,
+                { date_time: -1 }
+            );
             db.nopeRedis.setItem(key, kandilli_data, 30);
         }
         if (!kandilli_data) {
@@ -28,7 +36,7 @@ module.exports = async (req, res) => {
             responseBody.desc = 'Veri alınamadı!';
         }
         responseBody.result = kandilli_data.data;
-        responseBody.metadata = { date: live_date, ...kandilli_data.metadata[0] };
+        responseBody.metadata = { ...responseBody.metadata, ...kandilli_data.metadata[0] };
     } catch (error) {
         console.error(error);
         responseBody.desc = error.message || '';

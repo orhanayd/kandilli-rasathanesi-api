@@ -20,7 +20,7 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
         if (project) {
             agg.push({ $project: project });
         }
-        const query = await new db.MongoDB.CRUD('earthquake', 'data').aggregate(agg);
+        const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(agg);
         if (query === false) {
             throw new Error('kandilli archive search db error!');
         }

@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         result: []
     };
     try {
-        const kandilli_data = await repositories.kandilli.list(req.query.date, req.query.date_end, req.body.skip, req.query.limit);
+        const kandilli_data = await repositories.kandilli.list(req.query.date, req.query.date_end, req.query.skip, req.query.limit);
         if (!kandilli_data) {
             responseBody.status = false;
             responseBody.desc = 'Veri alınamadı!';

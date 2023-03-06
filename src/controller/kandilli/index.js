@@ -47,8 +47,8 @@ module.exports.archive = (req, res, next) => {
         let query = {
             skip: 0,
             limit: 100,
-            date: helpers.date.moment.moment().format('YYYY-MM-DD'),
-            date_end: helpers.date.moment.moment().format('YYYY-MM-DD'),
+            date: helpers.date.moment.moment().add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+            date_end: helpers.date.moment.moment().format('YYYY-MM-DD HH:mm:ss'),
         };
 
         if (req.query.limit && typeof req.query.limit === 'string') {
@@ -75,14 +75,14 @@ module.exports.archive = (req, res, next) => {
             if (!helpers.date.moment.isValid(req.query.date, 'YYYY-MM-DD')) {
                 throw new Error('date wrong param!');
             }
-            query.date = req.query.date;
+            query.date = helpers.date.moment.moment(req.query.date).startOf('day').format('YYYY-MM-DD HH:mm:ss');
         }
         if (req.query.date_end && typeof req.query.date_end === 'string') {
             req.query.date_end = req.query.date_end.toString();
             if (!helpers.date.moment.isValid(req.query.date_end, 'YYYY-MM-DD')) {
                 throw new Error('date_end wrong param!');
             }
-            query.date_end = req.query.date_end;
+            query.date_end = helpers.date.moment.moment(req.query.date_end).endOf('day').format('YYYY-MM-DD HH:mm:ss');
         }
 
         req.query = query;

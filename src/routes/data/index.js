@@ -15,7 +15,7 @@ const controller = require('../../controller');
  * DataSearchMatch defination
  * @typedef {object} DataSearchMatch
  * @property {number} mag - earthquake magnitude 
- * @property {string} date_starts - earthquake starts at YYYY-MM-DDS
+ * @property {string} date_starts - earthquake starts at YYYY-MM-DD
  * @property {string} date_ends - earthquake ends at YYYY-MM-DD
  * @property {number} cityCode - city code from statics/cities
  */
