@@ -8,7 +8,7 @@ module.exports.live = (req, res, next) => {
     };
     try {
         let query = {
-            skip: null,
+            skip: 0,
             limit: 100
         };
 
