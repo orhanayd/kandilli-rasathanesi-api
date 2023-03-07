@@ -1,14 +1,14 @@
 const moment = require('moment-timezone');
 const constants = require('./../../constants');
 const helpers = require('./../../helpers');
-
+const timeZone = 'Europe/Istanbul';
 /**
  * get timestamp
  * 
  * @returns {Number}
  */
 module.exports.timestamp = () => {
-    return parseInt(moment().locale('tr').format('X'), 10);
+    return parseInt(moment().tz(timeZone).format('X'), 10);
 };
 
 /**
@@ -17,7 +17,7 @@ module.exports.timestamp = () => {
  * @returns {Number}
  */
 module.exports.timestampMS = () => {
-    return parseInt(moment().locale('tr').format('x'), 10);
+    return parseInt(moment().tz(timeZone).format('x'), 10);
 };
 
 /**
@@ -27,7 +27,7 @@ module.exports.timestampMS = () => {
  * @returns 
  */
 module.exports.moment = (...args) => {
-    return moment(...args).locale('tr');
+    return moment(...args).tz(timeZone);
 };
 
 module.exports.isValid = (date, format = 'YYYYMMDD') => {
