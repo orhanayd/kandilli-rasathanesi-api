@@ -37,7 +37,7 @@ Endpoint kullanım detayları için Dökümanı ziyaret etmeyi unutmayın :)
 		"closestCity": { -> depreme en yakın sınırı bulunan şehir
 			"name": "Malatya", -> şehir adı
 			"cityCode": 44, -> şehir plaka kodu
-			"distance": 107595.23337847003, -> deprem noktasına uzaklığı
+			"distance": 107595.23337847003, -> deprem noktasına uzaklığı km
 			"population": 812580 -> ilgili şehrin nüfusu
 		},
 		"epiCenter": { -> depremin yaşandığı bölge
