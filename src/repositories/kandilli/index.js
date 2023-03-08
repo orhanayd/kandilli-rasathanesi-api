@@ -61,8 +61,8 @@ module.exports.update = async (earhquake_id, update) => {
 };
 
 module.exports.list = async (
-    date_starts = helpers.date.moment.moment().add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-    date_ends = helpers.date.moment.moment().format('YYYY-MM-DD HH:mm:ss'),
+    date_starts = helpers.date.moment.moment().tz('Europe/Istanbul').add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+    date_ends = helpers.date.moment.moment().tz('Europe/Istanbul').format('YYYY-MM-DD HH:mm:ss'),
     skip = 0,
     limit = 0,
     sort = null

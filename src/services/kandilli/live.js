@@ -10,8 +10,8 @@ module.exports = async (req, res) => {
         serverloadms: helpers.date.moment.timestampMS(),
         desc: '',
         metadata: {
-            date_starts: helpers.date.moment.moment().add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-            date_ends: helpers.date.moment.moment().format('YYYY-MM-DD HH:mm:ss')
+            date_starts: helpers.date.moment.moment().tz('Europe/Istanbul').add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+            date_ends: helpers.date.moment.moment().tz('Europe/Istanbul').format('YYYY-MM-DD HH:mm:ss')
         },
         result: []
     };

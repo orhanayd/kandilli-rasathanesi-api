@@ -47,8 +47,8 @@ module.exports.archive = (req, res, next) => {
         let query = {
             skip: 0,
             limit: 100,
-            date: helpers.date.moment.moment().add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
-            date_end: helpers.date.moment.moment().format('YYYY-MM-DD HH:mm:ss'),
+            date: helpers.date.moment.moment().tz('Europe/Istanbul').add(-24, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+            date_end: helpers.date.moment.moment().tz('Europe/Istanbul').format('YYYY-MM-DD HH:mm:ss'),
         };
 
         if (req.query.limit && typeof req.query.limit === 'string') {

@@ -10,6 +10,7 @@ module.exports.kandilli_models = (data, limit = null) => {
                 break;
             }
             let rev = null;
+            data[index]['@_lokasyon'] = data[index]['@_lokasyon'].trim();
             const splitted = data[index]['@_lokasyon'].split(')');
             if (splitted && splitted.length > 2) {
                 data[index]['@_lokasyon'] = splitted[0] + ')';
