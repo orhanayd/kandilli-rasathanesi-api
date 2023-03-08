@@ -13,62 +13,94 @@ https://api.orhanaydogdu.com.tr/deprem/api-docs/
 - **Tarih bazlı** deprem listesi
 
 ##### https://api.orhanaydogdu.com.tr/deprem/kandilli/live
+##### https://api.orhanaydogdu.com.tr/deprem/kandilli/archive
+##### https://api.orhanaydogdu.com.tr/deprem/data/search
+##### https://api.orhanaydogdu.com.tr/deprem/statics/cities
+Endpoint kullanım detayları için Dökümanı ziyaret etmeyi unutmayın :)
+
+##### https://api.orhanaydogdu.com.tr/deprem/kandilli/live
 ##### Örnek cevap:
 
 ```json
 {
-	"earthquake_id": "pYD0NoKuMtIhv", -> deprem uniq id
-	"title": "YENIKOY ACIKLARI-TEKIRDAG (MARMARA DENIZI)", -> kandilli deprem başlığı
-	"date": "2023.02.13 06:33:53", -> kandilli deprem zaman damgası
-	"lokasyon": "YENIKOY ACIKLARI-TEKIRDAG (MARMARA DENIZI)", -> !DEPRECATED!
-	"lat": 40.77, ->  !DEPRECATED!
-	"lng": 27.4988, !DEPRECATED!
-	"mag": 3, -> Deprem büyüklüğü
-	"depth": 14.8, -> Depremin kaç km yerin derinliğinde olduğu
-	"coordinates": [27.4988, 40.77], !DEPRECATED!
-	"geojson": { -> GeoJson Datası
+	"earthquake_id": "EoIrMsfMSC19f", -> benzersiz deprem id
+	"provider": "kandilli", -> deprem bilgi sağlayıcı
+	"title": "CALIS-ELBISTAN (KAHRAMANMARAS)", -> sağlayıcı tarafından belirlenen başlık
+	"date": "2023.03.08 02:54:44", -> deprem zaman bilgisi
+	"mag": 2, -> deprem büyüklüğü
+	"depth": 5, -> deprem derinliği
+	"geojson": { -> depremin konum noktası
 		"type": "Point",
-		"coordinates": [27.4988, 40.77]
+		"coordinates": [37.0132, 38.1355] (long, lat)
 	},
-	"location_properties": {
-		"closestCity": { 
-			"name": "Tekirdağ" -> En yakın il sınırı
+	"location_properties": { -> deprem konum noktası detayları
+		"closestCity": { -> depreme en yakın sınırı bulunan şehir
+			"name": "Malatya", -> şehir adı
+			"cityCode": 44, -> şehir plaka kodu
+			"distance": 107595.23337847003, -> deprem noktasına uzaklığı
+			"population": 812580 -> ilgili şehrin nüfusu
 		},
-		"epiCenter": {
-			"name": "?" -> Depremin epicenterı
+		"epiCenter": { -> depremin yaşandığı bölge
+			"name": "Kahramanmaraş", -> depremin yaşandığı şehir / null gelebilir
+			"cityCode": 46, -> şehirin plaka kodu
+			"population": 1177436 -> şehirin nufüsü
 		},
-		"airports": [{ -> En yakın havalimanları ve uzaklıkları
-			"distance": 54244.23451722934, -> Bu havalimanına metre cinsinden uzaklığı
-			"name": "Tekirdağ Çorlu Havalimanı",
-			"code": "TEQ", -> havalimanı kodu
-			"coordinates": { -> havalimanın geojson bilgisi
-				"type": "Point",
-				"coordinates": [27.921, 41.1392]
-			}
+		"closestCities": [{ -> deprem noktasına yakın diğer şehirler
+			"name": "Malatya",
+			"cityCode": 44,
+			"distance": 107595.23337847003,
+			"population": 812580
 		}, {
-			"distance": 64525.62026682466,
-			"name": "Bandırma Havalimanı",
-			"code": "BDM",
+			"name": "Kayseri",
+			"cityCode": 38,
+			"distance": 108413.76040441653,
+			"population": 1441523
+		}, {
+			"name": "Osmaniye",
+			"cityCode": 80,
+			"distance": 112348.6815543367,
+			"population": 559405
+		}, {
+			"name": "Gaziantep",
+			"cityCode": 27,
+			"distance": 116916.3602226536,
+			"population": 2154051
+		}, {
+			"name": "Adıyaman",
+			"cityCode": 2,
+			"distance": 120785.66951649316,
+			"population": 635169
+		}],
+		"airports": [{ -> depreme yakıun havalimanları
+			"distance": 66757.09191032092, -> depremin yaşandığı noktaya uzaklığı
+			"name": "Kahramanmaraş Havalimanı",
+			"code": "KCM",
 			"coordinates": {
 				"type": "Point",
-				"coordinates": [27.9777, 40.318]
+				"coordinates": [36.9473, 37.5374] (long, lat)
 			}
 		}, {
-			"distance": 113420.6301975318,
-			"name": "Atatürk Havalimanı",
-			"code": "IST",
+			"distance": 99806.23459651197,
+			"name": "Erhaç Havalimanı",
+			"code": "MLX",
 			"coordinates": {
 				"type": "Point",
-				"coordinates": [28.819198608398438, 40.9788613095528]
+				"coordinates": [38.091, 38.4354]
+			}
+		}, {
+			"distance": 135359.60289478218,
+			"name": "Adıyaman Havalimanı",
+			"code": "ADF",
+			"coordinates": {
+				"type": "Point",
+				"coordinates": [38.4691, 37.7314]
 			}
 		}]
 	},
-	"rev": null, -> Kandilli revize bilgisi
-	"date_stamp": "2023-02-13",
-	"date_day": "2023-02-13",
-	"date_hour": "06:33:53",
-	"timestamp": "1676266433",
-	"location_tz": "Europe/Istanbul"
+	"rev": null, -> null değilse revize edilmiş bir deprem bilgisi
+	"date_time": "2023-03-08 02:54:44", -> date time YYYY-MM-DD HH:mm:ss
+	"created_at": 1678240484, -> unix timestamp
+	"location_tz": "Europe/Istanbul" -1 statik bilgi
 }
 ```
 
