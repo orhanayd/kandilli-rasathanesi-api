@@ -94,3 +94,27 @@ module.exports.search = (req, res, next) => {
         return res.status(response.httpStatus).json(response);
     }
 };
+
+module.exports.get = (req, res, next) => {
+    let response = {
+        status: true,
+        httpStatus: 200,
+        desc: ''
+    };
+    try {
+        let query = {};
+
+        if (typeof req.query.earthquake_id === 'undefined') {
+            throw new Error('earthquake_id missing param!');
+        }
+        query.earthquake_id = req.query.earthquake_id.toString();
+        req.query = query;
+        return next();
+    } catch (error) {
+        console.error(error);
+        response.desc = error.message || '';
+        response.httpStatus = 500;
+        response.status = false;
+        return res.status(response.httpStatus).json(response);
+    }
+};

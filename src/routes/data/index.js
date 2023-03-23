@@ -41,4 +41,16 @@ const controller = require('../../controller');
  */
 router.post('/search', [controller.data.search], services.data.search);
 
+
+/**
+ * GET /deprem/data/get
+ * @param {string} earthquake_id.query - earthquake_id
+ * @summary api earthquakes get endpoint
+ * @tags DATA
+ * @security HeaderAuthCron
+ * @return {object} 200 - success response - application/json
+ * @return {object} 500 - Server error - application/json
+ */
+router.get('/get', [controller.data.get], services.data.get);
+
 module.exports = router;
