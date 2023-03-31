@@ -65,9 +65,6 @@ module.exports.archive = (req, res, next) => {
             if (isNaN(query.skip)) {
                 throw new Error('isNaN skip!');
             }
-            if (query.skip > 1000) {
-                query.skip = 1000;
-            }
         }
 
         if (req.query.date && typeof req.query.date === 'string') {
