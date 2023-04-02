@@ -59,25 +59,25 @@ module.exports.search = (req, res, next) => {
             }
         }
 
-        if (typeof req.body.search === 'object') {
-            if (req.body.search.mag && typeof req.body.search.mag === 'number') {
-                body.match.mag = { $gte: parseInt(req.body.search.mag, 10) };
-                if (isNaN(body.match.search.mag['$gte'])) {
+        if (typeof req.body.match === 'object') {
+            if (req.body.match.mag && typeof req.body.match.mag === 'number') {
+                body.match.mag = { $gte: parseInt(req.body.match.mag, 10) };
+                if (isNaN(body.match.mag['$gte'])) {
                     throw new Error('isNaN mag!');
                 }
             }
-            if (typeof req.body.search.date_starts === 'string' && typeof req.body.search.date_ends === 'string') {
+            if (typeof req.body.match.date_starts === 'string' && typeof req.body.match.date_ends === 'string') {
                 if (
-                    !helpers.date.moment.isValid(req.body.search.date_starts, 'YYYY-MM-DD HH:mm:ss') ||
-                    helpers.date.moment.isValid(req.body.search.date_ends, 'YYYY-MM-DD HH:mm:ss')
+                    !helpers.date.moment.isValid(req.body.match.date_starts, 'YYYY-MM-DD HH:mm:ss') ||
+                    helpers.date.moment.isValid(req.body.match.date_ends, 'YYYY-MM-DD HH:mm:ss')
                 ) {
                     throw new Error('date_starts or date_ends is not valid!');
                 }
-                body.match.date_time = { $gte: req.body.search.date_starts.toStrings(), $lte: req.body.search.date_ends.toStrings() };
+                body.match.date_time = { $gte: req.body.search.date_starts.toStrings(), $lte: req.body.match.date_ends.toStrings() };
             }
 
-            if (typeof req.body.search.cityCode === 'number') {
-                body.match['location_properties.epiCenter.cityCode'] = parseInt(req.body.search.cityCode, 10);
+            if (typeof req.body.match.cityCode === 'number') {
+                body.match['location_properties.epiCenter.cityCode'] = parseInt(req.body.match.cityCode, 10);
                 if (isNaN(body.match.cityCode)) {
                     throw new Error('cityCode isNaN!');
                 }
