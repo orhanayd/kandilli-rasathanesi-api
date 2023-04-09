@@ -1,4 +1,9 @@
 module.exports = {
+    '-1': {
+        city: null,
+        cityCode: null,
+        population: null,
+    },
     '1': {
         'city': 'Adana',
         'cityCode': '1',
