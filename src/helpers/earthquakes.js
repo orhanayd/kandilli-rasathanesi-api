@@ -18,7 +18,9 @@ module.exports.location_properties = (lng, lat) => {
                 closestPoly = turf_polf;
                 closestPoly.properties.distance = distance;
                 closestPoly.properties.population = db.populations[db.locations[index].number].population;
-                closestCities.push(closestPoly.properties);
+                if (closestPoly.properties.cityCode !== -1) {
+                    closestCities.push(closestPoly.properties);
+                }
             }
             if (isInside) {
                 epiCenter = turf_polf;
