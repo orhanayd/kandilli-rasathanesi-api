@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const services = require('../../services');
 const controller = require('../../controller');
+const middlewares = require('../../middlewares');
 
 /**
  * DataSearchMatch defination
@@ -52,5 +53,24 @@ router.post('/search', [controller.data.search], services.data.search);
  * @return {object} 500 - Server error - application/json
  */
 router.get('/get', [controller.data.get], services.data.get);
+
+/**
+ * data statsGeneral defination
+ * @typedef {object} DataStatsGeneral
+ * @property {string} range - range
+ * @property {string} provider - kandilli / afad
+ */
+
+
+/**
+ * POST /deprem/data/statsGeneral
+ * @param {DataStatsGeneral} request.body.required - data statsGeneral body
+ * @summary api earthquakes statsGeneral endpoint
+ * @security HeaderAuthStats
+ * @tags DATA
+ * @return {object} 200 - success response - application/json
+ * @return {object} 500 - Server error - application/json
+ */
+router.post('/statsGeneral', [middlewares.stats, controller.data.statsGeneral], services.data.statsGeneral);
 
 module.exports = router;

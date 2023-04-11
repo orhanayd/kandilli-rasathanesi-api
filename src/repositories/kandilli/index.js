@@ -8,6 +8,9 @@ module.exports.multiSave = async (data, collection = 'data_v2') => {
         }
         let mustInsert = [];
         for (let index = 0; index < data.length; index++) {
+            if (isNaN(data[index].mag)) {
+                continue;
+            }
             const find = await this.checkIsInserted(
                 data[index].date_time,
                 data[index].mag,

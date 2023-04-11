@@ -1,4 +1,110 @@
+/* eslint-disable indent */
 const helpers = require('../../helpers');
+const constants = require('../../constants');
+
+module.exports.statsGeneral = (req, res, next) => {
+    let response = {
+        status: true,
+        httpStatus: 200,
+        desc: ''
+    };
+    try {
+        let body = {
+            match: {
+                date_time: {}
+            }
+        };
+        body.match.provider = constants.providers.KANDILLI;
+
+        if (typeof req.body.range !== 'string') {
+            throw new Error('range missing!');
+        }
+        if ((req.body.range in constants.statsRange) === false) {
+            throw new Error('range wrong!');
+        }
+        req.body.range = req.body.range.toString();
+
+        if ((req.body.range in constants.statsRange) === false) {
+            throw new Error('range wrong!');
+        }
+        body.range = req.body.range;
+        if (typeof req.body.provider === 'string') {
+            if ((req.body.provider in constants.providers) === false) {
+                throw new Error('provider wrong!');
+            }
+            body.match.provider = req.body.provider.toString();
+            body.provider = body.match.provider;
+        }
+
+        switch (req.body.range) {
+            case constants.statsRange.TODAY:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.YESTERDAY:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-1, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.LAST3DAYS:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-3, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.LAST5DAYS:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-5, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.LAST7DAYS:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-7, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.THISMONTH:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.LASTMONTH:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-1, 'month').startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-1, 'month').endOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.LAST2MONTHS:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-2, 'month').startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            case constants.statsRange.LAST3MONTHS:
+                body.match.date_time = {
+                    $gte: helpers.date.moment.moment().tz('Europe/Istanbul').add(-3, 'month').startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                    $lte: helpers.date.moment.moment().tz('Europe/Istanbul').endOf('month').format('YYYY-MM-DD HH:mm:ss'),
+                };
+                break;
+            default:
+                throw new Error('no range type');
+        }
+
+        req.body = body;
+        return next();
+    } catch (error) {
+        console.error(error);
+        response.desc = error.message || '';
+        response.httpStatus = 500;
+        response.status = false;
+        return res.status(response.httpStatus).json(response);
+    }
+};
 
 module.exports.search = (req, res, next) => {
     let response = {

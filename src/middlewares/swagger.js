@@ -10,6 +10,11 @@ module.exports = {
             'type': 'apiKey',
             'in': 'header',
             'name': 'Authorization'
+        },
+        HeaderAuthStats: {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
         }
     },
     baseDir: __dirname,

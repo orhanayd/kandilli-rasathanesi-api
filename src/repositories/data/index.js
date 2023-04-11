@@ -1,5 +1,7 @@
 const db = require('../../db');
 
+module.exports.stats = require('./stats');
+
 module.exports.search = async (match = null, geoNear = null, sort = null, skip = null, limit = null, project = null) => {
     try {
         let agg = [];

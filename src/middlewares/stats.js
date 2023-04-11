@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
             throw new Error('authorization !');
         }
 
-        if (req.headers.authorization !== constants.CONFIG.CRON_KEY) {
+        if (req.headers.authorization !== constants.CONFIG.STATS_KEY) {
             throw new Error('authorization !');
         }
 
