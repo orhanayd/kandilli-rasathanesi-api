@@ -48,7 +48,6 @@ router.post('/search', [controller.data.search], services.data.search);
  * @param {string} earthquake_id.query - earthquake_id
  * @summary api earthquakes get endpoint
  * @tags DATA
- * @security HeaderAuthCron
  * @return {object} 200 - success response - application/json
  * @return {object} 500 - Server error - application/json
  */
@@ -63,14 +62,14 @@ router.get('/get', [controller.data.get], services.data.get);
 
 
 /**
- * POST /deprem/data/statsGeneral
- * @param {DataStatsGeneral} request.body.required - data statsGeneral body
+ * POST /deprem/data/stats/general
+ * @param {DataStatsGeneral} request.body.required - data stats/general body
  * @summary api earthquakes statsGeneral endpoint
  * @security HeaderAuthStats
  * @tags DATA
  * @return {object} 200 - success response - application/json
  * @return {object} 500 - Server error - application/json
  */
-router.post('/statsGeneral', [middlewares.stats, controller.data.statsGeneral], services.data.statsGeneral);
+router.post('/stats/general', [middlewares.stats, controller.data.statsGeneral], services.data.statsGeneral);
 
 module.exports = router;
