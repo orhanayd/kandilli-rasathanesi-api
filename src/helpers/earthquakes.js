@@ -8,23 +8,28 @@ module.exports.location_properties = (lng, lat) => {
         let closestPoly = { properties: { name: null } };
         let epiCenter = { properties: { name: null } };
         let closestCities = [];
-
-        for (let index = 0; index < db.locations.length; index++) {
-            const turf_polf = turf.polygon(db.locations[index].coordinates, { name: db.locations[index].name, cityCode: db.locations[index].number });
+        for (let index = 0; index < db.locations.geojsons.length; index++) {
+            const turf_polf = turf.polygon(
+                db.locations.geojsons[index].coordinates,
+                {
+                    name: db.locations.geojsons[index].name,
+                    cityCode: db.locations.geojsons[index].number
+                }
+            );
             const pointOnPoly = turf.pointOnFeature(turf_polf.geometry.coordinates);
             const isInside = turf.booleanPointInPolygon(turfPoint, turf_polf.geometry.coordinates);
             const distance = turf.distance(turfPoint, pointOnPoly, { units: 'meters' });
             if (!isInside) {
                 closestPoly = turf_polf;
                 closestPoly.properties.distance = distance;
-                closestPoly.properties.population = db.populations[db.locations[index].number].population;
+                closestPoly.properties.population = (db.populations[db.locations.geojsons[index].number] ? db.populations[db.locations.geojsons[index].number].population : null);
                 if (closestPoly.properties.cityCode !== -1) {
                     closestCities.push(closestPoly.properties);
                 }
             }
             if (isInside) {
                 epiCenter = turf_polf;
-                epiCenter.properties.population = db.populations[db.locations[index].number].population;
+                epiCenter.properties.population = (db.populations[db.locations.geojsons[index].number] ? db.populations[db.locations.geojsons[index].number].population : null);
             }
         }
 
@@ -36,16 +41,16 @@ module.exports.location_properties = (lng, lat) => {
 
     function airports(turfPoint) {
         let airports = [];
-        for (let index = 0; index < db.airports.length; index++) {
-            const turf_polf = turf.polygon(db.airports[index].coordinates, { name: db.airports[index].name, code: db.airports[index].code });
+        for (let index = 0; index < db.locations.airports.length; index++) {
+            const turf_polf = turf.polygon(db.locations.airports[index].coordinates, { name: db.locations.airports[index].name, code: db.locations.airports[index].code });
             const pointOnPoly = turf.pointOnFeature(turf_polf.geometry.coordinates);
             const distance = turf.distance(turfPoint, pointOnPoly, { units: 'meters' });
             airports.push(
                 {
                     distance,
-                    name: db.airports[index].name,
-                    code: db.airports[index].code,
-                    coordinates: db.airports[index].coordinates
+                    name: db.locations.airports[index].name,
+                    code: db.locations.airports[index].code,
+                    coordinates: db.locations.airports[index].coordinates
                 }
             );
         }
