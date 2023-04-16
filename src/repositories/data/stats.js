@@ -28,7 +28,7 @@ module.exports.dateBy = async (match) => {
                         $sum: 1
                     },
                 },
-            },
+            }
         ]
     );
     if (query === false) {

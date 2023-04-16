@@ -15,6 +15,7 @@ module.exports.statsGeneral = (req, res, next) => {
             }
         };
         body.match.provider = constants.providers.KANDILLI;
+        body.provider = constants.providers.KANDILLI;
 
         if (typeof req.body.range !== 'string') {
             throw new Error('range missing!');
