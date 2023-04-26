@@ -28,6 +28,12 @@ module.exports.dateBy = async (match) => {
                         $sum: 1
                     },
                 },
+            },
+            {
+                $sort: { total: -1 }
+            },
+            {
+                $limit: 10
             }
         ]
     );
@@ -66,6 +72,9 @@ module.exports.hourBy = async (match) => {
                     },
                 },
             },
+            {
+                $sort: { total: -1 }
+            }
         ]
     );
     if (query === false) {
@@ -92,6 +101,9 @@ module.exports.epiCenterBy = async (match) => {
                 $sort: {
                     total: -1
                 }
+            },
+            {
+                $limit: 5
             }
         ]
     );
@@ -150,6 +162,9 @@ module.exports.airportsBy = async (match) => {
                 $sort: {
                     total: -1,
                 }
+            },
+            {
+                $limit: 5
             }
         ]
     );
