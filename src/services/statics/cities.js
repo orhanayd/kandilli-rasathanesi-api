@@ -1,5 +1,5 @@
-const db = require('../../db');
 const helpers = require('../../helpers');
+const repositories = require('../../repositories');
 
 module.exports = async (req, res) => {
     let responseBody = {
@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
         result: {}
     };
     try {
-        responseBody.result = db.populations;
+        responseBody.result = repositories.data.stats.epiCenters();
     } catch (error) {
         console.error(error);
         responseBody.desc = error.message || '';

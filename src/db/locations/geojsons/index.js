@@ -1,4 +1,4 @@
-let adriyatikDenizi = require('./adriyatik-denizi');
+const adriyatikDenizi = require('./adriyatik-denizi');
 const arnavutluk = require('./arnavutluk');
 const azerbaycan = require('./azerbaycan');
 const bosnaHersek = require('./bosna-hersek');

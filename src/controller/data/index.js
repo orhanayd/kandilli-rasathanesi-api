@@ -37,6 +37,10 @@ module.exports.statsGeneral = (req, res, next) => {
             body.provider = body.match.provider;
         }
 
+        if (typeof req.body.epiCenter === 'string') {
+            body.match.epiCenter === req.body.epiCenter.toString();
+        }
+
         switch (req.body.range) {
             case constants.statsRange.TODAY:
                 body.match.date_time = {

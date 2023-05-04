@@ -173,3 +173,28 @@ module.exports.airportsBy = async (match) => {
     }
     return query;
 };
+
+module.exports.epiCenters = () => {
+    let result = [];
+    for (let index = 0; index < db.locations.geojsons.length; index++) {
+        result.push(
+            {
+                city: db.locations.geojsons[index].name,
+                cityCode: db.locations.geojsons[index].number,
+                population: db.populations[db.locations.geojsons[index].number]?.population
+            }
+        );
+    }
+    return result.sort((a, b) => {
+        const nameA = a.city.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.city.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        // names must be equal
+        return 0;
+    });
+};
