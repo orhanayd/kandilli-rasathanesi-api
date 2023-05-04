@@ -12,7 +12,10 @@ module.exports = async (req, res) => {
         result: null
     };
     try {
-        const key = 'data/stats/' + req.body.provider + '/' + req.body.range;
+        let key = 'data/stats/' + req.body.provider + '/' + req.body.range;
+        if (req.body.match['location_properties.epiCenter.name']) {
+            key += '/' + req.body.match['location_properties.epiCenter.name'];
+        }
         const cache = db.nopeRedis.getItem(key);
         if (cache) {
             responseBody.result = cache;

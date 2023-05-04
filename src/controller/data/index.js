@@ -23,11 +23,6 @@ module.exports.statsGeneral = (req, res, next) => {
         if ((req.body.range in constants.statsRange) === false) {
             throw new Error('range wrong!');
         }
-        req.body.range = req.body.range.toString();
-
-        if ((req.body.range in constants.statsRange) === false) {
-            throw new Error('range wrong!');
-        }
         body.range = req.body.range;
         if (typeof req.body.provider === 'string') {
             if ((req.body.provider in constants.providers) === false) {
@@ -38,7 +33,7 @@ module.exports.statsGeneral = (req, res, next) => {
         }
 
         if (typeof req.body.epiCenter === 'string') {
-            body.match.epiCenter === req.body.epiCenter.toString();
+            body.match['location_properties.epiCenter.name'] = req.body.epiCenter.toString();
         }
 
         switch (req.body.range) {
