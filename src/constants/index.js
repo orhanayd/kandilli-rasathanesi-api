@@ -10,6 +10,15 @@ module.exports.STAGES = {
     PROD: 'PROD'
 };
 
+module.exports.stats = {
+    dateBy: 'dateBy',
+    hourBy: 'hourBy',
+    epiCenterBy: 'epiCenterBy',
+    airportsBy: 'airportsBy',
+    magBy: 'magBy',
+    dateByEarthQuakes: 'dateByEarthQuakes'
+};
+
 module.exports.statsRange = {
     TODAY: 'TODAY',
     YESTERDAY: 'YESTERDAY',

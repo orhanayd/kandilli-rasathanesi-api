@@ -20,7 +20,7 @@ module.exports.dateBy = async (match) => {
                 $group: {
                     _id: {
                         $dateToString: {
-                            format: '%m-%d',
+                            format: '%Y-%m-%d',
                             date: '$date_time',
                         },
                     },
@@ -31,9 +31,6 @@ module.exports.dateBy = async (match) => {
             },
             {
                 $sort: { total: -1 }
-            },
-            {
-                $limit: 10
             }
         ]
     );
@@ -197,4 +194,52 @@ module.exports.epiCenters = () => {
         // names must be equal
         return 0;
     });
+};
+
+module.exports.dateByEarthQuakes = async (match) => {
+    const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(
+        [
+            {
+                $match: match,
+            },
+            {
+                $addFields: {
+                    date_time: {
+                        $dateFromString: {
+                            dateString: '$date_time',
+                            format: '%Y-%m-%d %H:%M:%S',
+                        },
+                    },
+                },
+            },
+            {
+                $group: {
+                    _id: {
+                        $dateToString: {
+                            format: '%Y-%m-%d',
+                            date: '$date_time',
+                        },
+                    },
+                    total: {
+                        $sum: 1
+                    },
+                    data: {
+                        $push: {
+                            mag: '$$ROOT.mag',
+                            geojson: '$$ROOT.geojson',
+                            title: '$$ROOT.title',
+                            date_time: '$$ROOT.date_time'
+                        }
+                    }
+                },
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]
+    );
+    if (query === false) {
+        throw Error('db error!');
+    }
+    return query;
 };

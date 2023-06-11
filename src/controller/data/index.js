@@ -36,6 +36,17 @@ module.exports.statsGeneral = (req, res, next) => {
             body.match['location_properties.epiCenter.name'] = req.body.epiCenter.toString();
         }
 
+        if (typeof req.body.types === 'undefined' || Array.isArray(req.body.types) === false) {
+            req.body.types = [];
+        }
+        body.types = [];
+        for (let index = 0; index < req.body.types.length; index++) {
+            if ((req.body.types[index] in constants.stats) === false) {
+                throw new Error('type value wrong !');
+            }
+            body.types.push(req.body.types[index].toString());
+        }
+
         switch (req.body.range) {
             case constants.statsRange.TODAY:
                 body.match.date_time = {
