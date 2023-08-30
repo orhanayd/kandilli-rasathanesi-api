@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@mongodb-js/saslprep@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@mongodb-js/saslprep/-/saslprep-1.1.0.tgz#022fa36620a7287d17acd05c4aae1e5f390d250d"
+  integrity sha512-Xfijy7HvfzzqiOAhAepF4SGN5e9leLkMvg/OPOF97XemjfVCYN/oWa75wnkc6mltMSTwY+XlbhWgUOJmkFspSw==
+  dependencies:
+    sparse-bitfield "^3.0.3"
+
 "@turf/along@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmjs.org/@turf/along/-/along-6.5.0.tgz"
@@ -1234,10 +1241,10 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
-bson@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/bson/-/bson-5.2.0.tgz#c81d35dd30e2798203e5422a639780ea98dd25ba"
-  integrity sha512-HevkSpDbpUfsrHWmWiAsNavANKYIErV2ePXllp1bwq5CDreAaFVj6RVlZpJnxK4WWDCJ/5jMUpaY6G526q3Hjg==
+bson@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/bson/-/bson-5.4.0.tgz#0eea77276d490953ad8616b483298dbff07384c6"
+  integrity sha512-WRZ5SQI5GfUuKnPTNmAYPiKIof3ORXAF4IRU5UcgmivNIon01rWQlw5RUH954dpu8yGL8T59YShVddIPaU/gFA==
 
 bytes@3.1.2:
   version "3.1.2"
@@ -1770,16 +1777,16 @@ mongodb-connection-string-url@^2.6.0:
     "@types/whatwg-url" "^8.2.1"
     whatwg-url "^11.0.0"
 
-mongodb@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-5.2.0.tgz#58c3688614e793a8e970d797255130db9fd6ddea"
-  integrity sha512-nLgo95eP1acvjBcOdrUV3aqpWwHZCZwhYA2opB8StybbtQL/WoE5pk92qUUfjbKOWcGLYJczTqQbfOQhYtrkKg==
+mongodb@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-5.8.0.tgz#d45bbbb06170086bbfa3a932dbb42c92fc25270f"
+  integrity sha512-xx4CXmxcj3bNe7iGBlhntVrUqrNARYhUZteXaz4epEESv4oXD/FONAovcyoCaEffdYlw25Yz284OxMfpnPLlgQ==
   dependencies:
-    bson "^5.2.0"
+    bson "^5.4.0"
     mongodb-connection-string-url "^2.6.0"
     socks "^2.7.1"
   optionalDependencies:
-    saslprep "^1.0.3"
+    "@mongodb-js/saslprep" "^1.1.0"
 
 morgan@^1.10.0:
   version "1.10.0"
@@ -1985,13 +1992,6 @@ safe-buffer@5.2.1:
   version "2.1.2"
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-
-saslprep@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/saslprep/-/saslprep-1.0.3.tgz"
-  integrity sha512-/MY/PEMbk2SuY5sScONwhUDsV2p77Znkb/q3nSVstq/yQzYJOH/Azh29p9oJLsl3LnQwSvZDKagDGBsBwSooag==
-  dependencies:
-    sparse-bitfield "^3.0.3"
 
 send@0.18.0:
   version "0.18.0"
