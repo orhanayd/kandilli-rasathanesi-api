@@ -11,8 +11,13 @@ module.exports = async (req, res) => {
     };
     try {
         async function start() {
-            const kandilli_data = await helpers.crawler.kandilli.get();
-            repositories.kandilli.multiSave(kandilli_data.data);
+            try {
+                const kandilli_data = await helpers.crawler.kandilli.get();
+                repositories.kandilli.multiSave(kandilli_data.data);
+            } catch (error) {
+                console.error(error);
+            }
+
         }
         start();
     } catch (error) {
