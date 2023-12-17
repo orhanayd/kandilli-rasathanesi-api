@@ -26,10 +26,7 @@ module.exports.connector = async (connectionString = null) => {
             const mongoClient = new MongoClient(uri, {
                 minPoolSize: 5,
                 maxPoolSize: 10,
-                connectTimeoutMS: 5 * 1000,
-                keepAlive: true,
-                useUnifiedTopology: true,
-                useNewUrlParser: true
+                connectTimeoutMS: 5 * 1000
             });
             connection = await mongoClient.connect();
             console.log('MongoDB -> Connected');
