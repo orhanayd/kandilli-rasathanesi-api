@@ -17,16 +17,17 @@ module.exports.get = async (limit = null) => {
             if (alwaysArray.indexOf(jpath) !== -1) return true;
         }
     });
-    const response = await axios.get(process.env.KANDILLI_XML + '?v=' + helpers.date.moment.timestampMS());
-    if (!response && response.data) {
-        return false;
+    let response = await axios.get(process.env.KANDILLI_XML + '?v=' + helpers.date.moment.timestampMS());
+    if (!response || !response.data) {
+        throw new Error('Kandilli axios error !');
     }
+    response = response.data;
     let data = parser.parse(response);
     if (!data.eqlist || !data.eqlist.earhquake) {
-        return false;
+        throw new Error('Kandilli data error !');
     }
     if (!Array.isArray(data.eqlist.earhquake)) {
-        console.error('Kandilli crawler is not Array!');
+        throw new Error('Kandilli crawler is not Array !');
     }
     return helpers_crawler.kandilli_models(data.eqlist.earhquake.reverse(), limit);
 };
