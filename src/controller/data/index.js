@@ -186,7 +186,7 @@ module.exports.search = (req, res, next) => {
             if (typeof req.body.match.date_starts === 'string' && typeof req.body.match.date_ends === 'string') {
                 if (
                     !helpers.date.moment.isValid(req.body.match.date_starts, 'YYYY-MM-DD HH:mm:ss') ||
-                    helpers.date.moment.isValid(req.body.match.date_ends, 'YYYY-MM-DD HH:mm:ss')
+                    !helpers.date.moment.isValid(req.body.match.date_ends, 'YYYY-MM-DD HH:mm:ss')
                 ) {
                     throw new Error('date_starts or date_ends is not valid!');
                 }
