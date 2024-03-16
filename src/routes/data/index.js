@@ -16,8 +16,8 @@ const middlewares = require('../../middlewares');
  * DataSearchMatch defination
  * @typedef {object} DataSearchMatch
  * @property {number} mag - earthquake magnitude 
- * @property {string} date_starts - earthquake starts at YYYY-MM-DD
- * @property {string} date_ends - earthquake ends at YYYY-MM-DD
+ * @property {string} date_starts - earthquake starts at YYYY-MM-DD HH:mm:ss
+ * @property {string} date_ends - earthquake ends at YYYY-MM-DD HH:mm:ss
  * @property {number} cityCode - city code from statics/cities
  */
 

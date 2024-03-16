@@ -195,7 +195,7 @@ module.exports.search = (req, res, next) => {
 
             if (typeof req.body.match.cityCode === 'number') {
                 body.match['location_properties.epiCenter.cityCode'] = parseInt(req.body.match.cityCode, 10);
-                if (isNaN(body.match.cityCode)) {
+                if (isNaN(body.match['location_properties.epiCenter.cityCode'])) {
                     throw new Error('cityCode isNaN!');
                 }
             }
