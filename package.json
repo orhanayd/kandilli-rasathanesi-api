@@ -1,36 +1,37 @@
 {
-  "name": "kandilli-service-api",
-  "version": "1.0.0",
-  "description": "Kandilli Rasathanesi'nin yayınladığı son depremler listesi için API. (last minute earthquakes in turkey parsing from Kandilli Observatory XML)",
-  "main": "index.js",
-  "scripts": {
-    "start": "NODE_ENV=PROD pm2 start index.js --name kandilli-service -i 2",
-    "dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service-dev -i 1 --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/orhanayd/kandilli-rasathanesi-api.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/orhanayd/kandilli-rasathanesi-api/issues"
-  },
-  "homepage": "https://github.com/orhanayd/kandilli-rasathanesi-api#readme",
-  "dependencies": {
-    "@turf/turf": "^6.5.0",
-    "axios": "^1.6.8",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.18.3",
-    "express-jsdoc-swagger": "^1.8.0",
-    "fast-xml-parser": "^4.3.6",
-    "md5": "^2.3.0",
-    "moment-timezone": "^0.5.45",
-    "mongodb": "^6.5.0",
-    "morgan": "^1.10.0",
-    "nanoid": "3.3.4",
-    "nope-redis": "^1.0.2"
-  }
+	"name": "kandilli-service-api",
+	"version": "1.0.0",
+	"description": "Kandilli Rasathanesi'nin yayınladığı son depremler listesi için API. (last minute earthquakes in turkey parsing from Kandilli Observatory XML)",
+	"main": "index.js",
+	"scripts": {
+		"start": "NODE_ENV=PROD pm2 start index.js --name kandilli-service -i 2",
+		"dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service-dev -i 1 --watch",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/orhanayd/kandilli-rasathanesi-api.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/orhanayd/kandilli-rasathanesi-api/issues"
+	},
+	"homepage": "https://github.com/orhanayd/kandilli-rasathanesi-api#readme",
+	"dependencies": {
+		"@turf/turf": "^7.2.0",
+		"axios": "^1.8.4",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"express-jsdoc-swagger": "^1.8.0",
+		"fast-xml-parser": "^5.0.9",
+		"kk-date": "^3.0.0",
+		"md5": "^2.3.0",
+		"moment-timezone": "^0.5.48",
+		"mongodb": "^6.15.0",
+		"morgan": "^1.10.0",
+		"nanoid": "3.3.4",
+		"nope-redis": "^1.0.2"
+	}
 }

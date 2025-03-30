@@ -15,7 +15,7 @@ const middlewares = require('../../middlewares');
 /**
  * DataSearchMatch defination
  * @typedef {object} DataSearchMatch
- * @property {number} mag - earthquake magnitude 
+ * @property {number} mag - earthquake magnitude
  * @property {string} date_starts - earthquake starts at YYYY-MM-DD HH:mm:ss
  * @property {string} date_ends - earthquake ends at YYYY-MM-DD HH:mm:ss
  * @property {number} cityCode - city code from statics/cities
@@ -31,7 +31,6 @@ const middlewares = require('../../middlewares');
  * @property {number} limit - limit
  */
 
-
 /**
  * POST /deprem/data/search
  * @param {DataSearch} request.body.required - data search body
@@ -41,7 +40,6 @@ const middlewares = require('../../middlewares');
  * @return {object} 500 - Server error - application/json
  */
 router.post('/search', [controller.data.search], services.data.search);
-
 
 /**
  * GET /deprem/data/get
@@ -59,7 +57,6 @@ router.get('/get', [controller.data.get], services.data.get);
  * @property {string} range - range
  * @property {string} provider - kandilli / afad
  */
-
 
 /**
  * POST /deprem/data/stats/general

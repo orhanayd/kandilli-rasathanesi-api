@@ -15,7 +15,6 @@ router.use('/deprem/kandilli', kandilli);
 router.use('/deprem/statics', statics);
 router.use('/deprem/data', data);
 
-
 /**
  * GET /deprem/status
  * @summary api STATUS
@@ -24,13 +23,11 @@ router.use('/deprem/data', data);
  * @return {object} 500 - Server error - application/json
  */
 router.get('/deprem/status', async (req, res) => {
-    return res.json(
-        {
-            status: true,
-            desc: 'kandilli rasathanesi api service',
-            nopeRedis: db.nopeRedis.stats({ showKeys: true, showTotal: true, showSize: true })
-        }
-    );
+	return res.json({
+		status: true,
+		desc: 'kandilli rasathanesi api service',
+		nopeRedis: db.nopeRedis.stats({ showKeys: true, showTotal: true, showSize: true }),
+	});
 });
 
 /**

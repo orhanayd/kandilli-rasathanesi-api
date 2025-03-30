@@ -1,0 +1,43 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"files": {
+		"maxSize": 100048576,
+		"ignore": []
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"suspicious": {
+				"noRedeclare": "error"
+			},
+			"recommended": true,
+			"performance": {
+				"noDelete": "off"
+			},
+			"complexity": {
+				"useLiteralKeys": "off"
+			},
+			"correctness": {
+				"noInvalidUseBeforeDeclaration": "error",
+				"noUndeclaredVariables": "error"
+			},
+			"style": {
+				"useNumberNamespace": "off",
+				"useDefaultParameterLast": "off"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "single",
+			"quoteStyle": "single",
+			"lineWidth": 150
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
+	}
+}

@@ -20,32 +20,32 @@ const sirbistan = require('./sirbistan');
 const suriye = require('./suriye');
 const urdun = require('./urdun');
 const yunanistan = require('./yunanistan');
-const mixedLocations = require('./mixed-locations.min');
+const mixedLocations = require('./mixed-locations');
 const kibris = require('./kibris');
 
 module.exports = [
-    kibris,
-    adriyatikDenizi,
-    arnavutluk,
-    azerbaycan,
-    bosnaHersek,
-    bulgaristan,
-    ermenistan,
-    filistin,
-    gurcistan,
-    hirvatistan,
-    irak,
-    iran,
-    israil,
-    libya,
-    lubnan,
-    makedonya,
-    misir,
-    montenegro,
-    rusya,
-    sirbistan,
-    suriye,
-    urdun,
-    yunanistan,
-    ...mixedLocations
+	kibris,
+	adriyatikDenizi,
+	arnavutluk,
+	azerbaycan,
+	bosnaHersek,
+	bulgaristan,
+	ermenistan,
+	filistin,
+	gurcistan,
+	hirvatistan,
+	irak,
+	iran,
+	israil,
+	libya,
+	lubnan,
+	makedonya,
+	misir,
+	montenegro,
+	rusya,
+	sirbistan,
+	suriye,
+	urdun,
+	yunanistan,
+	...mixedLocations,
 ];
