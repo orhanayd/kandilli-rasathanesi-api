@@ -91,19 +91,19 @@ module.exports.statsGeneral = (req, res, next) => {
 				break;
 			case constants.statsRange.LASTMONTH:
 				body.match.date_time = {
-					$gte: new helpers.date.kk_date().add(-1, 'month').startOf('months').format('YYYY-MM-DD HH:mm:ss'),
-					$lte: new helpers.date.kk_date().add(-1, 'month').endOf('months').format('YYYY-MM-DD HH:mm:ss'),
+					$gte: new helpers.date.kk_date().add(-1, 'months').startOf('months').format('YYYY-MM-DD HH:mm:ss'),
+					$lte: new helpers.date.kk_date().add(-1, 'months').endOf('months').format('YYYY-MM-DD HH:mm:ss'),
 				};
 				break;
 			case constants.statsRange.LAST2MONTHS:
 				body.match.date_time = {
-					$gte: new helpers.date.kk_date().add(-2, 'month').startOf('months').format('YYYY-MM-DD HH:mm:ss'),
+					$gte: new helpers.date.kk_date().add(-2, 'months').startOf('months').format('YYYY-MM-DD HH:mm:ss'),
 					$lte: new helpers.date.kk_date().endOf('months').format('YYYY-MM-DD HH:mm:ss'),
 				};
 				break;
 			case constants.statsRange.LAST3MONTHS:
 				body.match.date_time = {
-					$gte: new helpers.date.kk_date().add(-3, 'month').startOf('months').format('YYYY-MM-DD HH:mm:ss'),
+					$gte: new helpers.date.kk_date().add(-3, 'months').startOf('months').format('YYYY-MM-DD HH:mm:ss'),
 					$lte: new helpers.date.kk_date().endOf('months').format('YYYY-MM-DD HH:mm:ss'),
 				};
 				break;
