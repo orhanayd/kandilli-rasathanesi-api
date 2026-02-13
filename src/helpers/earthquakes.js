@@ -33,7 +33,7 @@ function locations(turfPoint) {
 		});
 		if (!isInside) {
 			closestPoly = turf_polf;
-			closestPoly.properties.distance = distance;
+			closestPoly.properties.distance = Math.round(distance);
 			closestPoly.properties.population = db.populations[db.locations.geojsons[index].number]
 				? db.populations[db.locations.geojsons[index].number].population
 				: null;
@@ -74,7 +74,7 @@ function airports(turfPoint) {
 			units: 'meters',
 		});
 		airports.push({
-			distance,
+			distance: Math.round(distance),
 			name: airport.name,
 			code: airport.code,
 			coordinates: airport.coordinates,

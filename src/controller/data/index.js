@@ -258,6 +258,43 @@ module.exports.get = (req, res, next) => {
 	}
 };
 
+module.exports.sitemap = (req, res, next) => {
+	const response = constants.response();
+	try {
+		const query = {
+			page: 1,
+			limit: 5000,
+		};
+
+		if (req.query.page && typeof req.query.page === 'string') {
+			query.page = parseInt(req.query.page, 10);
+			if (Number.isNaN(query.page) || query.page < 1) {
+				throw new constants.errors.WrongParam('data.sitemap', 'page wrong param !');
+			}
+		}
+
+		if (req.query.limit && typeof req.query.limit === 'string') {
+			query.limit = parseInt(req.query.limit, 10);
+			if (Number.isNaN(query.limit)) {
+				throw new constants.errors.WrongParam('data.sitemap', 'isNaN limit !');
+			}
+			if (query.limit > 10000) {
+				query.limit = 10000;
+			}
+		}
+
+		query.skip = (query.page - 1) * query.limit;
+		req.query = query;
+		return next();
+	} catch (error) {
+		console.error(error);
+		response.desc = error.message || '';
+		response.httpStatus = error.httpStatus || 500;
+		response.status = false;
+		return res.status(response.httpStatus).json(response);
+	}
+};
+
 module.exports.allProviders = async (req, res, next) => {
 	const response = constants.response();
 	try {

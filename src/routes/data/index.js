@@ -70,4 +70,26 @@ router.get('/get', [controller.data.get], services.data.get);
  */
 router.post('/stats/general', [middlewares.stats, controller.data.statsGeneral], services.data.statsGeneral);
 
+/**
+ * GET /deprem/data/sitemap
+ * @param {number} page.query - page number (default 1)
+ * @param {number} limit.query - items per page (default 5000, max 10000)
+ * @summary sitemap data endpoint with pagination
+ * @security HeaderAuthStats
+ * @tags DATA
+ * @return {object} 200 - success response - application/json
+ * @return {object} 500 - Server error - application/json
+ */
+router.get('/sitemap', [middlewares.stats, controller.data.sitemap], services.data.sitemap);
+
+/**
+ * GET /deprem/data/sitemap/count
+ * @summary sitemap total count endpoint
+ * @security HeaderAuthStats
+ * @tags DATA
+ * @return {object} 200 - success response - application/json
+ * @return {object} 500 - Server error - application/json
+ */
+router.get('/sitemap/count', [middlewares.stats], services.data.sitemapCount);
+
 module.exports = router;

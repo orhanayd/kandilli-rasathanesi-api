@@ -73,6 +73,21 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
 	return [];
 };
 
+module.exports.sitemap = async (skip, limit) => {
+	const agg = [
+		{ $sort: { date_time: -1 } },
+		{ $skip: skip },
+		{ $limit: limit },
+		{ $project: { _id: false, earthquake_id: 1, title: 1, date_time: 1, mag: 1, 'location_properties.epiCenter': 1 } },
+	];
+	const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(agg);
+	return query.length > 0 ? query : [];
+};
+
+module.exports.sitemapCount = async () => {
+	return await new db.MongoDB.CRUD('earthquake', 'data_v2').count({});
+};
+
 module.exports.get = async (earthquake_id, project = {}) => {
 	try {
 		const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').find({ earthquake_id }, [0, 1], project);
