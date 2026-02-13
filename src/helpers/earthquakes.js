@@ -10,17 +10,22 @@ function locations(turfPoint) {
 		const location = db.locations.geojsons[index];
 		if (!location || !location.coordinates) continue;
 
-		// MultiPolygon için ilk polygon'u kullan
-		const coords = location.coordinates.type === 'MultiPolygon'
-			? location.coordinates.coordinates[0]
-			: location.coordinates.coordinates || location.coordinates;
-
-		if (!coords || !Array.isArray(coords)) continue;
-
-		const turf_polf = turf.polygon(coords, {
-			name: location.name,
-			cityCode: location.number,
-		});
+		// MultiPolygon için tüm polygon parçalarını kullan
+		let turf_polf;
+		if (location.coordinates.type === 'MultiPolygon') {
+			if (!location.coordinates.coordinates || !Array.isArray(location.coordinates.coordinates)) continue;
+			turf_polf = turf.multiPolygon(location.coordinates.coordinates, {
+				name: location.name,
+				cityCode: location.number,
+			});
+		} else {
+			const coords = location.coordinates.coordinates || location.coordinates;
+			if (!coords || !Array.isArray(coords)) continue;
+			turf_polf = turf.polygon(coords, {
+				name: location.name,
+				cityCode: location.number,
+			});
+		}
 		const pointOnPoly = turf.pointOnFeature(turf_polf);
 		const isInside = turf.booleanPointInPolygon(turfPoint, turf_polf);
 		const distance = turf.distance(turfPoint, pointOnPoly, {
