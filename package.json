@@ -23,21 +23,21 @@
 	},
 	"homepage": "https://github.com/orhanayd/kandilli-rasathanesi-api#readme",
 	"dependencies": {
-		"@turf/turf": "^7.2.0",
-		"axios": "^1.12.2",
-		"cors": "^2.8.5",
-		"dotenv": "^17.2.2",
-		"express": "^4.21.2",
+		"@turf/turf": "^7.3.4",
+		"axios": "^1.13.5",
+		"cors": "^2.8.6",
+		"dotenv": "^17.3.1",
+		"express": "^5.2.1",
 		"express-jsdoc-swagger": "^1.8.0",
-		"fast-xml-parser": "^5.2.5",
-		"kk-date": "^4.0.3",
+		"fast-xml-parser": "^5.3.6",
+		"kk-date": "^4.1.2",
 		"md5": "^2.3.0",
-		"mongodb": "^6.20.0",
+		"mongodb": "^7.1.0",
 		"morgan": "^1.10.1",
-		"nanoid": "3.3.8",
-		"nope-redis": "^2.0.0"
+		"nope-id": "1.0.0",
+		"nope-redis": "^2.0.2"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.3"
+		"@biomejs/biome": "2.3.15"
 	}
 }

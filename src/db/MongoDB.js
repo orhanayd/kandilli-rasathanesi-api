@@ -4,7 +4,7 @@
  */
 
 const { MongoClient, ObjectId } = require('mongodb');
-const { customAlphabet } = require('nanoid');
+const { customAlphabet } = require('nope-id');
 const constants = require('../constants');
 
 /*

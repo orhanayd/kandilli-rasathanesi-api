@@ -18,10 +18,10 @@ module.exports.list = async (
 		agg.push({ $sort: sort });
 	}
 	if (skip > 0) {
-		agg.push({ $skip: skip });
+		agg.push({ $skip: Number(skip) });
 	}
 	if (limit > 0) {
-		agg.push({ $limit: limit });
+		agg.push({ $limit: Number(limit) });
 	}
 	agg.push({ $project: { _id: false } });
 	const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(agg);

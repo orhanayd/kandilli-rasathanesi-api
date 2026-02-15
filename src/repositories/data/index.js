@@ -58,10 +58,10 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
 		agg.push({ $sort: sort });
 	}
 	if (skip && skip > 0) {
-		agg.push({ $skip: skip });
+		agg.push({ $skip: Number(skip) });
 	}
 	if (limit && limit > 0) {
-		agg.push({ $limit: limit });
+		agg.push({ $limit: Number(limit) });
 	}
 	if (project) {
 		agg.push({ $project: project });
@@ -76,8 +76,8 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
 module.exports.sitemap = async (skip, limit) => {
 	const agg = [
 		{ $sort: { date_time: -1 } },
-		{ $skip: skip },
-		{ $limit: limit },
+		{ $skip: Number(skip) },
+		{ $limit: Number(limit) },
 		{ $project: { _id: false, earthquake_id: 1, title: 1, date_time: 1, mag: 1, 'location_properties.epiCenter': 1 } },
 	];
 	const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(agg);
