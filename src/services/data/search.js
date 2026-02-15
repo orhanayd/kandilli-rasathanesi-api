@@ -3,11 +3,18 @@ const helpers = require('../../helpers');
 const repositories = require('../../repositories');
 const constants = require('../../constants');
 
-module.exports = async (req, res) => {
+module.exports = async (_req, res) => {
 	const responseBody = constants.response();
 
 	try {
-		const data = await repositories.data.search(req.body.match, req.body.geoNear, req.body.sort, req.body.skip, req.body.limit, null);
+		const data = await repositories.data.search(
+			res.locals.body.match,
+			res.locals.body.geoNear,
+			res.locals.body.sort,
+			res.locals.body.skip,
+			res.locals.body.limit,
+			null,
+		);
 		responseBody.result = data;
 	} catch (error) {
 		console.error(error);

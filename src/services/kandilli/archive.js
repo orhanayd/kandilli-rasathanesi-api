@@ -3,13 +3,18 @@ const helpers = require('../../helpers');
 const repositories = require('../../repositories');
 const constants = require('../../constants');
 
-module.exports = async (req, res) => {
+module.exports = async (_req, res) => {
 	const responseBody = constants.response();
 	responseBody.serverloadms = new helpers.date.kk_date().format('x');
 	responseBody.metadata = {};
 	responseBody.result = [];
 	try {
-		const kandilli_data = await repositories.kandilli.list(req.query.date, req.query.date_end, req.query.skip, req.query.limit);
+		const kandilli_data = await repositories.kandilli.list(
+			res.locals.query.date,
+			res.locals.query.date_end,
+			res.locals.query.skip,
+			res.locals.query.limit,
+		);
 		if (!kandilli_data) {
 			responseBody.status = false;
 			responseBody.desc = 'Veri alınamadı!';

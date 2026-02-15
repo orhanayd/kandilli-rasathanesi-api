@@ -4,56 +4,56 @@ const constants = require('../../constants');
 const db = require('../../db');
 const repositories = require('../../repositories');
 
-module.exports = async (req, res) => {
+module.exports = async (_req, res) => {
 	const responseBody = constants.response();
 	responseBody.httpStatus = 404;
 	responseBody.serverloadms = new helpers.date.kk_date().format('x');
 	responseBody.result = null;
 
 	try {
-		let key = `data/stats/${req.body.provider}/${req.body.range}`;
-		if (req.body.match['location_properties.epiCenter.name']) {
-			key += `/${req.body.match['location_properties.epiCenter.name']}`;
+		let key = `data/stats/${res.locals.body.provider}/${res.locals.body.range}`;
+		if (res.locals.body.match['location_properties.epiCenter.name']) {
+			key += `/${res.locals.body.match['location_properties.epiCenter.name']}`;
 		}
-		if (req.body.range === constants.statsRange.DATE) {
-			key += `/${req.body.date.starts_date}/${req.body.date.ends_date}`;
+		if (res.locals.body.range === constants.statsRange.DATE) {
+			key += `/${res.locals.body.date.starts_date}/${res.locals.body.date.ends_date}`;
 		}
-		if (req.body.types.length > 0) {
-			key += `/${req.body.types.toString()}`;
+		if (res.locals.body.types.length > 0) {
+			key += `/${res.locals.body.types.toString()}`;
 		}
 		const cache = db.nopeRedis.getItem(key);
 		if (cache) {
 			responseBody.result = cache;
 			responseBody.httpStatus = 200;
 		} else {
-			if (req.body.types.length === 0) {
+			if (res.locals.body.types.length === 0) {
 				responseBody.result = {
-					dateBy: await repositories.data.stats.dateBy(req.body.match),
-					hourBy: await repositories.data.stats.hourBy(req.body.match),
-					epiCenterBy: await repositories.data.stats.epiCenterBy(req.body.match),
-					airportsBy: await repositories.data.stats.airportsBy(req.body.match),
-					magBy: await repositories.data.stats.magBy(req.body.match),
-					dateByEarthQuakes: await repositories.data.stats.dateByEarthQuakes(req.body.match),
+					dateBy: await repositories.data.stats.dateBy(res.locals.body.match),
+					hourBy: await repositories.data.stats.hourBy(res.locals.body.match),
+					epiCenterBy: await repositories.data.stats.epiCenterBy(res.locals.body.match),
+					airportsBy: await repositories.data.stats.airportsBy(res.locals.body.match),
+					magBy: await repositories.data.stats.magBy(res.locals.body.match),
+					dateByEarthQuakes: await repositories.data.stats.dateByEarthQuakes(res.locals.body.match),
 				};
 			} else {
 				responseBody.result = {};
-				if (req.body.types.includes(constants.stats.dateBy)) {
-					responseBody.result.dateBy = await repositories.data.stats.dateBy(req.body.match);
+				if (res.locals.body.types.includes(constants.stats.dateBy)) {
+					responseBody.result.dateBy = await repositories.data.stats.dateBy(res.locals.body.match);
 				}
-				if (req.body.types.includes(constants.stats.hourBy)) {
-					responseBody.result.hourBy = await repositories.data.stats.hourBy(req.body.match);
+				if (res.locals.body.types.includes(constants.stats.hourBy)) {
+					responseBody.result.hourBy = await repositories.data.stats.hourBy(res.locals.body.match);
 				}
-				if (req.body.types.includes(constants.stats.epiCenterBy)) {
-					responseBody.result.epiCenterBy = await repositories.data.stats.epiCenterBy(req.body.match);
+				if (res.locals.body.types.includes(constants.stats.epiCenterBy)) {
+					responseBody.result.epiCenterBy = await repositories.data.stats.epiCenterBy(res.locals.body.match);
 				}
-				if (req.body.types.includes(constants.stats.airportsBy)) {
-					responseBody.result.airportsBy = await repositories.data.stats.airportsBy(req.body.match);
+				if (res.locals.body.types.includes(constants.stats.airportsBy)) {
+					responseBody.result.airportsBy = await repositories.data.stats.airportsBy(res.locals.body.match);
 				}
-				if (req.body.types.includes(constants.stats.magBy)) {
-					responseBody.result.magBy = await repositories.data.stats.magBy(req.body.match);
+				if (res.locals.body.types.includes(constants.stats.magBy)) {
+					responseBody.result.magBy = await repositories.data.stats.magBy(res.locals.body.match);
 				}
-				if (req.body.types.includes(constants.stats.dateByEarthQuakes)) {
-					responseBody.result.dateByEarthQuakes = await repositories.data.stats.dateByEarthQuakes(req.body.match);
+				if (res.locals.body.types.includes(constants.stats.dateByEarthQuakes)) {
+					responseBody.result.dateByEarthQuakes = await repositories.data.stats.dateByEarthQuakes(res.locals.body.match);
 				}
 			}
 			responseBody.httpStatus = 200;

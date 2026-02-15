@@ -4,16 +4,16 @@ const db = require('../../db');
 const repositories = require('../../repositories');
 const constants = require('../../constants');
 
-module.exports = async (req, res) => {
+module.exports = async (_req, res) => {
 	const responseBody = constants.response();
 	try {
-		const key = `data/earthquake/${req.query.earthquake_id}`;
+		const key = `data/earthquake/${res.locals.query.earthquake_id}`;
 		const cache = db.nopeRedis.getItem(key);
 		if (cache) {
 			responseBody.result = cache;
 			responseBody.httpStatus = 200;
 		} else {
-			const query = await repositories.data.get(req.query.earthquake_id);
+			const query = await repositories.data.get(res.locals.query.earthquake_id);
 			if (query) {
 				responseBody.httpStatus = 200;
 				responseBody.result = query;

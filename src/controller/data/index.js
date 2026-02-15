@@ -122,7 +122,7 @@ module.exports.statsGeneral = (req, res, next) => {
 				throw new constants.errors.WrongParam('data.statsGeneral', 'no range type !');
 		}
 
-		req.body = body;
+		res.locals.body = body;
 		return next();
 	} catch (error) {
 		console.error(error);
@@ -226,7 +226,7 @@ module.exports.search = (req, res, next) => {
 			}
 		}
 
-		req.body = body;
+		res.locals.body = body;
 		return next();
 	} catch (error) {
 		console.error(error);
@@ -247,7 +247,7 @@ module.exports.get = (req, res, next) => {
 			throw new constants.errors.MissingField('data.search', 'earthquake_id missing param !');
 		}
 		query.earthquake_id = req.query.earthquake_id.toString();
-		req.query = query;
+		res.locals.query = query;
 		return next();
 	} catch (error) {
 		console.error(error);
@@ -284,7 +284,7 @@ module.exports.sitemap = (req, res, next) => {
 		}
 
 		query.skip = (query.page - 1) * query.limit;
-		req.query = query;
+		res.locals.query = query;
 		return next();
 	} catch (error) {
 		console.error(error);
@@ -338,7 +338,7 @@ module.exports.allProviders = async (req, res, next) => {
 			query.date_end = new helpers.date.kk_date(req.query.date_end).endOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
 
-		req.query = query;
+		res.locals.query = query;
 		return next();
 	} catch (error) {
 		console.error(error);

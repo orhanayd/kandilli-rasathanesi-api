@@ -29,7 +29,7 @@ module.exports.live = async (req, res, next) => {
 			}
 		}
 
-		req.query = query;
+		res.locals.query = query;
 		return next();
 	} catch (error) {
 		console.error(error);
@@ -84,7 +84,7 @@ module.exports.archive = async (req, res, next) => {
 			query.date_end = new helpers.date.kk_date(req.query.date_end).endOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
 
-		req.query = query;
+		res.locals.query = query;
 		return next();
 	} catch (error) {
 		console.error(error);
