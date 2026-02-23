@@ -88,7 +88,7 @@ module.exports.sitemapCount = async () => {
 	return await new db.MongoDB.CRUD('earthquake', 'data_v2').count({});
 };
 
-module.exports.get = async (earthquake_id, project = {}) => {
+module.exports.get = async (earthquake_id, project = { _id: false }) => {
 	try {
 		const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').find({ earthquake_id }, [0, 1], project);
 		if (query.length > 0) {

@@ -52,6 +52,39 @@ function locations(turfPoint) {
 	closestCities = closestCities.sort((a, b) => {
 		return a.distance - b.distance;
 	});
+
+	// epiCenter bulunamadıysa, en yakın il polygon sınırına 1km'den yakınsa onu epiCenter kabul et
+	if (epiCenter.properties.name === null && closestCities.length > 0) {
+		for (let i = 0; i < closestCities.length; i++) {
+			const candidate = closestCities[i];
+			if (candidate.cityCode === -1) continue;
+			const loc = db.locations.geojsons.find((g) => g.number === candidate.cityCode);
+			if (!loc) continue;
+			try {
+				let poly;
+				if (loc.coordinates.type === 'MultiPolygon') {
+					poly = turf.multiPolygon(loc.coordinates.coordinates);
+				} else {
+					const coords = loc.coordinates.coordinates || loc.coordinates;
+					poly = turf.polygon(coords);
+				}
+				const borderLine = turf.polygonToLine(poly);
+				const nearestPoint = turf.nearestPointOnLine(borderLine, turfPoint);
+				const borderDistance = turf.distance(turfPoint, nearestPoint, { units: 'meters' });
+				if (borderDistance <= 1000) {
+					epiCenter = {
+						properties: {
+							name: candidate.name,
+							cityCode: candidate.cityCode,
+							population: candidate.population,
+						},
+					};
+					break;
+				}
+			} catch (_e) {}
+		}
+	}
+
 	return {
 		closestCity: closestCities[0],
 		epiCenter: epiCenter.properties,

@@ -29,13 +29,13 @@
 		"dotenv": "^17.3.1",
 		"express": "^5.2.1",
 		"express-jsdoc-swagger": "^1.8.0",
-		"fast-xml-parser": "^5.3.6",
+		"fast-xml-parser": "^5.3.7",
 		"kk-date": "^4.1.2",
 		"md5": "^2.3.0",
 		"mongodb": "^7.1.0",
 		"morgan": "^1.10.1",
 		"nope-id": "1.0.0",
-		"nope-redis": "^2.0.2"
+		"nope-redis": "^2.0.3"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.15"
