@@ -604,6 +604,16 @@ API'nin sürdürülebilirliği için rate limiting uygulanmaktadır:
 - **Bypass**: `BYPASS_IPS` environment değişkeni ile belirli IP'ler muaf tutulabilir
 - **Hata Kodu**: 429 (Too Many Requests)
 
+> **Dikkat: IP Engelleme Politikasi**
+>
+> API'nin tum kullanicilar icin adil ve kesintisiz bir sekilde hizmet verebilmesi amaciyla, dakikada 100 istek limitini asan IP adresleri icin asagidaki yaptirimlari uygulamaktayiz:
+>
+> 1. **Gecici Engelleme**: Limiti asan IP adresleri ilk asamada **gecici olarak** engellenir. Bu sure zarfinda API'ye erisim saglanamaz. Gecici engelleme, belirli bir bekleme suresinin ardindan otomatik olarak kalkar.
+>
+> 2. **Kalici Engelleme**: Limiti tekrar tekrar asan veya sistematik olarak ihlal eden IP adresleri **kalici olarak** engellenir. Kalici engelleme durumunda API'ye erisim tamamen kapatilir.
+>
+> Lutfen uygulamalarinizi rate limit sinirlarina uygun sekilde tasarlayin. Istek araliklarinizi duzenleyerek ve onbellekleme mekanizmalari kullanarak bu sinirin altinda kalmaniz mumkundur. Engellenme durumunda veya ozel ihtiyaclariniz icin **info@orhanaydogdu.com.tr** adresi uzerinden bizimle iletisime gecebilirsiniz.
+
 ## 📜 Lisans ve Uyarılar
 
 ### 🔒 Lisans Koşulları

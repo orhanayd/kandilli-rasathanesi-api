@@ -35,7 +35,7 @@
 		"mongodb": "^7.1.0",
 		"morgan": "^1.10.1",
 		"nope-id": "1.0.0",
-		"nope-redis": "^2.0.3"
+		"nope-redis": "^2.0.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.15"
