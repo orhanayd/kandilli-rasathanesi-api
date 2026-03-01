@@ -94,7 +94,7 @@ class TooManyRequest extends Error {
 		if (Error.captureStackTrace) {
 			Error.captureStackTrace(this, TooManyRequest);
 		}
-		this.name = 'WrongParam';
+		this.name = 'TooManyRequest';
 		this.operation = `${operation}`;
 		this.errorCode = 7;
 		this.httpStatus = 429;

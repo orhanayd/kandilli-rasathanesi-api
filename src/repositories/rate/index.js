@@ -1,17 +1,18 @@
 const db = require('../../db');
 const helpers = require('../../helpers');
 const constants = require('../../constants');
+const ban = require('../ban');
 
 module.exports.check = async (ip) => {
 	if (constants.CONFIG.BYPASS_IPS.includes(ip)) {
 		return true;
 	}
 	const count = await this.count(ip);
-	this.delete();
 	if (count >= 100) {
+		await ban.save(ip);
 		throw new constants.errors.TooManyRequest(
 			'repositories.rate.check',
-			'Too Many Request in 1 minute! Requests limited in 1 minute maximum 100 times',
+			'Too Many Request in 1 minute! Requests limited in 1 minute maximum 100 times. Your IP has been banned for 3 days.',
 		);
 	}
 	this.save(ip);

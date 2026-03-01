@@ -167,8 +167,8 @@ class CRUD {
 		return await connection.db(this.db).listCollections().toArray();
 	}
 
-	async createIndex(data) {
-		return await connection.db(this.db).collection(this.collection).createIndex(data);
+	async createIndex(data, options = {}) {
+		return await connection.db(this.db).collection(this.collection).createIndex(data, options);
 	}
 }
 

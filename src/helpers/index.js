@@ -1,6 +1,13 @@
+const constants = require('../constants');
+
 module.exports.crawler = require('./crawler');
 module.exports.date = require('./date');
 module.exports.earthquakes = require('./earthquakes');
+
+module.exports.errorLogger = (error) => {
+	if (error instanceof constants.errors.TooManyRequest) return;
+	console.error(error);
+};
 
 /**
  * meter to radius

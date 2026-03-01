@@ -32,7 +32,7 @@ module.exports.live = async (req, res, next) => {
 		res.locals.query = query;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;
@@ -87,7 +87,7 @@ module.exports.archive = async (req, res, next) => {
 		res.locals.query = query;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;

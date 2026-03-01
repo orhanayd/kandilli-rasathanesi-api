@@ -11,8 +11,11 @@ const constants = require('./src/constants');
 const port = 7979;
 
 // connectors for db, cache etc.;
+const repositories = require('./src/repositories');
+
 async function connector() {
 	await db.MongoDB.connector();
+	await repositories.ban.createIndex();
 }
 
 connector();
@@ -30,6 +33,7 @@ logger.token('datetime', () => new helpers.date.kk_date().format('YYYY-MM-DD HH:
 
 app.use(cors());
 app.use(logger(':datetime - :real-ip - :method :url :status :response-time ms'));
+app.use(middlewares.ban);
 app.use(express.json({ limit: 1000000 }));
 app.use(express.urlencoded({ extended: false }));
 

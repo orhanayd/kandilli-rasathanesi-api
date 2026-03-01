@@ -24,7 +24,7 @@ module.exports.statsGeneral = (req, res, next) => {
 			try {
 				body.date = JSON.parse(req.body.date);
 			} catch (error) {
-				console.error(error);
+				helpers.errorLogger(error);
 				throw new constants.errors.ServerError('data.statsGeneral', 'req body date parse error !');
 			}
 		}
@@ -125,7 +125,7 @@ module.exports.statsGeneral = (req, res, next) => {
 		res.locals.body = body;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;
@@ -133,9 +133,11 @@ module.exports.statsGeneral = (req, res, next) => {
 	}
 };
 
-module.exports.search = (req, res, next) => {
+module.exports.search = async (req, res, next) => {
 	const response = constants.response();
 	try {
+		await repositories.rate.check(req.ip);
+
 		const body = {
 			skip: 0,
 			limit: 10,
@@ -229,7 +231,7 @@ module.exports.search = (req, res, next) => {
 		res.locals.body = body;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;
@@ -237,10 +239,12 @@ module.exports.search = (req, res, next) => {
 	}
 };
 
-module.exports.get = (req, res, next) => {
+module.exports.get = async (req, res, next) => {
 	const response = constants.response();
 
 	try {
+		await repositories.rate.check(req.ip);
+
 		const query = {};
 
 		if (typeof req.query.earthquake_id === 'undefined') {
@@ -250,7 +254,7 @@ module.exports.get = (req, res, next) => {
 		res.locals.query = query;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;
@@ -287,7 +291,7 @@ module.exports.sitemap = (req, res, next) => {
 		res.locals.query = query;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;
@@ -341,7 +345,7 @@ module.exports.allProviders = async (req, res, next) => {
 		res.locals.query = query;
 		return next();
 	} catch (error) {
-		console.error(error);
+		helpers.errorLogger(error);
 		response.desc = error.message || '';
 		response.httpStatus = error.httpStatus || 500;
 		response.status = false;
