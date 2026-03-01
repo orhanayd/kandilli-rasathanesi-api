@@ -129,11 +129,11 @@ class CRUD {
 	 * @param {Boolean} multiple
 	 * @returns
 	 */
-	async update(query = null, update = null, multiple = false) {
+	async update(query = null, update = null, multiple = false, options = {}) {
 		if (multiple) {
-			await connection.db(this.db).collection(this.collection).updateMany(query, update);
+			await connection.db(this.db).collection(this.collection).updateMany(query, update, options);
 		} else {
-			await connection.db(this.db).collection(this.collection).updateOne(query, update);
+			await connection.db(this.db).collection(this.collection).updateOne(query, update, options);
 		}
 		return true;
 	}

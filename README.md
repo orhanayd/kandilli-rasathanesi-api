@@ -78,9 +78,9 @@ Detaylı API dokümantasyonu ve interaktif test arayüzü için:
 | `GET` | `/deprem/kandilli/archive` | Kandilli - Tarih aralığı | - | 40/dk |
 | `GET` | `/deprem/afad/live` | AFAD - Son 24 saat | 30s | 40/dk |
 | `GET` | `/deprem/afad/archive` | AFAD - Tarih aralığı | - | 40/dk |
-| `GET` | `/deprem` | Tüm kaynaklar - Son 24 saat | - | 40/dk |
+| `GET` | `/deprem` | Tüm kaynaklar - Son 24 saat | 30s | 40/dk |
 | `POST` | `/deprem/data/search` | Gelişmiş arama & filtreleme | - | 40/dk |
-| `GET` | `/deprem/data/get` | Tekil deprem bilgisi | - | 40/dk |
+| `GET` | `/deprem/data/get` | Tekil deprem bilgisi | 24h | 40/dk |
 | `GET` | `/deprem/statics/cities` | Şehir listesi | - | 40/dk |
 | `GET` | `/deprem/status` | API sağlık durumu | - | 40/dk |
 
@@ -333,7 +333,7 @@ curl "https://api.orhanaydogdu.com.tr/deprem?limit=30"
   },
   "sort": "date_-1",         // optional: date_1, date_-1, mag_1, mag_-1
   "skip": 0,                 // optional: Sayfalama offset
-  "limit": 100               // optional: Max kayıt (default: 100, max: 100 - otomatik sınırlanır)
+  "limit": 10                 // optional: Max kayıt (default: 10, max: 100 - otomatik sınırlanır)
 }
 ```
 
@@ -427,11 +427,7 @@ curl -X POST https://api.orhanaydogdu.com.tr/deprem/data/search \
       },
       "date_time": "2024-01-15 14:23:11"
     }
-  ],
-  "metadata": {
-    "total": 47,
-    "count": 10
-  }
+  ]
 }
 ```
 
@@ -549,11 +545,15 @@ curl "https://api.orhanaydogdu.com.tr/deprem/status"
 {
   "status": true,
   "httpStatus": 200,
-  "result": {
-    "api_status": "online",
-    "total_earthquakes": 125847,
-    "last_update": "2024-01-08 12:45:30",
-    "uptime_seconds": 8642341
+  "desc": "kandilli son depremler api service",
+  "stats": {
+    "total_request_ip": 15,
+    "total_request": 230,
+    "total_banned_ip": 21
+  },
+  "nopeRedis": {
+    "total": 42,
+    "size": "1.2 MB"
   }
 }
 ```

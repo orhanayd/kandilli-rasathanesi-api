@@ -30,6 +30,7 @@ router.get('/deprem/status', async (_req, res) => {
 	const response = constants.response();
 	response.desc = 'kandilli son depremler api service';
 	response.stats = await repositories.rate.stats();
+	response.stats.total_banned_ip = await repositories.ban.count();
 	response.nopeRedis = db.nopeRedis.stats({ showKeys: false, showTotal: true, showSize: true });
 	return res.json(response);
 });

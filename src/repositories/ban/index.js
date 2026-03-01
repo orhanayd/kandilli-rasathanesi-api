@@ -9,6 +9,7 @@ const BAN_DURATION_DAYS = 3;
 module.exports.createIndex = async () => {
 	try {
 		await new db.MongoDB.CRUD('earthquake', 'bans').createIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
+		await new db.MongoDB.CRUD('earthquake', 'bans').createIndex({ ip: 1 });
 	} catch (err) {
 		console.error('ban.createIndex error:', err);
 	}
@@ -42,12 +43,12 @@ module.exports.save = async (ip) => {
 	const now = new Date();
 	const expiresAt = new Date(now.getTime() + BAN_DURATION_DAYS * 24 * 60 * 60 * 1000);
 
-	await new db.MongoDB.CRUD('earthquake', 'bans').insert({
-		ip: `${ip}`,
-		reason: 'rate_limit_exceeded',
-		banned_at: now,
-		expires_at: expiresAt,
-	});
+	await new db.MongoDB.CRUD('earthquake', 'bans').update(
+		{ ip: `${ip}` },
+		{ $set: { ip: `${ip}`, reason: 'rate_limit_exceeded', banned_at: now, expires_at: expiresAt } },
+		false,
+		{ upsert: true },
+	);
 
 	const cacheKey = `${CACHE_KEY_PREFIX}${ip}`;
 	db.nopeRedis.setItem(cacheKey, true, BANNED_TTL);
@@ -55,3 +56,6 @@ module.exports.save = async (ip) => {
 	return true;
 };
 
+module.exports.count = async () => {
+	return await new db.MongoDB.CRUD('earthquake', 'bans').count({});
+};
