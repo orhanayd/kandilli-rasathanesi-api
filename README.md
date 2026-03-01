@@ -52,7 +52,7 @@ Kandilli Rasathanesi API, **Boğaziçi Üniversitesi Kandilli Rasathanesi** ve *
 - ⚡ 30 saniyelik önbellekleme (canlı veriler)
 - 🔍 Gelişmiş arama ve filtreleme
 - 📈 İstatistik ve analiz endpointleri
-- 🔐 Rate limiting (dakikada 100 istek)
+- 🔐 Rate limiting (dakikada 40 istek)
 - 📖 Swagger/OpenAPI dokümantasyonu
 - 🌍 30+ ülke için sınır verileri
 
@@ -74,15 +74,15 @@ Detaylı API dokümantasyonu ve interaktif test arayüzü için:
 
 | Method | Endpoint | Açıklama | Cache | Rate Limit |
 |--------|----------|----------|-------|------------|
-| `GET` | `/deprem/kandilli/live` | Kandilli - Son 24 saat | 30s | 100/dk |
-| `GET` | `/deprem/kandilli/archive` | Kandilli - Tarih aralığı | - | 100/dk |
-| `GET` | `/deprem/afad/live` | AFAD - Son 24 saat | 30s | 100/dk |
-| `GET` | `/deprem/afad/archive` | AFAD - Tarih aralığı | - | 100/dk |
-| `GET` | `/deprem` | Tüm kaynaklar - Son 24 saat | - | 100/dk |
-| `POST` | `/deprem/data/search` | Gelişmiş arama & filtreleme | - | 100/dk |
-| `GET` | `/deprem/data/get` | Tekil deprem bilgisi | - | 100/dk |
-| `GET` | `/deprem/statics/cities` | Şehir listesi | - | 100/dk |
-| `GET` | `/deprem/status` | API sağlık durumu | - | 100/dk |
+| `GET` | `/deprem/kandilli/live` | Kandilli - Son 24 saat | 30s | 40/dk |
+| `GET` | `/deprem/kandilli/archive` | Kandilli - Tarih aralığı | - | 40/dk |
+| `GET` | `/deprem/afad/live` | AFAD - Son 24 saat | 30s | 40/dk |
+| `GET` | `/deprem/afad/archive` | AFAD - Tarih aralığı | - | 40/dk |
+| `GET` | `/deprem` | Tüm kaynaklar - Son 24 saat | - | 40/dk |
+| `POST` | `/deprem/data/search` | Gelişmiş arama & filtreleme | - | 40/dk |
+| `GET` | `/deprem/data/get` | Tekil deprem bilgisi | - | 40/dk |
+| `GET` | `/deprem/statics/cities` | Şehir listesi | - | 40/dk |
+| `GET` | `/deprem/status` | API sağlık durumu | - | 40/dk |
 
 ---
 
@@ -599,16 +599,16 @@ npm start
 
 API'nin sürdürülebilirliği için rate limiting uygulanmaktadır:
 
-- **Limit**: Dakikada maksimum 100 istek
+- **Limit**: Dakikada maksimum 40 istek
 - **Kapsam**: IP başına
 - **Bypass**: `BYPASS_IPS` environment değişkeni ile belirli IP'ler muaf tutulabilir
 - **Hata Kodu**: 429 (Too Many Requests)
 
 > **Dikkat: IP Engelleme Politikasi**
 >
-> API'nin tum kullanicilar icin adil ve kesintisiz bir sekilde hizmet verebilmesi amaciyla, dakikada 100 istek limitini asan IP adresleri icin asagidaki yaptirimlari uygulamaktayiz:
+> API'nin tum kullanicilar icin adil ve kesintisiz bir sekilde hizmet verebilmesi amaciyla, dakikada 40 istek limitini asan IP adresleri icin asagidaki yaptirimlari uygulamaktayiz:
 >
-> 1. **Gecici Engelleme**: Limiti asan IP adresleri ilk asamada **gecici olarak** engellenir. Bu sure zarfinda API'ye erisim saglanamaz. Gecici engelleme, belirli bir bekleme suresinin ardindan otomatik olarak kalkar.
+> 1. **Otomatik IP Ban**: Dakikada 40 istek limitini asan IP adresleri **otomatik olarak 3 gun (72 saat) sureyle** engellenir. Bu sure zarfinda API'ye yapilan tum istekler **403 (Forbidden)** hatasi ile reddedilir. Engelleme suresi dolduğunda ban otomatik olarak kalkar.
 >
 > 2. **Kalici Engelleme**: Limiti tekrar tekrar asan veya sistematik olarak ihlal eden IP adresleri **kalici olarak** engellenir. Kalici engelleme durumunda API'ye erisim tamamen kapatilir.
 >

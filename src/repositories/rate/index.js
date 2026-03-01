@@ -8,11 +8,11 @@ module.exports.check = async (ip) => {
 		return true;
 	}
 	const count = await this.count(ip);
-	if (count >= 100) {
+	if (count >= 40) {
 		await ban.save(ip);
 		throw new constants.errors.TooManyRequest(
 			'repositories.rate.check',
-			'Too Many Request in 1 minute! Requests limited in 1 minute maximum 100 times. Your IP has been banned for 3 days.',
+			'Too Many Request in 1 minute! Requests limited in 1 minute maximum 40 times. Your IP has been banned for 3 days.',
 		);
 	}
 	this.save(ip);

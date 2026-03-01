@@ -27,7 +27,7 @@ logger.token('datetime', () => new helpers.date.kk_date().format('YYYY-MM-DD HH:
 
 app.use(cors());
 app.use(logger(':datetime - :real-ip - :method :url :status :response-time ms'));
-app.use(express.json({ limit: 1000000 }));
+app.use(express.json({ limit: 10000 }));
 app.use(express.urlencoded({ extended: false }));
 
 // Internal routes only
@@ -40,7 +40,7 @@ app.get('/health', (_req, res) => {
 		status: true,
 		service: 'kandilli-internal',
 		port: port,
-		timestamp: new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss')
+		timestamp: new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss'),
 	});
 });
 
@@ -63,7 +63,7 @@ app.use((_req, res) => {
 	const response = {
 		httpStatus: 404,
 		status: false,
-		desc: 'No endpoint!'
+		desc: 'No endpoint!',
 	};
 	return res.status(response.httpStatus).json(response);
 });
