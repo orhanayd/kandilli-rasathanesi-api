@@ -16,6 +16,7 @@ const repositories = require('./src/repositories');
 async function connector() {
 	await db.MongoDB.connector();
 	await repositories.ban.createIndex();
+	await repositories.rate.createIndex();
 }
 
 connector();

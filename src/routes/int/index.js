@@ -13,15 +13,5 @@ const middlewares = require('../../middlewares');
  */
 router.get('/earthquakes', [middlewares.cron], services.int.earthquakes);
 
-/**
- * GET /deprem/int/rate-cleanup
- * @summary rate limit cleanup endpoint for cron
- * @tags INT
- * @security HeaderAuthCron
- * @return {object} 200 - success response - application/json
- * @return {object} 500 - Server error - application/json
- */
-router.get('/rate-cleanup', [middlewares.cron], services.int.rateCleanup);
-
 
 module.exports = router;

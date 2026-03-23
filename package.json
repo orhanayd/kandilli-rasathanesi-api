@@ -4,11 +4,11 @@
 	"description": "Kandilli Rasathanesi'nin yayınladığı son depremler listesi için API. (last minute earthquakes in turkey parsing from Kandilli Observatory XML)",
 	"main": "index.js",
 	"scripts": {
-		"start": "NODE_ENV=PROD pm2 start index.js --name kandilli-service -i 4",
-		"start:internal": "NODE_ENV=PROD pm2 start index-internal.js --name kandilli-internal -i 1",
+		"start": "NODE_ENV=PROD pm2 start index.js --name kandilli-service -i 1 --max-memory-restart 512M",
+		"start:internal": "NODE_ENV=PROD pm2 start index-internal.js --name kandilli-internal -i 1 --max-memory-restart 1024M",
 		"start:all": "npm run start && npm run start:internal",
-		"dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service-dev -i 1 --watch",
-		"dev:internal": "NODE_ENV=DEV pm2 start index-internal.js --name kandilli-internal-dev -i 1 --watch",
+		"dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service-dev -i 1 --watch --max-memory-restart 512M",
+		"dev:internal": "NODE_ENV=DEV pm2 start index-internal.js --name kandilli-internal-dev -i 1 --watch --max-memory-restart 1024M",
 		"dev:all": "npm run dev && npm run dev:internal",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

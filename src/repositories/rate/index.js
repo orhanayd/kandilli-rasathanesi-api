@@ -3,6 +3,15 @@ const helpers = require('../../helpers');
 const constants = require('../../constants');
 const ban = require('../ban');
 
+module.exports.createIndex = async () => {
+	try {
+		await new db.MongoDB.CRUD('earthquake', 'requests').createIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
+		await new db.MongoDB.CRUD('earthquake', 'requests').createIndex({ ip: 1, created_at: 1 });
+	} catch (err) {
+		console.error('rate.createIndex error:', err);
+	}
+};
+
 module.exports.check = async (ip) => {
 	if (constants.CONFIG.BYPASS_IPS.includes(ip)) {
 		return true;
@@ -30,14 +39,11 @@ module.exports.save = async (ip) => {
 	await new db.MongoDB.CRUD('earthquake', 'requests').insert({
 		ip: `${ip}`,
 		created_at: new helpers.date.kk_date().format('X'),
+		expires_at: new Date(Date.now() + 60 * 1000),
 	});
 	return true;
 };
 
-module.exports.delete = async () => {
-	await new db.MongoDB.CRUD('earthquake', 'requests').delete({ created_at: { $lte: new helpers.date.kk_date().add(-1, 'minutes').format('X') } });
-	return true;
-};
 
 module.exports.stats = async () => {
 	const result = {
