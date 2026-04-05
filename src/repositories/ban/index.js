@@ -1,5 +1,6 @@
 const db = require('../../db');
 const constants = require('../../constants');
+const cloudflare = require('../../helpers/cloudflare');
 
 const CACHE_KEY_PREFIX = 'ban:';
 const BANNED_TTL = 600; // 10 minutes
@@ -53,7 +54,24 @@ module.exports.save = async (ip) => {
 	const cacheKey = `${CACHE_KEY_PREFIX}${ip}`;
 	db.nopeRedis.setItem(cacheKey, true, BANNED_TTL);
 
+	cloudflare
+		.addIp(ip)
+		.then((result) => {
+			if (result.success) {
+				new db.MongoDB.CRUD('earthquake', 'bans').update({ ip: `${ip}` }, { $set: { cf_listed: true } }).catch(() => {});
+			}
+		})
+		.catch(() => {});
+
 	return true;
+};
+
+module.exports.findExpired = async () => {
+	return await new db.MongoDB.CRUD('earthquake', 'bans').find({ expires_at: { $lte: new Date() } }, [0, 500], { _id: false });
+};
+
+module.exports.removeByIp = async (ip) => {
+	await new db.MongoDB.CRUD('earthquake', 'bans').delete({ ip: `${ip}` });
 };
 
 module.exports.count = async () => {

@@ -5,6 +5,10 @@ module.exports.CONFIG = {
 	STATS_KEY: process.env.STATS_KEY,
 	BYPASS_IPS: process.env.BYPASS_IPS.split(','),
 	REQUEST_TIMEOUT_MS: parseInt(process.env.REQUEST_TIMEOUT_MS, 10) || 30000,
+	CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID || '',
+	CLOUDFLARE_API_KEY: process.env.CLOUDFLARE_API_KEY || '',
+	CLOUDFLARE_EMAIL: process.env.CLOUDFLARE_EMAIL || '',
+	CLOUDFLARE_LIST_ID: process.env.CLOUDFLARE_LIST_ID || '',
 };
 
 module.exports.STAGES = {

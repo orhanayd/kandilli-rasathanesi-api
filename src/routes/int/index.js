@@ -13,5 +13,14 @@ const middlewares = require('../../middlewares');
  */
 router.get('/earthquakes', [middlewares.cron], services.int.earthquakes);
 
+/**
+ * GET /deprem/int/ban-cleanup
+ * @summary Cleanup expired bans and orphaned Cloudflare list items
+ * @tags INT
+ * @security HeaderAuthCron
+ * @return {object} 200 - success response - application/json
+ * @return {object} 500 - Server error - application/json
+ */
+router.get('/ban-cleanup', [middlewares.cron], services.int.banCleanup);
 
 module.exports = router;

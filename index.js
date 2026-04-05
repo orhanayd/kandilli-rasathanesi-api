@@ -13,10 +13,13 @@ const port = 7979;
 // connectors for db, cache etc.;
 const repositories = require('./src/repositories');
 
+const cloudflare = require('./src/helpers/cloudflare');
+
 async function connector() {
 	await db.MongoDB.connector();
 	await repositories.ban.createIndex();
 	await repositories.rate.createIndex();
+	await cloudflare.init();
 }
 
 connector();

@@ -8,8 +8,11 @@ const db = require('./src/db');
 const port = 7980;
 
 // connectors for db, cache etc.;
+const cloudflare = require('./src/helpers/cloudflare');
+
 async function connector() {
 	await db.MongoDB.connector();
+	await cloudflare.init();
 }
 
 connector();
