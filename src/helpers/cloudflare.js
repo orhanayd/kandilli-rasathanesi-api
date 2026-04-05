@@ -141,19 +141,21 @@ module.exports.replaceAll = async (ips) => {
 	try {
 		if (!(await init()) || !listId) return { success: false };
 
-		const currentItems = await module.exports.listItems();
-		if (currentItems.success && currentItems.items.length > 0) {
-			const ids = currentItems.items.map((i) => i.id);
-			await module.exports.removeIps(ids);
+		const uniqueIps = [...new Set(ips)];
+		const body = uniqueIps.map((ip) => ({ ip }));
+		const resp = await axios.put(`${getBaseUrl()}/${listId}/items`, body, { headers: getHeaders(), timeout: 30000 });
+
+		if (!resp.data?.success) {
+			const msg = resp.data?.errors?.[0]?.message || 'unknown';
+			console.error(`cloudflare replace all rejected - ${msg}`);
+			return { success: false };
 		}
 
-		if (ips.length > 0) {
-			await module.exports.addIps(ips);
-		}
-
-		return { success: true, count: ips.length };
-	} catch (_err) {
-		console.error('cloudflare replace all failed');
+		return { success: true, count: uniqueIps.length };
+	} catch (err) {
+		const status = err.response?.status || 'no response';
+		const msg = err.response?.data?.errors?.[0]?.message || err.message || '';
+		console.error(`cloudflare replace all failed - status: ${status} - ${msg}`);
 		return { success: false };
 	}
 };
