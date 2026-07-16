@@ -17,6 +17,9 @@ module.exports.live = async (req, res, next) => {
 			if (Number.isNaN(query.skip)) {
 				throw new constants.errors.WrongParam('kandilli.live', 'isNaN skip !');
 			}
+			if (query.skip > 10000) {
+				throw new constants.errors.WrongParam('kandilli.live', 'skip max 10000 !');
+			}
 		}
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
@@ -66,6 +69,9 @@ module.exports.archive = async (req, res, next) => {
 			query.skip = parseInt(req.query.skip, 10);
 			if (Number.isNaN(query.skip)) {
 				throw new constants.errors.WrongParam('kandilli.archive', 'isNaN skip !');
+			}
+			if (query.skip > 10000) {
+				throw new constants.errors.WrongParam('kandilli.archive', 'skip max 10000 !');
 			}
 		}
 

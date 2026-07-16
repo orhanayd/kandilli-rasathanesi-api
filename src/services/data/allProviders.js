@@ -8,7 +8,7 @@ module.exports = async (_req, res) => {
 	const responseBody = constants.response();
 	responseBody.serverloadms = new helpers.date.kk_date().format('x');
 	try {
-		const key = `allProviders/live/${res.locals.query.skip}/${res.locals.query.limit}`;
+		const key = `allProviders/live/${res.locals.query.date}/${res.locals.query.date_end}/${res.locals.query.skip}/${res.locals.query.limit}`;
 		const check_noperedis = db.nopeRedis.getItem(key);
 		let data = [];
 		if (check_noperedis) {

@@ -153,6 +153,9 @@ module.exports.search = async (req, res, next) => {
 			if (Number.isNaN(body.skip)) {
 				throw new constants.errors.WrongParam('data.search', 'isNaN skip !');
 			}
+			if (body.skip > 10000) {
+				throw new constants.errors.WrongParam('data.search', 'skip max 10000 !');
+			}
 		}
 
 		if (typeof req.body.limit === 'number') {
@@ -277,6 +280,9 @@ module.exports.sitemap = (req, res, next) => {
 			if (Number.isNaN(query.page) || query.page < 1) {
 				throw new constants.errors.WrongParam('data.sitemap', 'page wrong param !');
 			}
+			if (query.page > 1000) {
+				throw new constants.errors.WrongParam('data.sitemap', 'page max 1000 !');
+			}
 		}
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
@@ -326,6 +332,9 @@ module.exports.allProviders = async (req, res, next) => {
 			query.skip = parseInt(req.query.skip, 10);
 			if (Number.isNaN(query.skip)) {
 				throw new constants.errors.WrongParam('afad.archive', 'isNaN skip !');
+			}
+			if (query.skip > 10000) {
+				throw new constants.errors.WrongParam('afad.archive', 'skip max 10000 !');
 			}
 		}
 

@@ -88,7 +88,7 @@ module.exports.sitemap = async (skip, limit) => {
 };
 
 module.exports.sitemapCount = async () => {
-	return await new db.MongoDB.CRUD('earthquake', 'data_v2').count({});
+	return await new db.MongoDB.CRUD('earthquake', 'data_v2').estimatedCount();
 };
 
 module.exports.get = async (earthquake_id, project = { _id: false }) => {

@@ -1,7 +1,7 @@
 const nopeRedis = require('nope-redis');
 nopeRedis.config({
 	evictionPolicy: 'lfu',
-	maxMemorySize: 3,
+	maxMemorySize: 16,
 	isMemoryStatsEnabled: false,
 	defaultTtl: 30,
 });

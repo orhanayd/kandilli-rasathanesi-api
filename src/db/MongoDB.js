@@ -25,7 +25,7 @@ module.exports.connector = async (connectionString = null) => {
 				: `mongodb://${process.env.MONGODB_USER}:${encodeURIComponent(process.env.MONGODB_PASS)}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/admin`;
 			const mongoClient = new MongoClient(uri, {
 				minPoolSize: 1,
-				maxPoolSize: 3,
+				maxPoolSize: 10,
 				connectTimeoutMS: 5 * 1000,
 			});
 			connection = await mongoClient.connect();
@@ -94,6 +94,15 @@ class CRUD {
 	 */
 	async count(query = {}) {
 		return await connection.db(this.db).collection(this.collection).countDocuments(query);
+	}
+
+	/**
+	 * Estimated document count from collection metadata (O(1), no collection scan)
+	 *
+	 * @returns
+	 */
+	async estimatedCount() {
+		return await connection.db(this.db).collection(this.collection).estimatedDocumentCount();
 	}
 
 	/**
