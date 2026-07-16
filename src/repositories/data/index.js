@@ -10,7 +10,8 @@ module.exports.createIndexes = async () => {
 			{ provider: 1, date_time: 1, mag: 1, depth: 1, 'geojson.coordinates.0': 1, 'geojson.coordinates.1': 1 },
 			{ name: 'dedup_key' },
 		);
-		await crud.ensureIndex({ date_time: -1 });
+		// tek alanlı index iki yönde de taranır; prod'daki mevcut date_time_1 ile eşleşir
+		await crud.ensureIndex({ date_time: 1 });
 		await crud.ensureIndex({ earthquake_id: 1 });
 	} catch (err) {
 		console.error('data.createIndexes error:', err.message);
