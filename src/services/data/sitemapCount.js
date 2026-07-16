@@ -5,6 +5,7 @@ const constants = require('../../constants');
 
 module.exports = async (_req, res) => {
 	const responseBody = constants.response();
+	responseBody.serverloadms = new helpers.date.kk_date().format('x');
 
 	try {
 		const key = 'data/sitemap/count';

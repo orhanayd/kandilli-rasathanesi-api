@@ -19,9 +19,10 @@ connector();
 
 app.set('trust proxy', true);
 app.use((req, _res, next) => {
-	const ipFromExpress = req.ip;
 	const ipFromCF = req.headers['cf-connecting-ip'];
-	req.ip = ipFromCF || ipFromExpress;
+	if (ipFromCF) {
+		Object.defineProperty(req, 'ip', { value: ipFromCF, configurable: true, enumerable: true });
+	}
 	next();
 });
 
@@ -49,16 +50,16 @@ app.get('/health', (_req, res) => {
 
 // Error handling middleware
 app.use((err, _req, res, next) => {
-	if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-		console.error(err);
-		const response = {
-			status: false,
-			desc: err.message || '',
-			httpStatus: err.httpStatus || 500,
-		};
-		return res.status(response.httpStatus).send(response);
+	if (res.headersSent) {
+		return next(err);
 	}
-	return next();
+	console.error(err);
+	const response = {
+		status: false,
+		desc: err.message || '',
+		httpStatus: err.httpStatus || err.status || err.statusCode || 500,
+	};
+	return res.status(response.httpStatus).json(response);
 });
 
 // 404 handler

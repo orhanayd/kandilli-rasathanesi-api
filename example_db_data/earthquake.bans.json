@@ -1,0 +1,37 @@
+[
+	{
+		"ip": "198.51.100.11",
+		"banned_at": "2026-07-16T10:57:28.604Z",
+		"expires_at": "2026-07-19T10:57:28.604Z",
+		"reason": "rate_limit_exceeded",
+		"cf_listed": true
+	},
+	{
+		"ip": "198.51.100.12",
+		"banned_at": "2026-07-16T09:20:07.986Z",
+		"expires_at": "2026-07-19T09:20:07.986Z",
+		"reason": "rate_limit_exceeded",
+		"cf_listed": true
+	},
+	{
+		"ip": "198.51.100.13",
+		"banned_at": "2026-07-16T08:25:46.027Z",
+		"expires_at": "2026-07-19T08:25:46.027Z",
+		"reason": "rate_limit_exceeded",
+		"cf_listed": true
+	},
+	{
+		"ip": "198.51.100.14",
+		"banned_at": "2026-07-16T06:55:07.413Z",
+		"expires_at": "2026-07-19T06:55:07.413Z",
+		"reason": "rate_limit_exceeded",
+		"cf_listed": true
+	},
+	{
+		"ip": "198.51.100.15",
+		"banned_at": "2026-07-16T06:04:04.421Z",
+		"expires_at": "2026-07-19T06:04:04.421Z",
+		"reason": "rate_limit_exceeded",
+		"cf_listed": true
+	}
+]

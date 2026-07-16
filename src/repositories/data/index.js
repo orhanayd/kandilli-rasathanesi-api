@@ -63,9 +63,7 @@ module.exports.search = async (match = null, geoNear = null, sort = null, skip =
 	if (limit && limit > 0) {
 		agg.push({ $limit: Number(limit) });
 	}
-	if (project) {
-		agg.push({ $project: project });
-	}
+	agg.push({ $project: { ...project, _id: false } });
 	const query = await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate(agg);
 	if (query.length > 0) {
 		return query;

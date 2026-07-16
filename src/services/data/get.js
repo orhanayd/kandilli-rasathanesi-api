@@ -6,6 +6,7 @@ const constants = require('../../constants');
 
 module.exports = async (_req, res) => {
 	const responseBody = constants.response();
+	responseBody.serverloadms = new helpers.date.kk_date().format('x');
 	try {
 		const key = `data/earthquake/${res.locals.query.earthquake_id}`;
 		const cache = db.nopeRedis.getItem(key);

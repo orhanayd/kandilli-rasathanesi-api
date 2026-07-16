@@ -26,9 +26,10 @@ connector();
 
 app.set('trust proxy', true);
 app.use((req, _res, next) => {
-	const ipFromExpress = req.ip;
 	const ipFromCF = req.headers['cf-connecting-ip'];
-	req.ip = ipFromCF || ipFromExpress;
+	if (ipFromCF) {
+		Object.defineProperty(req, 'ip', { value: ipFromCF, configurable: true, enumerable: true });
+	}
 	next();
 });
 
@@ -45,21 +46,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(middlewares.timeout(constants.CONFIG.REQUEST_TIMEOUT_MS));
 
 expressJSDocSwagger(app)(middlewares.swagger);
-app.use(express.json({ limit: '50mb' }));
 
 //routes;
 app.use(require('./src/routes'));
 app.use((err, _req, res, next) => {
-	if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-		console.error(err);
-		const response = {
-			status: false,
-			desc: err.message || '',
-			httpStatus: err.httpStatus || 500,
-		};
-		return res.status(response.httpStatus).send(response); // Bad request
+	if (res.headersSent) {
+		return next(err);
 	}
-	return next();
+	console.error(err);
+	const response = {
+		status: false,
+		desc: err.message || '',
+		httpStatus: err.httpStatus || err.status || err.statusCode || 500,
+	};
+	return res.status(response.httpStatus).json(response);
 });
 
 /**

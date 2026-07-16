@@ -1,0 +1,507 @@
+[
+	{
+		"earthquake_id": "2HcciP_25kGqr",
+		"provider": "kandilli",
+		"title": "KARACAOREN-SIMAV (KUTAHYA)",
+		"mag": 1.7,
+		"depth": 2.9,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [
+				29.0483,
+				39.2038
+			]
+		},
+		"location_properties": {
+			"closestCity": {
+				"name": "Uşak",
+				"cityCode": 64,
+				"distance": 78494.96503688458,
+				"population": 375454
+			},
+			"epiCenter": {
+				"name": "Kütahya",
+				"cityCode": 43,
+				"population": 580701
+			},
+			"closestCities": [
+				{
+					"name": "Uşak",
+					"cityCode": 64,
+					"distance": 78494.96503688458,
+					"population": 375454
+				},
+				{
+					"name": "Manisa",
+					"cityCode": 45,
+					"distance": 97319.33553139429,
+					"population": 1468279
+				},
+				{
+					"name": "Bilecik",
+					"cityCode": 11,
+					"distance": 140837.15025396855,
+					"population": 228673
+				},
+				{
+					"name": "Yalova",
+					"cityCode": 77,
+					"distance": 152997.8997957915,
+					"population": 296333
+				},
+				{
+					"name": "Bursa",
+					"cityCode": 16,
+					"distance": 154775.09972492637,
+					"population": 3194720
+				}
+			],
+			"airports": [
+				{
+					"distance": 68657.00065808848,
+					"name": "Uşak Havalimanı",
+					"code": "USQ",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							29.4717,
+							38.6815
+						]
+					}
+				},
+				{
+					"distance": 86972.83570346644,
+					"name": "Zafer Havalimanı",
+					"code": "KZR",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							30.0183,
+							39.4242
+						]
+					}
+				},
+				{
+					"distance": 106913.63878566287,
+					"name": "Balıkesir Merkez Havalimanı",
+					"code": "BZI",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							27.926,
+							39.6193
+						]
+					}
+				}
+			]
+		},
+		"rev": null,
+		"date_time": "2025-09-29 15:24:03",
+		"created_at": 1759148643,
+		"location_tz": "Europe/Istanbul"
+	},
+	{
+		"earthquake_id": "GMi4IAJ3bkY3f",
+		"provider": "kandilli",
+		"title": "KARACAOREN-SIMAV (KUTAHYA)",
+		"mag": 1.7,
+		"depth": 2.9,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [
+				29.0483,
+				39.2038
+			]
+		},
+		"location_properties": {
+			"closestCity": {
+				"name": "Uşak",
+				"cityCode": 64,
+				"distance": 78494.96503688458,
+				"population": 375454
+			},
+			"epiCenter": {
+				"name": "Kütahya",
+				"cityCode": 43,
+				"population": 580701
+			},
+			"closestCities": [
+				{
+					"name": "Uşak",
+					"cityCode": 64,
+					"distance": 78494.96503688458,
+					"population": 375454
+				},
+				{
+					"name": "Manisa",
+					"cityCode": 45,
+					"distance": 97319.33553139429,
+					"population": 1468279
+				},
+				{
+					"name": "Bilecik",
+					"cityCode": 11,
+					"distance": 140837.15025396855,
+					"population": 228673
+				},
+				{
+					"name": "Yalova",
+					"cityCode": 77,
+					"distance": 152997.8997957915,
+					"population": 296333
+				},
+				{
+					"name": "Bursa",
+					"cityCode": 16,
+					"distance": 154775.09972492637,
+					"population": 3194720
+				}
+			],
+			"airports": [
+				{
+					"distance": 68657.00065808848,
+					"name": "Uşak Havalimanı",
+					"code": "USQ",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							29.4717,
+							38.6815
+						]
+					}
+				},
+				{
+					"distance": 86972.83570346644,
+					"name": "Zafer Havalimanı",
+					"code": "KZR",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							30.0183,
+							39.4242
+						]
+					}
+				},
+				{
+					"distance": 106913.63878566287,
+					"name": "Balıkesir Merkez Havalimanı",
+					"code": "BZI",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							27.926,
+							39.6193
+						]
+					}
+				}
+			]
+		},
+		"rev": null,
+		"date_time": "2025-09-29 15:24:03",
+		"created_at": 1759148643,
+		"location_tz": "Europe/Istanbul"
+	},
+	{
+		"earthquake_id": "pw9kQzyXGBCRA",
+		"provider": "kandilli",
+		"title": "KARACAOREN-SIMAV (KUTAHYA)",
+		"mag": 1.2,
+		"depth": 4.4,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [
+				29.027,
+				39.1915
+			]
+		},
+		"location_properties": {
+			"closestCity": {
+				"name": "Uşak",
+				"cityCode": 64,
+				"distance": 77876.27836639699,
+				"population": 375454
+			},
+			"epiCenter": {
+				"name": "Kütahya",
+				"cityCode": 43,
+				"population": 580701
+			},
+			"closestCities": [
+				{
+					"name": "Uşak",
+					"cityCode": 64,
+					"distance": 77876.27836639699,
+					"population": 375454
+				},
+				{
+					"name": "Manisa",
+					"cityCode": 45,
+					"distance": 95044.29081745674,
+					"population": 1468279
+				},
+				{
+					"name": "Bursa",
+					"cityCode": 16,
+					"distance": 98632.51795999573,
+					"population": 3194720
+				},
+				{
+					"name": "Balıkesir",
+					"cityCode": 10,
+					"distance": 132507.08120547302,
+					"population": 1257590
+				},
+				{
+					"name": "Bilecik",
+					"cityCode": 11,
+					"distance": 143097.4474632911,
+					"population": 228673
+				}
+			],
+			"airports": [
+				{
+					"distance": 68522.6013231045,
+					"name": "Uşak Havalimanı",
+					"code": "USQ",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							29.4717,
+							38.6815
+						]
+					}
+				},
+				{
+					"distance": 89127.09571696755,
+					"name": "Zafer Havalimanı",
+					"code": "KZR",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							30.0183,
+							39.4242
+						]
+					}
+				},
+				{
+					"distance": 105881.28776763352,
+					"name": "Balıkesir Merkez Havalimanı",
+					"code": "BZI",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							27.926,
+							39.6193
+						]
+					}
+				}
+			]
+		},
+		"rev": null,
+		"date_time": "2025-09-29 14:18:51",
+		"created_at": 1759144731,
+		"location_tz": "Europe/Istanbul"
+	},
+	{
+		"earthquake_id": "oO9WN880UT6z9",
+		"provider": "kandilli",
+		"title": "HAMZABEY-SIMAV (KUTAHYA)",
+		"mag": 1.6,
+		"depth": 11,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [
+				28.9527,
+				39.2185
+			]
+		},
+		"location_properties": {
+			"closestCity": {
+				"name": "Uşak",
+				"cityCode": 64,
+				"distance": 83185.52689433996,
+				"population": 375454
+			},
+			"epiCenter": {
+				"name": "Kütahya",
+				"cityCode": 43,
+				"population": 580701
+			},
+			"closestCities": [
+				{
+					"name": "Uşak",
+					"cityCode": 64,
+					"distance": 83185.52689433996,
+					"population": 375454
+				},
+				{
+					"name": "Manisa",
+					"cityCode": 45,
+					"distance": 91218.84381114121,
+					"population": 1468279
+				},
+				{
+					"name": "Bursa",
+					"cityCode": 16,
+					"distance": 95872.89137032045,
+					"population": 3194720
+				},
+				{
+					"name": "Balıkesir",
+					"cityCode": 10,
+					"distance": 125530.42235784949,
+					"population": 1257590
+				},
+				{
+					"name": "Bilecik",
+					"cityCode": 11,
+					"distance": 145569.26695591575,
+					"population": 228673
+				}
+			],
+			"airports": [
+				{
+					"distance": 74697.6952912851,
+					"name": "Uşak Havalimanı",
+					"code": "USQ",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							29.4717,
+							38.6815
+						]
+					}
+				},
+				{
+					"distance": 94473.92035198383,
+					"name": "Zafer Havalimanı",
+					"code": "KZR",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							30.0183,
+							39.4242
+						]
+					}
+				},
+				{
+					"distance": 98814.45022856475,
+					"name": "Balıkesir Merkez Havalimanı",
+					"code": "BZI",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							27.926,
+							39.6193
+						]
+					}
+				}
+			]
+		},
+		"rev": null,
+		"date_time": "2025-09-29 14:27:40",
+		"created_at": 1759145260,
+		"location_tz": "Europe/Istanbul"
+	},
+	{
+		"earthquake_id": "nQwcCP2wS8xJx",
+		"provider": "kandilli",
+		"title": "EGIRLER-SIMAV (KUTAHYA)",
+		"mag": 1.8,
+		"depth": 10.6,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [
+				29.0263,
+				39.207
+			]
+		},
+		"location_properties": {
+			"closestCity": {
+				"name": "Uşak",
+				"cityCode": 64,
+				"distance": 79500.82955170979,
+				"population": 375454
+			},
+			"epiCenter": {
+				"name": "Kütahya",
+				"cityCode": 43,
+				"population": 580701
+			},
+			"closestCities": [
+				{
+					"name": "Uşak",
+					"cityCode": 64,
+					"distance": 79500.82955170979,
+					"population": 375454
+				},
+				{
+					"name": "Manisa",
+					"cityCode": 45,
+					"distance": 95873.50967888364,
+					"population": 1468279
+				},
+				{
+					"name": "Bursa",
+					"cityCode": 16,
+					"distance": 96909.3239896465,
+					"population": 3194720
+				},
+				{
+					"name": "Balıkesir",
+					"cityCode": 10,
+					"distance": 131494.198276221,
+					"population": 1257590
+				},
+				{
+					"name": "Bilecik",
+					"cityCode": 11,
+					"distance": 141911.28831590968,
+					"population": 228673
+				}
+			],
+			"airports": [
+				{
+					"distance": 69986.66002728605,
+					"name": "Uşak Havalimanı",
+					"code": "USQ",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							29.4717,
+							38.6815
+						]
+					}
+				},
+				{
+					"distance": 88690.94728473942,
+					"name": "Zafer Havalimanı",
+					"code": "KZR",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							30.0183,
+							39.4242
+						]
+					}
+				},
+				{
+					"distance": 105054.71173977273,
+					"name": "Balıkesir Merkez Havalimanı",
+					"code": "BZI",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [
+							27.926,
+							39.6193
+						]
+					}
+				}
+			]
+		},
+		"rev": null,
+		"date_time": "2025-09-29 14:33:33",
+		"created_at": 1759145613,
+		"location_tz": "Europe/Istanbul"
+	}
+]

@@ -69,19 +69,19 @@ module.exports.archive = async (req, res, next) => {
 			}
 		}
 
-		if (req.query.date && typeof req.query.date === 'string') {
-			req.query.date = req.query.date.toString();
-			if (!helpers.date.kk_date.isValid(req.query.date, 'YYYY-MM-DD')) {
+		const date_in = req.query.date;
+		if (date_in && typeof date_in === 'string') {
+			if (!helpers.date.kk_date.isValid(date_in, 'YYYY-MM-DD')) {
 				throw new constants.errors.WrongParam('afad.archive', 'date wrong param !');
 			}
-			query.date = new helpers.date.kk_date(req.query.date).startOf('days').format('YYYY-MM-DD HH:mm:ss');
+			query.date = new helpers.date.kk_date(date_in).startOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
-		if (req.query.date_end && typeof req.query.date_end === 'string') {
-			req.query.date_end = req.query.date_end.toString();
-			if (!helpers.date.kk_date.isValid(req.query.date_end, 'YYYY-MM-DD')) {
+		const date_end_in = req.query.date_end;
+		if (date_end_in && typeof date_end_in === 'string') {
+			if (!helpers.date.kk_date.isValid(date_end_in, 'YYYY-MM-DD')) {
 				throw new constants.errors.WrongParam('afad.archive', 'date_end wrong param !');
 			}
-			query.date_end = new helpers.date.kk_date(req.query.date_end).endOf('days').format('YYYY-MM-DD HH:mm:ss');
+			query.date_end = new helpers.date.kk_date(date_end_in).endOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
 
 		res.locals.query = query;
