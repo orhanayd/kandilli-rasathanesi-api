@@ -13,7 +13,10 @@ const cloudflare = require('./src/helpers/cloudflare');
 
 async function connector() {
 	await db.MongoDB.connector();
-	await repositories.data.createIndexes();
+	// index kurulumu boot'u bloklamaz; her index için kuruldu / zaten kurulu / kurulamadı loglanır
+	repositories.data.createIndexes();
+	repositories.ban.createIndex();
+	repositories.rate.createIndex();
 	await cloudflare.init();
 	// geometri önbelleğini boot'ta ısıt, ilk cron çağrısı beklemesin
 	setImmediate(() => helpers.earthquakes.warm());

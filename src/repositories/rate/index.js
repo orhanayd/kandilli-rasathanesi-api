@@ -5,10 +5,11 @@ const ban = require('../ban');
 
 module.exports.createIndex = async () => {
 	try {
-		await new db.MongoDB.CRUD('earthquake', 'requests').createIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
-		await new db.MongoDB.CRUD('earthquake', 'requests').createIndex({ ip: 1, created_at: 1 });
+		const crud = new db.MongoDB.CRUD('earthquake', 'requests');
+		await crud.ensureIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
+		await crud.ensureIndex({ ip: 1, created_at: 1 });
 	} catch (err) {
-		console.error('rate.createIndex error:', err);
+		console.error('rate.createIndex error:', err.message);
 	}
 };
 

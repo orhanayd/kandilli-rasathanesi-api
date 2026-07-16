@@ -9,10 +9,11 @@ const BAN_DURATION_DAYS = 3;
 
 module.exports.createIndex = async () => {
 	try {
-		await new db.MongoDB.CRUD('earthquake', 'bans').createIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
-		await new db.MongoDB.CRUD('earthquake', 'bans').createIndex({ ip: 1 });
+		const crud = new db.MongoDB.CRUD('earthquake', 'bans');
+		await crud.ensureIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
+		await crud.ensureIndex({ ip: 1 });
 	} catch (err) {
-		console.error('ban.createIndex error:', err);
+		console.error('ban.createIndex error:', err.message);
 	}
 };
 

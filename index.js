@@ -17,8 +17,10 @@ const cloudflare = require('./src/helpers/cloudflare');
 
 async function connector() {
 	await db.MongoDB.connector();
-	await repositories.ban.createIndex();
-	await repositories.rate.createIndex();
+	// index kurulumu boot'u bloklamaz; her index için kuruldu / zaten kurulu / kurulamadı loglanır
+	repositories.ban.createIndex();
+	repositories.rate.createIndex();
+	repositories.data.createIndexes();
 	await cloudflare.init();
 }
 

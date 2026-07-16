@@ -6,14 +6,14 @@ module.exports.stats = require('./stats');
 module.exports.createIndexes = async () => {
 	try {
 		const crud = new db.MongoDB.CRUD('earthquake', 'data_v2');
-		await crud.createIndex(
+		await crud.ensureIndex(
 			{ provider: 1, date_time: 1, mag: 1, depth: 1, 'geojson.coordinates.0': 1, 'geojson.coordinates.1': 1 },
 			{ name: 'dedup_key' },
 		);
-		await crud.createIndex({ date_time: -1 });
-		await crud.createIndex({ earthquake_id: 1 });
+		await crud.ensureIndex({ date_time: -1 });
+		await crud.ensureIndex({ earthquake_id: 1 });
 	} catch (err) {
-		console.error('data.createIndexes error:', err);
+		console.error('data.createIndexes error:', err.message);
 	}
 };
 
