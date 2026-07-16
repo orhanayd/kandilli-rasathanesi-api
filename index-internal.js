@@ -31,7 +31,15 @@ app.use((req, _res, next) => {
 });
 
 logger.token('real-ip', (req) => req.ip);
-logger.token('datetime', () => new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss'));
+// log zaman damgası saniyede bir kez formatlanır
+let datetimeCache = { sec: 0, str: '' };
+logger.token('datetime', () => {
+	const sec = Math.floor(Date.now() / 1000);
+	if (sec !== datetimeCache.sec) {
+		datetimeCache = { sec, str: new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss') };
+	}
+	return datetimeCache.str;
+});
 
 app.use(cors());
 app.use(logger(':datetime - :real-ip - :method :url :status :response-time ms'));

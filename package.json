@@ -31,7 +31,6 @@
 		"express-jsdoc-swagger": "^1.8.0",
 		"fast-xml-parser": "^5.10.1",
 		"kk-date": "^5.0.0",
-		"md5": "^2.3.0",
 		"mongodb": "^7.5.0",
 		"morgan": "^1.11.0",
 		"nope-id": "1.4.1",

@@ -6,7 +6,7 @@ const db = require('../../db');
 
 module.exports = async (_req, res) => {
 	const responseBody = constants.response();
-	responseBody.serverloadms = new helpers.date.kk_date().format('x');
+	responseBody.serverloadms = Date.now();
 
 	try {
 		const expiredBans = await repositories.ban.findExpired();
@@ -22,7 +22,7 @@ module.exports = async (_req, res) => {
 		responseBody.httpStatus = 500;
 	}
 
-	responseBody.serverloadms = new helpers.date.kk_date().format('x') - responseBody.serverloadms;
+	responseBody.serverloadms = Date.now() - responseBody.serverloadms;
 	res.status(responseBody.httpStatus).json(responseBody);
 
 	if (cloudflare.isEnabled()) {
