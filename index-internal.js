@@ -8,11 +8,15 @@ const db = require('./src/db');
 const port = 7980;
 
 // connectors for db, cache etc.;
+const repositories = require('./src/repositories');
 const cloudflare = require('./src/helpers/cloudflare');
 
 async function connector() {
 	await db.MongoDB.connector();
+	await repositories.data.createIndexes();
 	await cloudflare.init();
+	// geometri önbelleğini boot'ta ısıt, ilk cron çağrısı beklemesin
+	setImmediate(() => helpers.earthquakes.warm());
 }
 
 connector();
