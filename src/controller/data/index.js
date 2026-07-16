@@ -5,6 +5,7 @@ const repositories = require('../../repositories');
 module.exports.statsGeneral = (req, res, next) => {
 	const response = constants.response();
 	try {
+		req.body = req.body || {};
 		const body = {
 			match: {
 				date_time: {},
@@ -136,6 +137,7 @@ module.exports.statsGeneral = (req, res, next) => {
 module.exports.search = async (req, res, next) => {
 	const response = constants.response();
 	try {
+		req.body = req.body || {};
 		await repositories.rate.check(req.ip);
 
 		const body = {
@@ -150,6 +152,9 @@ module.exports.search = async (req, res, next) => {
 			body.skip = parseInt(req.body.skip, 10);
 			if (Number.isNaN(body.skip)) {
 				throw new constants.errors.WrongParam('data.search', 'isNaN skip !');
+			}
+			if (body.skip > 10000) {
+				throw new constants.errors.WrongParam('data.search', 'skip max 10000 !');
 			}
 		}
 
@@ -275,6 +280,9 @@ module.exports.sitemap = (req, res, next) => {
 			if (Number.isNaN(query.page) || query.page < 1) {
 				throw new constants.errors.WrongParam('data.sitemap', 'page wrong param !');
 			}
+			if (query.page > 1000) {
+				throw new constants.errors.WrongParam('data.sitemap', 'page max 1000 !');
+			}
 		}
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
@@ -325,21 +333,24 @@ module.exports.allProviders = async (req, res, next) => {
 			if (Number.isNaN(query.skip)) {
 				throw new constants.errors.WrongParam('afad.archive', 'isNaN skip !');
 			}
+			if (query.skip > 10000) {
+				throw new constants.errors.WrongParam('afad.archive', 'skip max 10000 !');
+			}
 		}
 
-		if (req.query.date && typeof req.query.date === 'string') {
-			req.query.date = req.query.date.toString();
-			if (!helpers.date.kk_date.isValid(req.query.date, 'YYYY-MM-DD')) {
+		const date_in = req.query.date;
+		if (date_in && typeof date_in === 'string') {
+			if (!helpers.date.kk_date.isValid(date_in, 'YYYY-MM-DD')) {
 				throw new constants.errors.WrongParam('afad.archive', 'date wrong param !');
 			}
-			query.date = new helpers.date.kk_date(req.query.date).startOf('days').format('YYYY-MM-DD HH:mm:ss');
+			query.date = new helpers.date.kk_date(date_in).startOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
-		if (req.query.date_end && typeof req.query.date_end === 'string') {
-			req.query.date_end = req.query.date_end.toString();
-			if (!helpers.date.kk_date.isValid(req.query.date_end, 'YYYY-MM-DD')) {
+		const date_end_in = req.query.date_end;
+		if (date_end_in && typeof date_end_in === 'string') {
+			if (!helpers.date.kk_date.isValid(date_end_in, 'YYYY-MM-DD')) {
 				throw new constants.errors.WrongParam('afad.archive', 'date_end wrong param !');
 			}
-			query.date_end = new helpers.date.kk_date(req.query.date_end).endOf('days').format('YYYY-MM-DD HH:mm:ss');
+			query.date_end = new helpers.date.kk_date(date_end_in).endOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
 
 		res.locals.query = query;

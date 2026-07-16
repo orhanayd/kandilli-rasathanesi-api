@@ -4,7 +4,9 @@ const helpers_crawler = require('./helpers');
 const helpers = require('../../helpers');
 const constants = require('../../constants');
 
-const alwaysArray = ['earhquake.eqlist'];
+// Not: 'earhquake' Kandilli XML şemasının kendi etiket adıdır (kaynaktaki yazım hatası), düzeltilmemeli.
+// jpath kökten yaprağa yazılır: eqlist > earhquake — tek depremli feed'de de dizi parse edilmesini sağlar.
+const alwaysArray = ['eqlist.earhquake'];
 
 module.exports.get = async (limit = null) => {
 	const parser = new XMLParser({

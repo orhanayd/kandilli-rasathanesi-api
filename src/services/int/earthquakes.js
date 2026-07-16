@@ -3,15 +3,17 @@ const helpers = require('../../helpers');
 const repositories = require('../../repositories');
 const constants = require('../../constants');
 
+let running = false;
+
 module.exports = async (_req, res) => {
 	const responseBody = constants.response();
-	responseBody.serverloadms = new helpers.date.kk_date().format('x');
+	responseBody.serverloadms = Date.now();
 
 	try {
 		async function kandilliImport() {
 			try {
 				const kandilli_data = await helpers.crawler.kandilli.get();
-				repositories.data.multiSave(kandilli_data.data);
+				await repositories.data.multiSave(kandilli_data.data);
 			} catch (error) {
 				console.error(error);
 			}
@@ -22,7 +24,7 @@ module.exports = async (_req, res) => {
 					new helpers.date.kk_date().add(-1, 'days').format('YYYY-MM-DD'),
 					new helpers.date.kk_date().format('YYYY-MM-DD'),
 				);
-				repositories.data.multiSave(afad_data.data);
+				await repositories.data.multiSave(afad_data.data);
 			} catch (error) {
 				console.error(error);
 			}
@@ -31,13 +33,20 @@ module.exports = async (_req, res) => {
 			await kandilliImport();
 			await afadImport();
 		}
-		start();
+		if (running) {
+			responseBody.desc = 'already running';
+		} else {
+			running = true;
+			start().finally(() => {
+				running = false;
+			});
+		}
 	} catch (error) {
 		console.error(error);
 		responseBody.desc = error.message || '';
 		responseBody.status = false;
 		responseBody.httpStatus = 500;
 	}
-	responseBody.serverloadms = new helpers.date.kk_date().format('x') - responseBody.serverloadms;
+	responseBody.serverloadms = Date.now() - responseBody.serverloadms;
 	return res.status(responseBody.httpStatus).json(responseBody);
 };

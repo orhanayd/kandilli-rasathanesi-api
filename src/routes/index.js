@@ -27,11 +27,16 @@ router.use('/deprem/data', data);
  * @return {object} 500 - Server error - application/json
  */
 router.get('/deprem/status', async (_req, res) => {
+	const cached = db.nopeRedis.getItem('status/summary');
+	if (cached) {
+		return res.json(cached);
+	}
 	const response = constants.response();
 	response.desc = 'kandilli son depremler api service';
 	response.stats = await repositories.rate.stats();
 	response.stats.total_banned_ip = await repositories.ban.count();
 	response.nopeRedis = db.nopeRedis.stats({ showKeys: false, showTotal: true, showSize: true });
+	db.nopeRedis.setItem('status/summary', response, 30);
 	return res.json(response);
 });
 

@@ -8,25 +8,41 @@ const db = require('./src/db');
 const port = 7980;
 
 // connectors for db, cache etc.;
+const repositories = require('./src/repositories');
 const cloudflare = require('./src/helpers/cloudflare');
 
 async function connector() {
 	await db.MongoDB.connector();
+	// index kurulumu boot'u bloklamaz; her index için kuruldu / zaten kurulu / kurulamadı loglanır
+	repositories.data.createIndexes();
+	repositories.ban.createIndex();
+	repositories.rate.createIndex();
 	await cloudflare.init();
+	// geometri önbelleğini boot'ta ısıt, ilk cron çağrısı beklemesin
+	setImmediate(() => helpers.earthquakes.warm());
 }
 
 connector();
 
 app.set('trust proxy', true);
 app.use((req, _res, next) => {
-	const ipFromExpress = req.ip;
 	const ipFromCF = req.headers['cf-connecting-ip'];
-	req.ip = ipFromCF || ipFromExpress;
+	if (ipFromCF) {
+		Object.defineProperty(req, 'ip', { value: ipFromCF, configurable: true, enumerable: true });
+	}
 	next();
 });
 
 logger.token('real-ip', (req) => req.ip);
-logger.token('datetime', () => new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss'));
+// log zaman damgası saniyede bir kez formatlanır
+let datetimeCache = { sec: 0, str: '' };
+logger.token('datetime', () => {
+	const sec = Math.floor(Date.now() / 1000);
+	if (sec !== datetimeCache.sec) {
+		datetimeCache = { sec, str: new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss') };
+	}
+	return datetimeCache.str;
+});
 
 app.use(cors());
 app.use(logger(':datetime - :real-ip - :method :url :status :response-time ms'));
@@ -49,16 +65,16 @@ app.get('/health', (_req, res) => {
 
 // Error handling middleware
 app.use((err, _req, res, next) => {
-	if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-		console.error(err);
-		const response = {
-			status: false,
-			desc: err.message || '',
-			httpStatus: err.httpStatus || 500,
-		};
-		return res.status(response.httpStatus).send(response);
+	if (res.headersSent) {
+		return next(err);
 	}
-	return next();
+	console.error(err);
+	const response = {
+		status: false,
+		desc: err.message || '',
+		httpStatus: err.httpStatus || err.status || err.statusCode || 500,
+	};
+	return res.status(response.httpStatus).json(response);
 });
 
 // 404 handler

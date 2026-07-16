@@ -17,8 +17,10 @@ const cloudflare = require('./src/helpers/cloudflare');
 
 async function connector() {
 	await db.MongoDB.connector();
-	await repositories.ban.createIndex();
-	await repositories.rate.createIndex();
+	// index kurulumu boot'u bloklamaz; her index için kuruldu / zaten kurulu / kurulamadı loglanır
+	repositories.ban.createIndex();
+	repositories.rate.createIndex();
+	repositories.data.createIndexes();
 	await cloudflare.init();
 }
 
@@ -26,14 +28,23 @@ connector();
 
 app.set('trust proxy', true);
 app.use((req, _res, next) => {
-	const ipFromExpress = req.ip;
 	const ipFromCF = req.headers['cf-connecting-ip'];
-	req.ip = ipFromCF || ipFromExpress;
+	if (ipFromCF) {
+		Object.defineProperty(req, 'ip', { value: ipFromCF, configurable: true, enumerable: true });
+	}
 	next();
 });
 
 logger.token('real-ip', (req) => req.ip);
-logger.token('datetime', () => new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss'));
+// log zaman damgası saniyede bir kez formatlanır
+let datetimeCache = { sec: 0, str: '' };
+logger.token('datetime', () => {
+	const sec = Math.floor(Date.now() / 1000);
+	if (sec !== datetimeCache.sec) {
+		datetimeCache = { sec, str: new helpers.date.kk_date().format('YYYY-MM-DD HH:mm:ss') };
+	}
+	return datetimeCache.str;
+});
 
 app.use(cors());
 app.use(logger(':datetime - :real-ip - :method :url :status :response-time ms'));
@@ -45,21 +56,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(middlewares.timeout(constants.CONFIG.REQUEST_TIMEOUT_MS));
 
 expressJSDocSwagger(app)(middlewares.swagger);
-app.use(express.json({ limit: '50mb' }));
 
 //routes;
 app.use(require('./src/routes'));
 app.use((err, _req, res, next) => {
-	if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-		console.error(err);
-		const response = {
-			status: false,
-			desc: err.message || '',
-			httpStatus: err.httpStatus || 500,
-		};
-		return res.status(response.httpStatus).send(response); // Bad request
+	if (res.headersSent) {
+		return next(err);
 	}
-	return next();
+	console.error(err);
+	const response = {
+		status: false,
+		desc: err.message || '',
+		httpStatus: err.httpStatus || err.status || err.statusCode || 500,
+	};
+	return res.status(response.httpStatus).json(response);
 });
 
 /**

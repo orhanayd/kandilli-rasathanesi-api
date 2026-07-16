@@ -25,7 +25,7 @@ module.exports.connector = async (connectionString = null) => {
 				: `mongodb://${process.env.MONGODB_USER}:${encodeURIComponent(process.env.MONGODB_PASS)}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/admin`;
 			const mongoClient = new MongoClient(uri, {
 				minPoolSize: 1,
-				maxPoolSize: 3,
+				maxPoolSize: 10,
 				connectTimeoutMS: 5 * 1000,
 			});
 			connection = await mongoClient.connect();
@@ -94,6 +94,15 @@ class CRUD {
 	 */
 	async count(query = {}) {
 		return await connection.db(this.db).collection(this.collection).countDocuments(query);
+	}
+
+	/**
+	 * Estimated document count from collection metadata (O(1), no collection scan)
+	 *
+	 * @returns
+	 */
+	async estimatedCount() {
+		return await connection.db(this.db).collection(this.collection).estimatedDocumentCount();
 	}
 
 	/**
@@ -169,6 +178,48 @@ class CRUD {
 
 	async createIndex(data, options = {}) {
 		return await connection.db(this.db).collection(this.collection).createIndex(data, options);
+	}
+
+	/**
+	 * checks if an index exists by name (missing collection counts as not exists)
+	 *
+	 * @param {String} name
+	 * @returns {Promise<Boolean>}
+	 */
+	async indexExists(name) {
+		try {
+			return await connection.db(this.db).collection(this.collection).indexExists(name);
+		} catch (_err) {
+			// koleksiyon henüz yoksa listIndexes NamespaceNotFound fırlatır -> index yok say
+			return false;
+		}
+	}
+
+	/**
+	 * idempotent index setup with created / already exists / failed logging
+	 *
+	 * @param {Object} spec index key spec
+	 * @param {Object} options createIndex options
+	 * @returns {Promise<Boolean>} true if index exists or was created
+	 */
+	async ensureIndex(spec, options = {}) {
+		const name =
+			options.name ||
+			Object.entries(spec)
+				.map(([key, value]) => `${key}_${value}`)
+				.join('_');
+		try {
+			if (await this.indexExists(name)) {
+				console.log(`MongoDB -> index already exists: ${this.collection}.${name}`);
+				return true;
+			}
+			await this.createIndex(spec, { ...options, name });
+			console.log(`MongoDB -> index created: ${this.collection}.${name}`);
+			return true;
+		} catch (err) {
+			console.error(`MongoDB -> index create failed: ${this.collection}.${name} ->`, err.message);
+			return false;
+		}
 	}
 }
 

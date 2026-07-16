@@ -1,7 +1,7 @@
 const helpers = require('../../helpers');
 const db = require('../../db');
 const constants = require('../../constants');
-const helpers_crawler = require('../index');
+const earthquakes = require('../earthquakes');
 
 module.exports.kandilli_models = (data, limit = null) => {
 	try {
@@ -30,7 +30,6 @@ module.exports.kandilli_models = (data, limit = null) => {
 					type: 'Point',
 					coordinates: [data[index]['@_lng'], data[index]['@_lat']],
 				},
-				location_properties: helpers_crawler.earthquakes.location_properties(data[index]['@_lng'], data[index]['@_lat']),
 				rev,
 				date_time: new helpers.date.kk_date(data[index]['@_name']).format('YYYY-MM-DD HH:mm:ss'),
 				created_at: parseInt(new helpers.date.kk_date(data[index]['@_name']).format('X'), 10),
@@ -42,6 +41,13 @@ module.exports.kandilli_models = (data, limit = null) => {
 		console.error(error);
 		return { data: [], metadata: { total: 0 } };
 	}
+};
+
+module.exports.enrich = (records) => {
+	for (const record of records) {
+		record.location_properties = earthquakes.location_properties(record.geojson.coordinates[0], record.geojson.coordinates[1]);
+	}
+	return records;
 };
 
 module.exports.afad_models = (data, limit = null) => {
@@ -65,7 +71,6 @@ module.exports.afad_models = (data, limit = null) => {
 					type: 'Point',
 					coordinates: [data[index]['longitude'], data[index]['latitude']],
 				},
-				location_properties: helpers_crawler.earthquakes.location_properties(data[index]['longitude'], data[index]['latitude']),
 				rev: null,
 				date_time: new helpers.date.kk_date(data[index]['eventDate']).add(3, 'hours').format('YYYY-MM-DD HH:mm:ss'),
 				created_at: parseInt(new helpers.date.kk_date(data[index]['eventDate']).add(3, 'hours').format('X'), 10),

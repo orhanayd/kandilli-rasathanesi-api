@@ -2,8 +2,8 @@ const db = require('../../db');
 const helpers = require('../../helpers');
 const constants = require('../../constants');
 
-module.exports.update = async (earhquake_id, update) => {
-	return await new db.MongoDB.CRUD('earthquake', 'data_v2').update({ earhquake_id }, { $set: update });
+module.exports.update = async (earthquake_id, update) => {
+	return await new db.MongoDB.CRUD('earthquake', 'data_v2').update({ earthquake_id }, { $set: update });
 };
 
 module.exports.list = async (

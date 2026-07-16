@@ -140,29 +140,37 @@ module.exports.airportsBy = async (match) => {
 	]);
 };
 
-module.exports.epiCenters = () => {
-	const result = [];
-	const locations_geojson_length = db.locations.geojsons.length;
-	for (let index = 0; index < locations_geojson_length; index++) {
-		result.push({
-			city: db.locations.geojsons[index].name,
-			cityCode: db.locations.geojsons[index].number,
-			population: db.populations[db.locations.geojsons[index].number]?.population,
+// Statik veri; her istekte yeniden hesaplanmasın diye modül yüklenirken bir kez kurulur.
+// cities.js kullanılır ki public process 21MB geojson verisini yüklemek zorunda kalmasın.
+const cities = require('../../db/cities');
+const EPI_CENTERS = Object.freeze(
+	(() => {
+		const result = [];
+		const cities_length = cities.length;
+		for (let index = 0; index < cities_length; index++) {
+			result.push({
+				city: cities[index].name,
+				cityCode: cities[index].number,
+				population: db.populations[cities[index].number]?.population,
+			});
+		}
+		result.sort((a, b) => {
+			const nameA = a.city.toUpperCase(); // ignore upper and lowercase
+			const nameB = b.city.toUpperCase(); // ignore upper and lowercase
+			if (nameA < nameB) {
+				return -1;
+			}
+			if (nameA > nameB) {
+				return 1;
+			}
+			// names must be equal
+			return 0;
 		});
-	}
-	return result.sort((a, b) => {
-		const nameA = a.city.toUpperCase(); // ignore upper and lowercase
-		const nameB = b.city.toUpperCase(); // ignore upper and lowercase
-		if (nameA < nameB) {
-			return -1;
-		}
-		if (nameA > nameB) {
-			return 1;
-		}
-		// names must be equal
-		return 0;
-	});
-};
+		return result.map(Object.freeze);
+	})(),
+);
+
+module.exports.epiCenters = () => EPI_CENTERS;
 
 module.exports.dateByEarthQuakes = async (match) => {
 	return await new db.MongoDB.CRUD('earthquake', 'data_v2').aggregate([
