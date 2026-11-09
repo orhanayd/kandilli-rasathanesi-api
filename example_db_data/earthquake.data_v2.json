@@ -1,325 +1,290 @@
 [
 	{
-		"earthquake_id": "uB9JQnP639vWv",
-		"provider": "afad",
-		"title": "Ula (Muğla)",
-		"mag": 0.6,
-		"depth": 7,
+		"earthquake_id": "xlVNkT251nlFF",
+		"provider": "kandilli",
+		"title": "ADALAR (ISTANBUL)",
+		"mag": 1.3,
+		"depth": 15.2,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				28.5195,
-				37.1147
-			]
-		},
-		"location_properties": {
-			"closestCity": {
-				"name": "Aydın",
-				"cityCode": 9,
-				"distance": 84287,
-				"population": 1148241
-			},
-			"epiCenter": {
-				"name": "Muğla",
-				"cityCode": 48,
-				"population": 1048185
-			},
-			"closestCities": [
-				{
-					"name": "Aydın",
-					"cityCode": 9,
-					"distance": 84287,
-					"population": 1148241
-				},
-				{
-					"name": "Denizli",
-					"cityCode": 20,
-					"distance": 92136,
-					"population": 1056332
-				},
-				{
-					"name": "Burdur",
-					"cityCode": 15,
-					"distance": 147452,
-					"population": 273799
-				},
-				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 174917,
-					"population": 375454
-				},
-				{
-					"name": "Manisa",
-					"cityCode": 45,
-					"distance": 186581,
-					"population": 1468279
-				}
-			],
-			"airports": [
-				{
-					"distance": 50825,
-					"name": "Dalaman Havalimanı",
-					"code": "DLM",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							28.7925,
-							36.7131
-						]
-					}
-				},
-				{
-					"distance": 77255,
-					"name": "Milas Bodrum Havalimanı",
-					"code": "BJV",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							27.6643,
-							37.2506
-						]
-					}
-				},
-				{
-					"distance": 95825,
-					"name": "Aydın Çıldır Havalimanı",
-					"code": "CII",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							27.8885,
-							37.816
-						]
-					}
-				}
-			]
+			"coordinates": [29.1257, 40.7852]
 		},
 		"rev": null,
-		"date_time": "2026-07-16 13:48:04",
-		"created_at": 1784198884,
-		"location_tz": "Europe/Istanbul"
-	},
-	{
-		"earthquake_id": "QTq6MfrzeawNl",
-		"provider": "afad",
-		"title": "Tefenni (Burdur)",
-		"mag": 1.1,
-		"depth": 7,
-		"geojson": {
-			"type": "Point",
-			"coordinates": [
-				29.76,
-				37.3225
-			]
-		},
+		"date_time": "2026-08-21 20:41:56",
+		"created_at": 1787334116,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Denizli",
-				"cityCode": 20,
-				"distance": 56111,
-				"population": 1056332
+				"name": "Yalova",
+				"cityCode": 77,
+				"distance": 22972,
+				"population": 296333
 			},
 			"epiCenter": {
-				"name": "Burdur",
-				"cityCode": 15,
-				"population": 273799
-			},
-			"closestCities": [
-				{
-					"name": "Denizli",
-					"cityCode": 20,
-					"distance": 56111,
-					"population": 1056332
-				},
-				{
-					"name": "Isparta",
-					"cityCode": 32,
-					"distance": 114487,
-					"population": 445325
-				},
-				{
-					"name": "Antalya",
-					"cityCode": 7,
-					"distance": 122024,
-					"population": 2688004
-				},
-				{
-					"name": "Muğla",
-					"cityCode": 48,
-					"distance": 125300,
-					"population": 1048185
-				},
-				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 139947,
-					"population": 375454
-				}
-			],
-			"airports": [
-				{
-					"distance": 51754,
-					"name": "Çardak Havalimanı",
-					"code": "DNZ",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							29.7013,
-							37.7856
-						]
-					}
-				},
-				{
-					"distance": 79906,
-					"name": "Süleyman Demirel Havalimanı",
-					"code": "ISE",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							30.3684,
-							37.8554
-						]
-					}
-				},
-				{
-					"distance": 103603,
-					"name": "Antalya Havalimanı",
-					"code": "AYT",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							30.8005,
-							36.8987
-						]
-					}
-				}
-			]
-		},
-		"rev": null,
-		"date_time": "2026-07-16 13:51:02",
-		"created_at": 1784199062,
-		"location_tz": "Europe/Istanbul"
-	},
-	{
-		"earthquake_id": "hXN0WfQd5nIPs",
-		"provider": "afad",
-		"title": "Ege Denizi - [07.94 km] Ezine (Çanakkale)",
-		"mag": 2.5,
-		"depth": 8.58,
-		"geojson": {
-			"type": "Point",
-			"coordinates": [
-				26.0822,
-				39.9669
-			]
-		},
-		"location_properties": {
-			"closestCity": {
-				"name": "Çanakkale",
-				"cityCode": 17,
-				"distance": 49370,
-				"population": 559383
-			},
-			"epiCenter": {
-				"name": "Ege Denizi",
+				"name": "Marmara Denizi",
 				"cityCode": -1,
 				"population": null
 			},
 			"closestCities": [
 				{
-					"name": "Çanakkale",
-					"cityCode": 17,
-					"distance": 49370,
-					"population": 559383
+					"name": "Yalova",
+					"cityCode": 77,
+					"distance": 22972,
+					"population": 296333
 				},
 				{
-					"name": "Balıkesir",
-					"cityCode": 10,
-					"distance": 142283,
-					"population": 1257590
+					"name": "İstanbul",
+					"cityCode": 34,
+					"distance": 45992,
+					"population": 15907951
 				},
 				{
-					"name": "Edirne",
-					"cityCode": 22,
-					"distance": 152271,
-					"population": 414714
+					"name": "Kocaeli",
+					"cityCode": 41,
+					"distance": 59143,
+					"population": 2079072
 				},
 				{
-					"name": "Tekirdağ",
-					"cityCode": 59,
-					"distance": 171623,
-					"population": 1142451
+					"name": "Bursa",
+					"cityCode": 16,
+					"distance": 78975,
+					"population": 3194720
 				},
 				{
-					"name": "İzmir",
-					"cityCode": 35,
-					"distance": 187584,
-					"population": 4462056
+					"name": "Sakarya",
+					"cityCode": 54,
+					"distance": 114136,
+					"population": 1080080
 				}
 			],
 			"airports": [
 				{
-					"distance": 30898,
-					"name": "Gökçeada Havalimanı",
-					"code": "GKD",
+					"distance": 19964,
+					"name": "Sabiha Gökçen Havalimanı",
+					"code": "SAW",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							25.8837,
-							40.1996
-						]
+						"coordinates": [29.30843353271484, 40.89976036643661]
 					}
 				},
 				{
-					"distance": 34943,
-					"name": "Çanakkale Havalimanı",
-					"code": "CKZ",
+					"distance": 33581,
+					"name": "Atatürk Havalimanı",
+					"code": "IST",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							26.4268,
-							40.1377
-						]
+						"coordinates": [28.819198608398438, 40.9788613095528]
 					}
 				},
 				{
-					"distance": 91885,
-					"name": "Balıkesir Koca Seyit Havalimanı",
-					"code": "EDO",
+					"distance": 62228,
+					"name": "Bursa Havalimanı",
+					"code": "BTZ",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.0138,
-							39.5546
-						]
+						"coordinates": [29.0094, 40.2326]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2026-07-16 14:06:22",
-		"created_at": 1784199982,
-		"location_tz": "Europe/Istanbul"
+		}
 	},
 	{
-		"earthquake_id": "xccdJae3M76SN",
+		"earthquake_id": "_WcB1lXow8w6J",
 		"provider": "afad",
-		"title": "Saimbeyli (Adana)",
-		"mag": 1.4,
-		"depth": 7.05,
+		"title": "Ekinözü (Kahramanmaraş)",
+		"mag": 1.6,
+		"depth": 7,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				36.2019,
-				37.8233
-			]
+			"coordinates": [37.084, 38.0732]
 		},
+		"rev": null,
+		"date_time": "2026-08-21 20:28:49",
+		"created_at": 1787333329,
+		"location_tz": "Europe/Istanbul",
+		"location_properties": {
+			"closestCity": {
+				"name": "Malatya",
+				"cityCode": 44,
+				"distance": 104622,
+				"population": 812580
+			},
+			"epiCenter": {
+				"name": "Kahramanmaraş",
+				"cityCode": 46,
+				"population": 1177436
+			},
+			"closestCities": [
+				{
+					"name": "Malatya",
+					"cityCode": 44,
+					"distance": 104622,
+					"population": 812580
+				},
+				{
+					"name": "Gaziantep",
+					"cityCode": 27,
+					"distance": 109110,
+					"population": 2154051
+				},
+				{
+					"name": "Osmaniye",
+					"cityCode": 80,
+					"distance": 110548,
+					"population": 559405
+				},
+				{
+					"name": "Adıyaman",
+					"cityCode": 2,
+					"distance": 112978,
+					"population": 635169
+				},
+				{
+					"name": "Kayseri",
+					"cityCode": 38,
+					"distance": 117252,
+					"population": 1441523
+				}
+			],
+			"airports": [
+				{
+					"distance": 60777,
+					"name": "Kahramanmaraş Havalimanı",
+					"code": "KCM",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [36.9473, 37.5374]
+					}
+				},
+				{
+					"distance": 96713,
+					"name": "Erhaç Havalimanı",
+					"code": "MLX",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [38.091, 38.4354]
+					}
+				},
+				{
+					"distance": 127331,
+					"name": "Adıyaman Havalimanı",
+					"code": "ADF",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [38.4691, 37.7314]
+					}
+				}
+			]
+		}
+	},
+	{
+		"earthquake_id": "kZuM76XmwDa8V",
+		"provider": "kandilli",
+		"title": "ORTAOREN-EKINOZU (KAHRAMANMARAS)",
+		"mag": 1.8,
+		"depth": 5.3,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [37.1313, 38.1175]
+		},
+		"rev": null,
+		"date_time": "2026-08-21 20:28:49",
+		"created_at": 1787333329,
+		"location_tz": "Europe/Istanbul",
+		"location_properties": {
+			"closestCity": {
+				"name": "Malatya",
+				"cityCode": 44,
+				"distance": 98801,
+				"population": 812580
+			},
+			"epiCenter": {
+				"name": "Kahramanmaraş",
+				"cityCode": 46,
+				"population": 1177436
+			},
+			"closestCities": [
+				{
+					"name": "Malatya",
+					"cityCode": 44,
+					"distance": 98801,
+					"population": 812580
+				},
+				{
+					"name": "Adıyaman",
+					"cityCode": 2,
+					"distance": 110319,
+					"population": 635169
+				},
+				{
+					"name": "Gaziantep",
+					"cityCode": 27,
+					"distance": 113545,
+					"population": 2154051
+				},
+				{
+					"name": "Osmaniye",
+					"cityCode": 80,
+					"distance": 116982,
+					"population": 559405
+				},
+				{
+					"name": "Kayseri",
+					"cityCode": 38,
+					"distance": 118440,
+					"population": 1441523
+				}
+			],
+			"airports": [
+				{
+					"distance": 66498,
+					"name": "Kahramanmaraş Havalimanı",
+					"code": "KCM",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [36.9473, 37.5374]
+					}
+				},
+				{
+					"distance": 90926,
+					"name": "Erhaç Havalimanı",
+					"code": "MLX",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [38.091, 38.4354]
+					}
+				},
+				{
+					"distance": 124948,
+					"name": "Adıyaman Havalimanı",
+					"code": "ADF",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [38.4691, 37.7314]
+					}
+				}
+			]
+		}
+	},
+	{
+		"earthquake_id": "y5G52oeedb6hs",
+		"provider": "afad",
+		"title": "Sumbas (Osmaniye)",
+		"mag": 1.7,
+		"depth": 6.97,
+		"geojson": {
+			"type": "Point",
+			"coordinates": [36.1068, 37.699]
+		},
+		"rev": null,
+		"date_time": "2026-08-21 20:11:48",
+		"created_at": 1787332308,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
 				"name": "Osmaniye",
 				"cityCode": 80,
-				"distance": 58463,
+				"distance": 47004,
 				"population": 559405
 			},
 			"epiCenter": {
@@ -331,177 +296,152 @@
 				{
 					"name": "Osmaniye",
 					"cityCode": 80,
-					"distance": 58463,
+					"distance": 47004,
 					"population": 559405
 				},
 				{
 					"name": "Kahramanmaraş",
 					"cityCode": 46,
-					"distance": 70215,
+					"distance": 81561,
 					"population": 1177436
 				},
 				{
 					"name": "Kayseri",
 					"cityCode": 38,
-					"distance": 90675,
+					"distance": 102466,
 					"population": 1441523
 				},
 				{
 					"name": "Gaziantep",
 					"cityCode": 27,
-					"distance": 122347,
+					"distance": 120723,
 					"population": 2154051
 				},
 				{
 					"name": "Niğde",
 					"cityCode": 51,
-					"distance": 130429,
+					"distance": 123860,
 					"population": 365419
 				}
 			],
 			"airports": [
 				{
-					"distance": 72895,
+					"distance": 76178,
 					"name": "Kahramanmaraş Havalimanı",
 					"code": "KCM",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							36.9473,
-							37.5374
-						]
+						"coordinates": [36.9473, 37.5374]
 					}
 				},
 				{
-					"distance": 122032,
-					"name": "Kayseri Erkilet Havalimanı",
-					"code": "ASR",
-					"coordinates": {
-						"type": "Point",
-						"coordinates": [
-							35.4954,
-							38.7704
-						]
-					}
-				},
-				{
-					"distance": 123985,
+					"distance": 108121,
 					"name": "Şakirpaşa Havalimanı",
 					"code": "ADA",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							35.2804,
-							36.9822
-						]
+						"coordinates": [35.2804, 36.9822]
+					}
+				},
+				{
+					"distance": 130554,
+					"name": "Kayseri Erkilet Havalimanı",
+					"code": "ASR",
+					"coordinates": {
+						"type": "Point",
+						"coordinates": [35.4954, 38.7704]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2026-07-16 14:04:31",
-		"created_at": 1784199871,
-		"location_tz": "Europe/Istanbul"
+		}
 	},
 	{
-		"earthquake_id": "bssEbrYB1O8m6",
+		"earthquake_id": "4ck44FUR9Rjkn",
 		"provider": "kandilli",
-		"title": "UVECIK ACIKLARI-CANAKKALE (EGE DENIZI)",
-		"mag": 2.1,
-		"depth": 3.5,
+		"title": "AKOLUK-FEKE (ADANA)",
+		"mag": 1.6,
+		"depth": 7.4,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				26.073,
-				39.9562
-			]
+			"coordinates": [36.0748, 37.7565]
 		},
+		"rev": null,
+		"date_time": "2026-08-21 20:11:48",
+		"created_at": 1787332308,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Çanakkale",
-				"cityCode": 17,
-				"distance": 50541,
-				"population": 559383
+				"name": "Osmaniye",
+				"cityCode": 80,
+				"distance": 53978,
+				"population": 559405
 			},
 			"epiCenter": {
-				"name": "Ege Denizi",
-				"cityCode": -1,
-				"population": null
+				"name": "Adana",
+				"cityCode": 1,
+				"population": 2274106
 			},
 			"closestCities": [
 				{
-					"name": "Çanakkale",
-					"cityCode": 17,
-					"distance": 50541,
-					"population": 559383
+					"name": "Osmaniye",
+					"cityCode": 80,
+					"distance": 53978,
+					"population": 559405
 				},
 				{
-					"name": "Balıkesir",
-					"cityCode": 10,
-					"distance": 142977,
-					"population": 1257590
+					"name": "Kahramanmaraş",
+					"cityCode": 46,
+					"distance": 82592,
+					"population": 1177436
 				},
 				{
-					"name": "Edirne",
-					"cityCode": 22,
-					"distance": 153611,
-					"population": 414714
+					"name": "Kayseri",
+					"cityCode": 38,
+					"distance": 95733,
+					"population": 1441523
 				},
 				{
-					"name": "Tekirdağ",
-					"cityCode": 59,
-					"distance": 173028,
-					"population": 1142451
+					"name": "Niğde",
+					"cityCode": 51,
+					"distance": 120066,
+					"population": 365419
 				},
 				{
-					"name": "İzmir",
-					"cityCode": 35,
-					"distance": 187077,
-					"population": 4462056
+					"name": "Gaziantep",
+					"cityCode": 27,
+					"distance": 126630,
+					"population": 2154051
 				}
 			],
 			"airports": [
 				{
-					"distance": 31495,
-					"name": "Gökçeada Havalimanı",
-					"code": "GKD",
+					"distance": 80588,
+					"name": "Kahramanmaraş Havalimanı",
+					"code": "KCM",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							25.8837,
-							40.1996
-						]
+						"coordinates": [36.9473, 37.5374]
 					}
 				},
 				{
-					"distance": 36253,
-					"name": "Çanakkale Havalimanı",
-					"code": "CKZ",
+					"distance": 111090,
+					"name": "Şakirpaşa Havalimanı",
+					"code": "ADA",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							26.4268,
-							40.1377
-						]
+						"coordinates": [35.2804, 36.9822]
 					}
 				},
 				{
-					"distance": 91989,
-					"name": "Balıkesir Koca Seyit Havalimanı",
-					"code": "EDO",
+					"distance": 123569,
+					"name": "Kayseri Erkilet Havalimanı",
+					"code": "ASR",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.0138,
-							39.5546
-						]
+						"coordinates": [35.4954, 38.7704]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2026-07-16 14:15:09",
-		"created_at": 1784200509,
-		"location_tz": "Europe/Istanbul"
+		}
 	}
 ]

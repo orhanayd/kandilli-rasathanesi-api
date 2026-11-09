@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Yunanistan',
-	number: 30,
+	number: 1030,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

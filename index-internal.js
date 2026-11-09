@@ -7,22 +7,7 @@ const helpers = require('./src/helpers');
 const db = require('./src/db');
 const port = 7980;
 
-// connectors for db, cache etc.;
-const repositories = require('./src/repositories');
 const cloudflare = require('./src/helpers/cloudflare');
-
-async function connector() {
-	await db.MongoDB.connector();
-	// index kurulumu boot'u bloklamaz; her index için kuruldu / zaten kurulu / kurulamadı loglanır
-	repositories.data.createIndexes();
-	repositories.ban.createIndex();
-	repositories.rate.createIndex();
-	await cloudflare.init();
-	// geometri önbelleğini boot'ta ısıt, ilk cron çağrısı beklemesin
-	setImmediate(() => helpers.earthquakes.warm());
-}
-
-connector();
 
 app.set('trust proxy', true);
 app.use((req, _res, next) => {
@@ -87,6 +72,32 @@ app.use((_req, res) => {
 	return res.status(response.httpStatus).json(response);
 });
 
-app.listen(port, () => {
-	console.log(`Kandilli Internal Service - PORT: ${port}`);
-});
+// Port ancak MongoDB bağlandıktan sonra açılır (ayrıntı: index.js start()).
+async function start() {
+	const connection = await db.MongoDB.connector();
+	if (!connection) {
+		console.error('MongoDB bağlantısı kurulamadı, servis başlatılmıyor');
+		process.exit(1);
+	}
+	// index'ler constants/indexes.js ile eşitlenir (eksik oluşturulur, fazla düşürülür); boot'u bloklamaz
+	helpers.indexChecker
+		.runAll()
+		.then((results) => {
+			const line = helpers.indexChecker.summary(results);
+			if (results.failures.length > 0) {
+				console.error(line, results.failures);
+			} else {
+				console.log(line);
+			}
+		})
+		.catch((error) => console.error('indexes -> hata:', error.message));
+	const server = app.listen(port, () => {
+		console.log(`Kandilli Internal Service - PORT: ${port}`);
+	});
+	helpers.gracefulShutdown(server);
+	cloudflare.init().catch((error) => console.error('cloudflare.init error:', error.message));
+	// geometri önbelleğini boot'ta ısıt, ilk cron çağrısı beklemesin
+	setImmediate(() => helpers.earthquakes.warm());
+}
+
+start();

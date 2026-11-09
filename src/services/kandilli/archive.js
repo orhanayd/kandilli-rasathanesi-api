@@ -17,6 +17,8 @@ module.exports = async (_req, res) => {
 				res.locals.query.date_end,
 				res.locals.query.skip,
 				res.locals.query.limit,
+				// sırasız $skip/$limit sayfalar arasında kayıt atlatır/tekrarlatır; index destekli (bellek içi sort yok)
+				{ date_time: -1 },
 			);
 			if (kandilli_data) {
 				db.nopeRedis.setItem(key, kandilli_data, 10 * 60);

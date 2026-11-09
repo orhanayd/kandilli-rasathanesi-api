@@ -1,21 +1,12 @@
 const db = require('../../db');
 const constants = require('../../constants');
 const cloudflare = require('../../helpers/cloudflare');
+const { kk_date } = require('../../helpers/date');
 
 const CACHE_KEY_PREFIX = 'ban:';
 const BANNED_TTL = 600; // 10 minutes
 const NOT_BANNED_TTL = 300; // 5 minutes
 const BAN_DURATION_DAYS = 3;
-
-module.exports.createIndex = async () => {
-	try {
-		const crud = new db.MongoDB.CRUD('earthquake', 'bans');
-		await crud.ensureIndex({ expires_at: 1 }, { expireAfterSeconds: 0 });
-		await crud.ensureIndex({ ip: 1 });
-	} catch (err) {
-		console.error('ban.createIndex error:', err.message);
-	}
-};
 
 module.exports.check = async (ip) => {
 	if (constants.CONFIG.BYPASS_IPS.includes(ip)) {
@@ -42,8 +33,9 @@ module.exports.save = async (ip) => {
 		return false;
 	}
 
-	const now = new Date();
-	const expiresAt = new Date(now.getTime() + BAN_DURATION_DAYS * 24 * 60 * 60 * 1000);
+	// TTL index BSON Date ister; getDate() gerçek UTC anını native Date olarak verir
+	const now = new kk_date().getDate();
+	const expiresAt = new kk_date(now).add(BAN_DURATION_DAYS, 'days').getDate();
 
 	await new db.MongoDB.CRUD('earthquake', 'bans').update(
 		{ ip: `${ip}` },
@@ -68,7 +60,7 @@ module.exports.save = async (ip) => {
 };
 
 module.exports.findExpired = async () => {
-	return await new db.MongoDB.CRUD('earthquake', 'bans').find({ expires_at: { $lte: new Date() } }, [0, 500], { _id: false });
+	return await new db.MongoDB.CRUD('earthquake', 'bans').find({ expires_at: { $lte: new kk_date().getDate() } }, [0, 500], { _id: false });
 };
 
 module.exports.removeByIp = async (ip) => {

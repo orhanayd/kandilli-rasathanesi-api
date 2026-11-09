@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'İsrail',
-	number: 972,
+	number: 1972,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

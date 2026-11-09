@@ -1,22 +1,57 @@
 [
 	{
-		"date": "202303",
-		"status": true
+		"date": "202608",
+		"archiveCount": 1643,
+		"at": "2026-08-21T12:05:39.984Z",
+		"dbCount": 1507,
+		"inserted": 171,
+		"matched": 1213,
+		"orphans": 35,
+		"status": true,
+		"updated": 473
 	},
 	{
-		"date": "202302",
-		"status": true
+		"date": "202607",
+		"archiveCount": 2535,
+		"at": "2026-08-21T12:05:37.490Z",
+		"dbCount": 2102,
+		"inserted": 485,
+		"matched": 2050,
+		"orphans": 52,
+		"status": true,
+		"updated": 1669
 	},
 	{
-		"date": "202301",
-		"status": true
+		"date": "202606",
+		"archiveCount": 2584,
+		"at": "2026-08-21T12:05:32.284Z",
+		"dbCount": 2070,
+		"inserted": 561,
+		"matched": 2023,
+		"orphans": 47,
+		"status": true,
+		"updated": 1400
 	},
 	{
-		"date": "202212",
-		"status": true
+		"date": "202605",
+		"archiveCount": 2653,
+		"at": "2026-08-21T12:05:28.069Z",
+		"dbCount": 2679,
+		"inserted": 0,
+		"matched": 2653,
+		"orphans": 26,
+		"status": true,
+		"updated": 7
 	},
 	{
-		"date": "202211",
-		"status": true
+		"date": "202604",
+		"archiveCount": 3035,
+		"at": "2026-08-21T12:05:26.209Z",
+		"dbCount": 2928,
+		"inserted": 156,
+		"matched": 2879,
+		"orphans": 49,
+		"status": true,
+		"updated": 491
 	}
 ]

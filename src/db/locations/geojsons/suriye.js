@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Suriye',
-	number: 963,
+	number: 1963,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

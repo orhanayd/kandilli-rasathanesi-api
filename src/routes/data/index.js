@@ -5,31 +5,32 @@ const controller = require('../../controller');
 const middlewares = require('../../middlewares');
 
 /**
- * DataSearchMatch defination
+ * DataSearchGeoNear defination - optional; if sent, all three fields are required.
+ * Area filter only: results are not ordered by distance (use sort).
  * @typedef {object} DataSearchGeoNear
- * @property {number} lon.required - earthquake geonear longitude
- * @property {number} lat.required - earthquake geonear latitude
- * @property {number} radiusMeter - earthquake geonear search radiusMeter
+ * @property {number} lon.required - longitude (-180 to 180)
+ * @property {number} lat.required - latitude (-90 to 90)
+ * @property {number} radiusMeter.required - search radius in meters (1 to 20000000)
  */
 
 /**
  * DataSearchMatch defination
  * @typedef {object} DataSearchMatch
- * @property {number} mag - earthquake magnitude
- * @property {string} date_starts - earthquake starts at YYYY-MM-DD HH:mm:ss
- * @property {string} date_ends - earthquake ends at YYYY-MM-DD HH:mm:ss
- * @property {number} cityCode - city code from statics/cities
- * @property {string} provider - kandilli / afad default
+ * @property {number} mag - minimum magnitude (>=), decimals allowed
+ * @property {string} date_starts - from YYYY-MM-DD HH:mm:ss (send together with date_ends)
+ * @property {string} date_ends - until YYYY-MM-DD HH:mm:ss (send together with date_starts)
+ * @property {number} cityCode - epicenter cityCode from statics/cities
  */
 
 /**
  * data search defination
  * @typedef {object} DataSearch
- * @property {DataSearchMatch} match - match
- * @property {DataSearchGeoNear} geoNear - geoNeaer
- * @property {string} sort - sorting {date_1, date_-1, mag_1, mag_-1}
- * @property {number} skip - skip
- * @property {number} limit - limit
+ * @property {string} provider - kandilli | afad (default: all providers)
+ * @property {DataSearchMatch} match - filters
+ * @property {DataSearchGeoNear} geoNear - location filter
+ * @property {string} sort - date_1, date_-1, mag_1, mag_-1 (default: date_-1)
+ * @property {number} skip - records to skip (0-10000, default 0)
+ * @property {number} limit - max records (1-100, default 10; above 100 is capped)
  */
 
 /**
@@ -38,16 +39,18 @@ const middlewares = require('../../middlewares');
  * @summary api earthquakes search endpoint
  * @tags DATA
  * @return {object} 200 - success response - application/json
+ * @return {object} 422 - wrong param - application/json
  * @return {object} 500 - Server error - application/json
  */
 router.post('/search', [controller.data.search], services.data.search);
 
 /**
  * GET /deprem/data/get
- * @param {string} earthquake_id.query - earthquake_id
+ * @param {string} earthquake_id.query.required - earthquake_id (13 characters)
  * @summary api earthquakes get endpoint
  * @tags DATA
- * @return {object} 200 - success response - application/json
+ * @return {object} 200 - success response (no result field if the id is unknown) - application/json
+ * @return {object} 406 - earthquake_id missing - application/json
  * @return {object} 500 - Server error - application/json
  */
 router.get('/get', [controller.data.get], services.data.get);
@@ -73,7 +76,7 @@ router.post('/stats/general', [middlewares.stats, controller.data.statsGeneral],
 /**
  * GET /deprem/data/sitemap
  * @param {number} page.query - page number (default 1)
- * @param {number} limit.query - items per page (default 5000, max 10000)
+ * @param {number} limit.query - items per page (1-10000, default 5000)
  * @summary sitemap data endpoint with pagination
  * @security HeaderAuthStats
  * @tags DATA

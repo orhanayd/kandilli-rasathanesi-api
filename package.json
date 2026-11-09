@@ -10,6 +10,7 @@
 		"dev": "NODE_ENV=DEV pm2 start index.js --name kandilli-service-dev -i 1 --watch --max-memory-restart 512M",
 		"dev:internal": "NODE_ENV=DEV pm2 start index-internal.js --name kandilli-internal-dev -i 1 --watch --max-memory-restart 1024M",
 		"dev:all": "npm run dev && npm run dev:internal",
+		"indexes": "node tools/indexes.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -30,10 +31,10 @@
 		"express": "^5.2.1",
 		"express-jsdoc-swagger": "^1.8.0",
 		"fast-xml-parser": "^5.10.1",
-		"kk-date": "^5.0.0",
+		"kk-date": "^5.1.1",
 		"mongodb": "^7.5.0",
 		"morgan": "^1.11.0",
-		"nope-id": "1.4.1",
+		"nope-id": "1.4.2",
 		"nope-redis": "^2.1.0"
 	},
 	"devDependencies": {

@@ -7,7 +7,7 @@ let GEO = null;
 
 function buildGeoCache() {
 	const entries = [];
-	const byNumber = new Map();
+	const byName = new Map();
 	const locations_geojson_length = db.locations.geojsons.length;
 	for (let index = 0; index < locations_geojson_length; index++) {
 		const location = db.locations.geojsons[index];
@@ -39,9 +39,10 @@ function buildGeoCache() {
 			borderLine: null, // lazy: ilk fallback kullanımında turf.polygonToLine ile doldurulur
 		};
 		entries.push(entry);
-		// db.locations.geojsons.find(...) davranışıyla birebir: dizi sırasına göre ilk eşleşen kazanır
-		if (!byNumber.has(location.number)) {
-			byNumber.set(location.number, entry);
+		// İsim ile anahtarla: cityCode benzersiz değil (deniz grubu hep -1) ve ülke kodları plaka
+		// kodlarıyla çakışabiliyordu; isimler benzersiz olduğu için sınır kuralı doğru poligona bakar.
+		if (!byName.has(location.name)) {
+			byName.set(location.name, entry);
 		}
 	}
 
@@ -61,7 +62,7 @@ function buildGeoCache() {
 		});
 	}
 
-	return { entries, byNumber, airportPoints };
+	return { entries, byName, airportPoints };
 }
 
 function geo() {
@@ -72,7 +73,7 @@ function geo() {
 }
 
 function locations(turfPoint) {
-	const { entries, byNumber } = geo();
+	const { entries, byName } = geo();
 	let epiCenterProps = { name: null };
 	let closestCities = [];
 	const [lng, lat] = turfPoint.geometry.coordinates;
@@ -113,7 +114,7 @@ function locations(turfPoint) {
 		for (let i = 0; i < closestCities.length; i++) {
 			const candidate = closestCities[i];
 			if (candidate.cityCode === -1) continue;
-			const entry = byNumber.get(candidate.cityCode);
+			const entry = byName.get(candidate.name);
 			if (!entry) continue;
 			try {
 				// bbox'a uzaklık, sınıra uzaklığın alt sınırıdır; 1000m eşiğinin (2x güvenlik payıyla)

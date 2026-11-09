@@ -10,21 +10,7 @@ const db = require('./src/db');
 const constants = require('./src/constants');
 const port = 7979;
 
-// connectors for db, cache etc.;
-const repositories = require('./src/repositories');
-
 const cloudflare = require('./src/helpers/cloudflare');
-
-async function connector() {
-	await db.MongoDB.connector();
-	// index kurulumu boot'u bloklamaz; her index için kuruldu / zaten kurulu / kurulamadı loglanır
-	repositories.ban.createIndex();
-	repositories.rate.createIndex();
-	repositories.data.createIndexes();
-	await cloudflare.init();
-}
-
-connector();
 
 app.set('trust proxy', true);
 app.use((req, _res, next) => {
@@ -84,6 +70,34 @@ app.use((_req, res) => {
 	return res.status(response.httpStatus).json(response);
 });
 
-app.listen(port, () => {
-	console.log(`Kandilli Rasathanesi API Service API - PORT: ${port}`);
-});
+// Port ancak MongoDB bağlandıktan sonra açılır: aksi halde boot'un ilk anlarında gelen istekler
+// "db connection error" ile 500 alıyordu. PM2 cluster modunda reload, yeni worker dinlemeye başlayana
+// kadar eskisini öldürmez — yani bu sıra reload'u gerçekten kesintisiz yapar.
+async function start() {
+	const connection = await db.MongoDB.connector();
+	if (!connection) {
+		// bağlantısız dinlemek her isteği 500'e çevirir; çık, PM2 yeniden başlatsın (reload'da eski worker hizmete devam eder)
+		console.error('MongoDB bağlantısı kurulamadı, servis başlatılmıyor');
+		process.exit(1);
+	}
+	// index'ler constants/indexes.js ile eşitlenir (eksik oluşturulur, fazla düşürülür); boot'u bloklamaz
+	helpers.indexChecker
+		.runAll()
+		.then((results) => {
+			const line = helpers.indexChecker.summary(results);
+			if (results.failures.length > 0) {
+				console.error(line, results.failures);
+			} else {
+				console.log(line);
+			}
+		})
+		.catch((error) => console.error('indexes -> hata:', error.message));
+	const server = app.listen(port, () => {
+		console.log(`Kandilli Rasathanesi API Service API - PORT: ${port}`);
+	});
+	helpers.gracefulShutdown(server);
+	// Cloudflare listesi hazırlığı dış API çağrısıdır; dinlemeyi bekletmez
+	cloudflare.init().catch((error) => console.error('cloudflare.init error:', error.message));
+}
+
+start();

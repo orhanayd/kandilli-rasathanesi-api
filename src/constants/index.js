@@ -54,3 +54,4 @@ module.exports.response = () => {
 };
 
 module.exports.errors = require('./errors');
+module.exports.indexes = require('./indexes');

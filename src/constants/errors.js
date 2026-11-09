@@ -1,3 +1,6 @@
+// constants → helpers/index döngüsüne girmemek için date doğrudan alınır (yalnızca kk-date bağımlı)
+const { kk_date } = require('../helpers/date');
+
 function paramsAdder(thiss, params) {
 	if (params.length === 0) {
 		return thiss;
@@ -19,7 +22,7 @@ class ServerError extends Error {
 		this.errorCode = 1;
 		this.httpStatus = 500;
 		this.message = `${message}`;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }
@@ -35,7 +38,7 @@ class MissingField extends Error {
 		this.httpStatus = 406;
 		this.errorCode = 2;
 		this.message = `${message}`;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }
@@ -51,7 +54,7 @@ class UnAuth extends Error {
 		this.errorCode = 3;
 		this.message = `${message}`;
 		this.httpStatus = 401;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }
@@ -67,7 +70,7 @@ class Forbidden extends Error {
 		this.errorCode = 4;
 		this.httpStatus = 403;
 		this.message = `${message}`;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }
@@ -83,7 +86,7 @@ class WrongParam extends Error {
 		this.errorCode = 5;
 		this.httpStatus = 422;
 		this.message = `${message}`;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }
@@ -99,7 +102,7 @@ class TooManyRequest extends Error {
 		this.errorCode = 7;
 		this.httpStatus = 429;
 		this.message = `${message}`;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }
@@ -115,7 +118,7 @@ class NotFound extends Error {
 		this.errorCode = 8;
 		this.httpStatus = 404;
 		this.message = `${message}`;
-		this.date = new Date();
+		this.date = new kk_date().getDate();
 		paramsAdder(this, params);
 	}
 }

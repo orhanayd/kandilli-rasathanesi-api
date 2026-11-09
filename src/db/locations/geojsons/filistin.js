@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Filistin',
-	number: 970,
+	number: 1970,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [
