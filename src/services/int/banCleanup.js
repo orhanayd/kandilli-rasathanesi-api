@@ -27,7 +27,11 @@ module.exports = async (_req, res) => {
 
 	if (cloudflare.isEnabled()) {
 		try {
-			const activeBans = await new db.MongoDB.CRUD('earthquake', 'bans').find({ expires_at: { $gt: new Date() } }, [0, 5000], { _id: false });
+			const activeBans = await new db.MongoDB.CRUD('earthquake', 'bans').find(
+				{ expires_at: { $gt: new helpers.date.kk_date().getDate() } },
+				[0, 5000],
+				{ _id: false },
+			);
 			const ips = activeBans.map((b) => b.ip);
 			console.log(`ban-cleanup: syncing ${ips.length} ips to cloudflare`);
 			const result = await cloudflare.replaceAll(ips);

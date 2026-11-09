@@ -13,23 +13,11 @@ module.exports.live = async (req, res, next) => {
 		await repositories.rate.check(req.ip);
 
 		if (req.query.skip && typeof req.query.skip === 'string') {
-			query.skip = parseInt(req.query.skip, 10);
-			if (Number.isNaN(query.skip)) {
-				throw new constants.errors.WrongParam('afad.live', 'isNaN skip !');
-			}
-			if (query.skip > 10000) {
-				throw new constants.errors.WrongParam('afad.live', 'skip max 10000 !');
-			}
+			query.skip = helpers.parseSkip(req.query.skip, 'afad.live');
 		}
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
-			query.limit = parseInt(req.query.limit, 10);
-			if (Number.isNaN(query.limit)) {
-				throw new constants.errors.WrongParam('afad.live', 'isNaN limit !');
-			}
-			if (query.limit > 100) {
-				query.limit = 100;
-			}
+			query.limit = helpers.parseLimit(req.query.limit, 'afad.live');
 		}
 
 		res.locals.query = query;
@@ -57,22 +45,10 @@ module.exports.archive = async (req, res, next) => {
 		await repositories.rate.check(req.ip);
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
-			query.limit = parseInt(req.query.limit, 10);
-			if (Number.isNaN(query.limit)) {
-				throw new constants.errors.WrongParam('afad.archive', 'isNaN limit !');
-			}
-			if (query.limit > 100) {
-				query.limit = 100;
-			}
+			query.limit = helpers.parseLimit(req.query.limit, 'afad.archive');
 		}
 		if (req.query.skip && typeof req.query.skip === 'string') {
-			query.skip = parseInt(req.query.skip, 10);
-			if (Number.isNaN(query.skip)) {
-				throw new constants.errors.WrongParam('afad.archive', 'isNaN skip !');
-			}
-			if (query.skip > 10000) {
-				throw new constants.errors.WrongParam('afad.archive', 'skip max 10000 !');
-			}
+			query.skip = helpers.parseSkip(req.query.skip, 'afad.archive');
 		}
 
 		const date_in = req.query.date;

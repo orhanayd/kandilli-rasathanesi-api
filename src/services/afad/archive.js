@@ -12,7 +12,14 @@ module.exports = async (_req, res) => {
 		const key = `afad/archive/${res.locals.query.date}/${res.locals.query.date_end}/${res.locals.query.skip}/${res.locals.query.limit}`;
 		let afad_data = db.nopeRedis.getItem(key);
 		if (!afad_data) {
-			afad_data = await repositories.afad.list(res.locals.query.date, res.locals.query.date_end, res.locals.query.skip, res.locals.query.limit);
+			afad_data = await repositories.afad.list(
+				res.locals.query.date,
+				res.locals.query.date_end,
+				res.locals.query.skip,
+				res.locals.query.limit,
+				// sırasız $skip/$limit sayfalar arasında kayıt atlatır/tekrarlatır; index destekli (bellek içi sort yok)
+				{ date_time: -1 },
+			);
 			if (afad_data) {
 				db.nopeRedis.setItem(key, afad_data, 10 * 60);
 			}

@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Gürcistan',
-	number: 995,
+	number: 1995,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

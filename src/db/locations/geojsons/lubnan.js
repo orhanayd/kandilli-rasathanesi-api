@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Lübnan',
-	number: 961,
+	number: 1961,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

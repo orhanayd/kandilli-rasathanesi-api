@@ -44,11 +44,12 @@ router.get('/deprem/status', async (_req, res) => {
  * GET /deprem
  * @summary api ALL PROVIDERS (KANDILLI + AFAD)
  * @tags DATA
- * @param {number} skip.query - limit param limit
- * @param {number} limit.query - limit param limit
- * @param {string} date.query.required - date param YYYY-MM-DD
- * @param {string} date_end.query - date end param YYYY-MM-DD
+ * @param {number} skip.query - records to skip (0-10000, default 0)
+ * @param {number} limit.query - max records (1-100, default 50; above 100 is capped)
+ * @param {string} date.query - start day YYYY-MM-DD, from 00:00:00 (default: 24 hours ago)
+ * @param {string} date_end.query - end day YYYY-MM-DD, until 23:59:59 (default: now)
  * @return {object} 200 - success response - application/json
+ * @return {object} 422 - wrong param - application/json
  * @return {object} 500 - Server error - application/json
  */
 router.get('/deprem', controller.data.allProviders, services.data.allProviders);

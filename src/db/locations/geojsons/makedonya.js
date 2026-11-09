@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Makedonya',
-	number: 389,
+	number: 1389,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

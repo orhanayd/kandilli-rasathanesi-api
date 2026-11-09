@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Bosna Hersek',
-	number: 387,
+	number: 1387,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

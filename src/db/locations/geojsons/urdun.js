@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'Ürdün',
-	number: 962,
+	number: 1962,
 	coordinates: {
 		type: 'MultiPolygon',
 		coordinates: [

@@ -122,11 +122,11 @@ class CRUD {
 	 * @param {Array} data
 	 * @returns
 	 */
-	async insertMany(data) {
+	async insertMany(data, options = {}) {
 		if (Array.isArray(data) === false) {
 			return false;
 		}
-		await connection.db(this.db).collection(this.collection).insertMany(data);
+		await connection.db(this.db).collection(this.collection).insertMany(data, options);
 		return true;
 	}
 
@@ -159,6 +159,91 @@ class CRUD {
 	}
 
 	/**
+	 * bir alanın benzersiz değerleri
+	 *
+	 * @param {String} field
+	 * @param {Object} query
+	 * @returns {Promise<Array>}
+	 */
+	async distinct(field, query = {}) {
+		return await connection.db(this.db).collection(this.collection).distinct(field, query);
+	}
+
+	/**
+	 * toplu yazma — migration'larda tek tek updateOne yerine kullanılır
+	 *
+	 * @param {Array} operations bulkWrite işlem listesi
+	 * @param {Object} options
+	 * @returns {Promise<Object>} bulkWrite sonucu
+	 */
+	async bulkWrite(operations, options = { ordered: false }) {
+		if (Array.isArray(operations) === false || operations.length < 1) {
+			return { matchedCount: 0, modifiedCount: 0, insertedCount: 0, deletedCount: 0 };
+		}
+		return await connection.db(this.db).collection(this.collection).bulkWrite(operations, options);
+	}
+
+	/**
+	 * akış halinde okuma — find() tüm sonucu belleğe alır, büyük migration'larda cursor gerekir
+	 *
+	 * @param {Object} query
+	 * @param {Object} project
+	 * @param {Object} options sort / batchSize
+	 * @returns {FindCursor}
+	 */
+	cursor(query = {}, project = {}, options = {}) {
+		const { sort = {}, batchSize = 1000 } = options;
+		return connection.db(this.db).collection(this.collection).find(query).sort(sort).project(project).batchSize(batchSize);
+	}
+
+	/**
+	 * index düşürme — hatayı fırlatır (ör. IndexNotFound); yorumlama ve loglama helpers/indexChecker'da
+	 *
+	 * @param {String} name
+	 */
+	async dropIndex(name) {
+		return await connection.db(this.db).collection(this.collection).dropIndex(name);
+	}
+
+	/**
+	 * mevcut index'ler (listIndexes); koleksiyon henüz yoksa boş liste
+	 *
+	 * @returns {Promise<Array>}
+	 */
+	async indexList() {
+		try {
+			return await connection.db(this.db).collection(this.collection).indexes();
+		} catch (err) {
+			if (err.codeName === 'NamespaceNotFound') {
+				return [];
+			}
+			throw err;
+		}
+	}
+
+	/**
+	 * index seçeneğini yerinde değiştirir (collMod): unique'e çevirme, TTL süresi
+	 *
+	 * @param {Object} index ör. { name: 'earthquake_id_1', unique: true }
+	 */
+	async collModIndex(index) {
+		return await connection.db(this.db).command({ collMod: this.collection, index });
+	}
+
+	/**
+	 * index kullanım istatistikleri ($indexStats)
+	 *
+	 * @returns {Promise<Array>}
+	 */
+	async indexStats() {
+		return await connection
+			.db(this.db)
+			.collection(this.collection)
+			.aggregate([{ $indexStats: {} }])
+			.toArray();
+	}
+
+	/**
 	 * mongodb aggregation pipelines
 	 *
 	 * @param {Object} pipeline aggregation pipeline stages
@@ -178,48 +263,6 @@ class CRUD {
 
 	async createIndex(data, options = {}) {
 		return await connection.db(this.db).collection(this.collection).createIndex(data, options);
-	}
-
-	/**
-	 * checks if an index exists by name (missing collection counts as not exists)
-	 *
-	 * @param {String} name
-	 * @returns {Promise<Boolean>}
-	 */
-	async indexExists(name) {
-		try {
-			return await connection.db(this.db).collection(this.collection).indexExists(name);
-		} catch (_err) {
-			// koleksiyon henüz yoksa listIndexes NamespaceNotFound fırlatır -> index yok say
-			return false;
-		}
-	}
-
-	/**
-	 * idempotent index setup with created / already exists / failed logging
-	 *
-	 * @param {Object} spec index key spec
-	 * @param {Object} options createIndex options
-	 * @returns {Promise<Boolean>} true if index exists or was created
-	 */
-	async ensureIndex(spec, options = {}) {
-		const name =
-			options.name ||
-			Object.entries(spec)
-				.map(([key, value]) => `${key}_${value}`)
-				.join('_');
-		try {
-			if (await this.indexExists(name)) {
-				console.log(`MongoDB -> index already exists: ${this.collection}.${name}`);
-				return true;
-			}
-			await this.createIndex(spec, { ...options, name });
-			console.log(`MongoDB -> index created: ${this.collection}.${name}`);
-			return true;
-		} catch (err) {
-			console.error(`MongoDB -> index create failed: ${this.collection}.${name} ->`, err.message);
-			return false;
-		}
 	}
 }
 

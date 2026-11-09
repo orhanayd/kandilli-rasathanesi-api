@@ -2,6 +2,21 @@ const helpers = require('../../helpers');
 const constants = require('../../constants');
 const repositories = require('../../repositories');
 
+// geoNear yarıçap üst sınırı: dünya çevresinin yarısı (~20.000 km); ötesi küre üzerinde anlamsız
+const MAX_RADIUS_METER = 20000000;
+
+// Sayı ya da sayısal string → sonlu sayı; diğer her şey (eksik alan, '', '12abc', Infinity) → NaN
+const toFiniteNumber = (value) => {
+	if (typeof value === 'number') {
+		return Number.isFinite(value) ? value : Number.NaN;
+	}
+	if (typeof value === 'string' && value.trim() !== '') {
+		const parsed = Number(value);
+		return Number.isFinite(parsed) ? parsed : Number.NaN;
+	}
+	return Number.NaN;
+};
+
 module.exports.statsGeneral = (req, res, next) => {
 	const response = constants.response();
 	try {
@@ -149,44 +164,36 @@ module.exports.search = async (req, res, next) => {
 		};
 
 		if (typeof req.body.skip === 'number') {
-			body.skip = parseInt(req.body.skip, 10);
-			if (Number.isNaN(body.skip)) {
-				throw new constants.errors.WrongParam('data.search', 'isNaN skip !');
-			}
-			if (body.skip > 10000) {
-				throw new constants.errors.WrongParam('data.search', 'skip max 10000 !');
-			}
+			body.skip = helpers.parseSkip(req.body.skip, 'data.search');
 		}
 
 		if (typeof req.body.limit === 'number') {
-			body.limit = parseInt(req.body.limit, 10);
-			if (Number.isNaN(body.limit)) {
-				throw new constants.errors.WrongParam('data.search', 'isNaN limit !');
-			}
-			if (body.limit > 100) {
-				body.limit = 100;
-			}
+			body.limit = helpers.parseLimit(req.body.limit, 'data.search');
 		}
 
-		if (typeof req.body.geoNear === 'object') {
-			if (typeof req.body.geoNear.lon !== 'number' && typeof req.body.geoNear.lat !== 'number') {
+		// null da typeof 'object' döner; null/dizi/obje olmayan geoNear yok sayılır (diğer alanlarla aynı kural)
+		const geoNear = req.body.geoNear;
+		if (geoNear && typeof geoNear === 'object' && !Array.isArray(geoNear)) {
+			// Sayı ya da sayısal string kabul edilir (eskiden çalışan istekler bozulmasın). Üç alan da zorunludur:
+			// eksik/aralık dışı değer MongoDB'ye ulaşırsa 422 yerine 500 dönerdi.
+			const lon = toFiniteNumber(geoNear.lon);
+			const lat = toFiniteNumber(geoNear.lat);
+			if (Number.isNaN(lon) || Number.isNaN(lat)) {
 				throw new constants.errors.WrongParam('data.search', 'lat or lon is not a number !');
 			}
-			if (typeof req.body.geoNear.radiusMeter !== 'number') {
-				req.body.geoNear.radiusMeter = parseInt(req.body.geoNear.radiusMeter, 10);
-				if (Number.isNaN(req.body.geoNear.radiusMeter)) {
-					throw new constants.errors.WrongParam('data.search', 'radiusMeter isNaN !');
-				}
+			if (lon < -180 || lon > 180 || lat < -90 || lat > 90) {
+				throw new constants.errors.WrongParam('data.search', 'lon must be between -180 and 180, lat between -90 and 90 !');
+			}
+			const radiusMeter = toFiniteNumber(geoNear.radiusMeter);
+			if (Number.isNaN(radiusMeter)) {
+				throw new constants.errors.WrongParam('data.search', 'radiusMeter isNaN !');
+			}
+			if (radiusMeter <= 0 || radiusMeter > MAX_RADIUS_METER) {
+				throw new constants.errors.WrongParam('data.search', `radiusMeter must be between 1 and ${MAX_RADIUS_METER} !`);
 			}
 			body.geoNear = {
-				geojson: { $geoWithin: { $centerSphere: [[], 0] } },
+				geojson: { $geoWithin: { $centerSphere: [[lon, lat], helpers.metersToRadios(radiusMeter)] } },
 			};
-			body.geoNear.geojson['$geoWithin']['$centerSphere'][0][0] = parseFloat(req.body.geoNear.lon);
-			body.geoNear.geojson['$geoWithin']['$centerSphere'][0][1] = parseFloat(req.body.geoNear.lat);
-			body.geoNear.geojson['$geoWithin']['$centerSphere'][1] = helpers.metersToRadios(req.body.geoNear.radiusMeter);
-			if (body.geoNear.geojson['$geoWithin']['$centerSphere'][1] === false) {
-				throw new constants.errors.WrongParam('data.search', 'meters is false !');
-			}
 		}
 
 		if (typeof req.body.sort === 'string') {
@@ -205,12 +212,13 @@ module.exports.search = async (req, res, next) => {
 			body.match.provider = req.body.provider.toString();
 		}
 
-		if (typeof req.body.match === 'object') {
-			if (req.body.match.mag && typeof req.body.match.mag === 'number') {
-				body.match.mag = { $gte: parseInt(req.body.match.mag, 10) };
-				if (Number.isNaN(body.match.mag['$gte'])) {
+		if (req.body.match && typeof req.body.match === 'object') {
+			// ondalık korunur: parseInt 4.5'i 4'e kırpıp 4.0 ve üstünü döndürüyordu
+			if (typeof req.body.match.mag === 'number') {
+				if (!Number.isFinite(req.body.match.mag)) {
 					throw new constants.errors.WrongParam('data.search', 'isNaN mag !');
 				}
+				body.match.mag = { $gte: req.body.match.mag };
 			}
 			if (typeof req.body.match.date_starts === 'string' && typeof req.body.match.date_ends === 'string') {
 				if (
@@ -286,13 +294,8 @@ module.exports.sitemap = (req, res, next) => {
 		}
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
-			query.limit = parseInt(req.query.limit, 10);
-			if (Number.isNaN(query.limit)) {
-				throw new constants.errors.WrongParam('data.sitemap', 'isNaN limit !');
-			}
-			if (query.limit > 10000) {
-				query.limit = 10000;
-			}
+			// 0/negatif limit $limit aşamasında MongoDB hatasına (500) düşüyordu
+			query.limit = helpers.parseLimit(req.query.limit, 'data.sitemap', 10000);
 		}
 
 		query.skip = (query.page - 1) * query.limit;
@@ -320,35 +323,23 @@ module.exports.allProviders = async (req, res, next) => {
 		await repositories.rate.check(req.ip);
 
 		if (req.query.limit && typeof req.query.limit === 'string') {
-			query.limit = parseInt(req.query.limit, 10);
-			if (Number.isNaN(query.limit)) {
-				throw new constants.errors.WrongParam('afad.archive', 'isNaN limit !');
-			}
-			if (query.limit > 100) {
-				query.limit = 100;
-			}
+			query.limit = helpers.parseLimit(req.query.limit, 'data.allProviders');
 		}
 		if (req.query.skip && typeof req.query.skip === 'string') {
-			query.skip = parseInt(req.query.skip, 10);
-			if (Number.isNaN(query.skip)) {
-				throw new constants.errors.WrongParam('afad.archive', 'isNaN skip !');
-			}
-			if (query.skip > 10000) {
-				throw new constants.errors.WrongParam('afad.archive', 'skip max 10000 !');
-			}
+			query.skip = helpers.parseSkip(req.query.skip, 'data.allProviders');
 		}
 
 		const date_in = req.query.date;
 		if (date_in && typeof date_in === 'string') {
 			if (!helpers.date.kk_date.isValid(date_in, 'YYYY-MM-DD')) {
-				throw new constants.errors.WrongParam('afad.archive', 'date wrong param !');
+				throw new constants.errors.WrongParam('data.allProviders', 'date wrong param !');
 			}
 			query.date = new helpers.date.kk_date(date_in).startOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}
 		const date_end_in = req.query.date_end;
 		if (date_end_in && typeof date_end_in === 'string') {
 			if (!helpers.date.kk_date.isValid(date_end_in, 'YYYY-MM-DD')) {
-				throw new constants.errors.WrongParam('afad.archive', 'date_end wrong param !');
+				throw new constants.errors.WrongParam('data.allProviders', 'date_end wrong param !');
 			}
 			query.date_end = new helpers.date.kk_date(date_end_in).endOf('days').format('YYYY-MM-DD HH:mm:ss');
 		}

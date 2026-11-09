@@ -6,7 +6,6 @@ const services = require('../../services');
  * GET /deprem/statics/cities
  * @summary cities endpoint
  * @tags STATICS
- * @security HeaderAuthCron
  * @return {object} 200 - success response - application/json
  * @return {object} 500 - Server error - application/json
  */

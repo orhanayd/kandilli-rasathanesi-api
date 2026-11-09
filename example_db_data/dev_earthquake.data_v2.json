@@ -1,507 +1,447 @@
 [
 	{
-		"earthquake_id": "2HcciP_25kGqr",
-		"provider": "kandilli",
-		"title": "KARACAOREN-SIMAV (KUTAHYA)",
-		"mag": 1.7,
-		"depth": 2.9,
+		"earthquake_id": "51MmrDEhvzBRC",
+		"provider": "afad",
+		"title": "Dulkadiroğlu (Kahramanmaraş)",
+		"mag": 2.5,
+		"depth": 6.88,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				29.0483,
-				39.2038
-			]
+			"coordinates": [36.9442, 37.5562]
 		},
+		"rev": null,
+		"date_time": "2026-07-16 20:04:29",
+		"created_at": 1784221469,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Uşak",
-				"cityCode": 64,
-				"distance": 78494.96503688458,
-				"population": 375454
+				"name": "Gaziantep",
+				"cityCode": 27,
+				"distance": 57313,
+				"population": 2154051
 			},
 			"epiCenter": {
-				"name": "Kütahya",
-				"cityCode": 43,
-				"population": 580701
+				"name": "Kahramanmaraş",
+				"cityCode": 46,
+				"population": 1177436
 			},
 			"closestCities": [
 				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 78494.96503688458,
-					"population": 375454
+					"name": "Gaziantep",
+					"cityCode": 27,
+					"distance": 57313,
+					"population": 2154051
 				},
 				{
-					"name": "Manisa",
-					"cityCode": 45,
-					"distance": 97319.33553139429,
-					"population": 1468279
+					"name": "Osmaniye",
+					"cityCode": 80,
+					"distance": 64239,
+					"population": 559405
 				},
 				{
-					"name": "Bilecik",
-					"cityCode": 11,
-					"distance": 140837.15025396855,
-					"population": 228673
+					"name": "Kilis",
+					"cityCode": 79,
+					"distance": 84095,
+					"population": 147919
 				},
 				{
-					"name": "Yalova",
-					"cityCode": 77,
-					"distance": 152997.8997957915,
-					"population": 296333
+					"name": "Adana",
+					"cityCode": 1,
+					"distance": 115263,
+					"population": 2274106
 				},
 				{
-					"name": "Bursa",
-					"cityCode": 16,
-					"distance": 154775.09972492637,
-					"population": 3194720
+					"name": "Adıyaman",
+					"cityCode": 2,
+					"distance": 125507,
+					"population": 635169
 				}
 			],
 			"airports": [
 				{
-					"distance": 68657.00065808848,
-					"name": "Uşak Havalimanı",
-					"code": "USQ",
+					"distance": 2108,
+					"name": "Kahramanmaraş Havalimanı",
+					"code": "KCM",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							29.4717,
-							38.6815
-						]
+						"coordinates": [36.9473, 37.5374]
 					}
 				},
 				{
-					"distance": 86972.83570346644,
-					"name": "Zafer Havalimanı",
-					"code": "KZR",
+					"distance": 82606,
+					"name": "Gaziantep Havalimanı",
+					"code": "GZT",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							30.0183,
-							39.4242
-						]
+						"coordinates": [37.4787, 36.9472]
 					}
 				},
 				{
-					"distance": 106913.63878566287,
-					"name": "Balıkesir Merkez Havalimanı",
-					"code": "BZI",
+					"distance": 135667,
+					"name": "Adıyaman Havalimanı",
+					"code": "ADF",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.926,
-							39.6193
-						]
+						"coordinates": [38.4691, 37.7314]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2025-09-29 15:24:03",
-		"created_at": 1759148643,
-		"location_tz": "Europe/Istanbul"
+		}
 	},
 	{
-		"earthquake_id": "GMi4IAJ3bkY3f",
-		"provider": "kandilli",
-		"title": "KARACAOREN-SIMAV (KUTAHYA)",
-		"mag": 1.7,
-		"depth": 2.9,
+		"earthquake_id": "DwtQ4gxdCgF1x",
+		"provider": "afad",
+		"title": "Penjwin, Süleymaniye (Irak)",
+		"mag": 3.1,
+		"depth": 7,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				29.0483,
-				39.2038
-			]
+			"coordinates": [46.0082, 35.7945]
 		},
+		"rev": null,
+		"date_time": "2026-07-16 20:00:25",
+		"created_at": 1784221225,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Uşak",
-				"cityCode": 64,
-				"distance": 78494.96503688458,
-				"population": 375454
+				"name": "Hakkari",
+				"cityCode": 30,
+				"distance": 242027,
+				"population": 275333
 			},
 			"epiCenter": {
-				"name": "Kütahya",
-				"cityCode": 43,
-				"population": 580701
+				"name": "Irak",
+				"cityCode": 1964,
+				"population": null
 			},
 			"closestCities": [
 				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 78494.96503688458,
-					"population": 375454
+					"name": "Hakkari",
+					"cityCode": 30,
+					"distance": 242027,
+					"population": 275333
 				},
 				{
-					"name": "Manisa",
-					"cityCode": 45,
-					"distance": 97319.33553139429,
-					"population": 1468279
+					"name": "Şırnak",
+					"cityCode": 73,
+					"distance": 356433,
+					"population": 557605
 				},
 				{
-					"name": "Bilecik",
-					"cityCode": 11,
-					"distance": 140837.15025396855,
-					"population": 228673
+					"name": "Van",
+					"cityCode": 65,
+					"distance": 368572,
+					"population": 1128749
 				},
 				{
-					"name": "Yalova",
-					"cityCode": 77,
-					"distance": 152997.8997957915,
-					"population": 296333
+					"name": "Siirt",
+					"cityCode": 56,
+					"distance": 413043,
+					"population": 331311
 				},
 				{
-					"name": "Bursa",
-					"cityCode": 16,
-					"distance": 154775.09972492637,
-					"population": 3194720
+					"name": "Bitlis",
+					"cityCode": 13,
+					"distance": 445638,
+					"population": 353988
 				}
 			],
 			"airports": [
 				{
-					"distance": 68657.00065808848,
-					"name": "Uşak Havalimanı",
-					"code": "USQ",
+					"distance": 251070,
+					"name": "Hakkari Yüksekova Havalimanı",
+					"code": "YKO",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							29.4717,
-							38.6815
-						]
+						"coordinates": [44.2377, 37.5501]
 					}
 				},
 				{
-					"distance": 86972.83570346644,
-					"name": "Zafer Havalimanı",
-					"code": "KZR",
+					"distance": 380303,
+					"name": "Van Ferit Melen Havalimanı",
+					"code": "VAN",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							30.0183,
-							39.4242
-						]
+						"coordinates": [43.3323, 38.4682]
 					}
 				},
 				{
-					"distance": 106913.63878566287,
-					"name": "Balıkesir Merkez Havalimanı",
-					"code": "BZI",
+					"distance": 393335,
+					"name": "Şırnak Şerafettin Elçi Havalimanı",
+					"code": "NKT",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.926,
-							39.6193
-						]
+						"coordinates": [42.0599, 37.3639]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2025-09-29 15:24:03",
-		"created_at": 1759148643,
-		"location_tz": "Europe/Istanbul"
+		}
 	},
 	{
-		"earthquake_id": "pw9kQzyXGBCRA",
-		"provider": "kandilli",
-		"title": "KARACAOREN-SIMAV (KUTAHYA)",
-		"mag": 1.2,
-		"depth": 4.4,
+		"earthquake_id": "jgGZCX5MZPxuU",
+		"provider": "afad",
+		"title": "Sincik (Adıyaman)",
+		"mag": 2.2,
+		"depth": 7.01,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				29.027,
-				39.1915
-			]
+			"coordinates": [38.54, 38.141]
 		},
+		"rev": null,
+		"date_time": "2026-07-16 19:58:45",
+		"created_at": 1784221125,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Uşak",
-				"cityCode": 64,
-				"distance": 77876.27836639699,
-				"population": 375454
+				"name": "Malatya",
+				"cityCode": 44,
+				"distance": 49172,
+				"population": 812580
 			},
 			"epiCenter": {
-				"name": "Kütahya",
-				"cityCode": 43,
-				"population": 580701
+				"name": "Adıyaman",
+				"cityCode": 2,
+				"population": 635169
 			},
 			"closestCities": [
 				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 77876.27836639699,
-					"population": 375454
+					"name": "Malatya",
+					"cityCode": 44,
+					"distance": 49172,
+					"population": 812580
 				},
 				{
-					"name": "Manisa",
-					"cityCode": 45,
-					"distance": 95044.29081745674,
-					"population": 1468279
+					"name": "Şanlıurfa",
+					"cityCode": 63,
+					"distance": 98655,
+					"population": 2170110
 				},
 				{
-					"name": "Bursa",
-					"cityCode": 16,
-					"distance": 98632.51795999573,
-					"population": 3194720
+					"name": "Elazığ",
+					"cityCode": 23,
+					"distance": 100627,
+					"population": 591497
 				},
 				{
-					"name": "Balıkesir",
-					"cityCode": 10,
-					"distance": 132507.08120547302,
-					"population": 1257590
+					"name": "Kahramanmaraş",
+					"cityCode": 46,
+					"distance": 137764,
+					"population": 1177436
 				},
 				{
-					"name": "Bilecik",
-					"cityCode": 11,
-					"distance": 143097.4474632911,
-					"population": 228673
+					"name": "Tunceli",
+					"cityCode": 62,
+					"distance": 147319,
+					"population": 84366
 				}
 			],
 			"airports": [
 				{
-					"distance": 68522.6013231045,
-					"name": "Uşak Havalimanı",
-					"code": "USQ",
+					"distance": 45968,
+					"name": "Adıyaman Havalimanı",
+					"code": "ADF",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							29.4717,
-							38.6815
-						]
+						"coordinates": [38.4691, 37.7314]
 					}
 				},
 				{
-					"distance": 89127.09571696755,
-					"name": "Zafer Havalimanı",
-					"code": "KZR",
+					"distance": 51062,
+					"name": "Erhaç Havalimanı",
+					"code": "MLX",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							30.0183,
-							39.4242
-						]
+						"coordinates": [38.091, 38.4354]
 					}
 				},
 				{
-					"distance": 105881.28776763352,
-					"name": "Balıkesir Merkez Havalimanı",
-					"code": "BZI",
+					"distance": 83618,
+					"name": "GAP Havalimanı",
+					"code": "GNY",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.926,
-							39.6193
-						]
+						"coordinates": [38.9022, 37.4456]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2025-09-29 14:18:51",
-		"created_at": 1759144731,
-		"location_tz": "Europe/Istanbul"
+		}
 	},
 	{
-		"earthquake_id": "oO9WN880UT6z9",
+		"earthquake_id": "11HHUmFOSlYQU",
 		"provider": "kandilli",
-		"title": "HAMZABEY-SIMAV (KUTAHYA)",
-		"mag": 1.6,
-		"depth": 11,
+		"title": "ULUKOY-(MALATYA)",
+		"mag": 2.1,
+		"depth": 9,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				28.9527,
-				39.2185
-			]
+			"coordinates": [38.5378, 38.1552]
 		},
+		"rev": null,
+		"date_time": "2026-07-16 19:58:45",
+		"created_at": 1784221125,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Uşak",
-				"cityCode": 64,
-				"distance": 83185.52689433996,
-				"population": 375454
+				"name": "Malatya",
+				"cityCode": 44,
+				"distance": 47865,
+				"population": 812580
 			},
 			"epiCenter": {
-				"name": "Kütahya",
-				"cityCode": 43,
-				"population": 580701
+				"name": "Adıyaman",
+				"cityCode": 2,
+				"population": 635169
 			},
 			"closestCities": [
 				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 83185.52689433996,
-					"population": 375454
+					"name": "Malatya",
+					"cityCode": 44,
+					"distance": 47865,
+					"population": 812580
 				},
 				{
-					"name": "Manisa",
-					"cityCode": 45,
-					"distance": 91218.84381114121,
-					"population": 1468279
+					"name": "Elazığ",
+					"cityCode": 23,
+					"distance": 99674,
+					"population": 591497
 				},
 				{
-					"name": "Bursa",
-					"cityCode": 16,
-					"distance": 95872.89137032045,
-					"population": 3194720
+					"name": "Şanlıurfa",
+					"cityCode": 63,
+					"distance": 100153,
+					"population": 2170110
 				},
 				{
-					"name": "Balıkesir",
-					"cityCode": 10,
-					"distance": 125530.42235784949,
-					"population": 1257590
+					"name": "Kahramanmaraş",
+					"cityCode": 46,
+					"distance": 137854,
+					"population": 1177436
 				},
 				{
-					"name": "Bilecik",
-					"cityCode": 11,
-					"distance": 145569.26695591575,
-					"population": 228673
+					"name": "Tunceli",
+					"cityCode": 62,
+					"distance": 146235,
+					"population": 84366
 				}
 			],
 			"airports": [
 				{
-					"distance": 74697.6952912851,
-					"name": "Uşak Havalimanı",
-					"code": "USQ",
+					"distance": 47508,
+					"name": "Adıyaman Havalimanı",
+					"code": "ADF",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							29.4717,
-							38.6815
-						]
+						"coordinates": [38.4691, 37.7314]
 					}
 				},
 				{
-					"distance": 94473.92035198383,
-					"name": "Zafer Havalimanı",
-					"code": "KZR",
+					"distance": 49911,
+					"name": "Erhaç Havalimanı",
+					"code": "MLX",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							30.0183,
-							39.4242
-						]
+						"coordinates": [38.091, 38.4354]
 					}
 				},
 				{
-					"distance": 98814.45022856475,
-					"name": "Balıkesir Merkez Havalimanı",
-					"code": "BZI",
+					"distance": 82821,
+					"name": "Elazığ Havalimanı",
+					"code": "EZS",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.926,
-							39.6193
-						]
+						"coordinates": [39.296, 38.6041]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2025-09-29 14:27:40",
-		"created_at": 1759145260,
-		"location_tz": "Europe/Istanbul"
+		}
 	},
 	{
-		"earthquake_id": "nQwcCP2wS8xJx",
-		"provider": "kandilli",
-		"title": "EGIRLER-SIMAV (KUTAHYA)",
-		"mag": 1.8,
-		"depth": 10.6,
+		"earthquake_id": "BIFVMC8DNlHNp",
+		"provider": "afad",
+		"title": "Doğanşehir (Malatya)",
+		"mag": 1.3,
+		"depth": 6.95,
 		"geojson": {
 			"type": "Point",
-			"coordinates": [
-				29.0263,
-				39.207
-			]
+			"coordinates": [37.7598, 38.2178]
 		},
+		"rev": null,
+		"date_time": "2026-07-16 19:29:09",
+		"created_at": 1784219349,
+		"location_tz": "Europe/Istanbul",
 		"location_properties": {
 			"closestCity": {
-				"name": "Uşak",
-				"cityCode": 64,
-				"distance": 79500.82955170979,
-				"population": 375454
+				"name": "Malatya",
+				"cityCode": 44,
+				"distance": 45604,
+				"population": 812580
 			},
 			"epiCenter": {
-				"name": "Kütahya",
-				"cityCode": 43,
-				"population": 580701
+				"name": "Kahramanmaraş",
+				"cityCode": 46,
+				"population": 1177436
 			},
 			"closestCities": [
 				{
-					"name": "Uşak",
-					"cityCode": 64,
-					"distance": 79500.82955170979,
-					"population": 375454
+					"name": "Malatya",
+					"cityCode": 44,
+					"distance": 45604,
+					"population": 812580
 				},
 				{
-					"name": "Manisa",
-					"cityCode": 45,
-					"distance": 95873.50967888364,
-					"population": 1468279
+					"name": "Adıyaman",
+					"cityCode": 2,
+					"distance": 66901,
+					"population": 635169
 				},
 				{
-					"name": "Bursa",
-					"cityCode": 16,
-					"distance": 96909.3239896465,
-					"population": 3194720
+					"name": "Gaziantep",
+					"cityCode": 27,
+					"distance": 132184,
+					"population": 2154051
 				},
 				{
-					"name": "Balıkesir",
-					"cityCode": 10,
-					"distance": 131494.198276221,
-					"population": 1257590
+					"name": "Şanlıurfa",
+					"cityCode": 63,
+					"distance": 148557,
+					"population": 2170110
 				},
 				{
-					"name": "Bilecik",
-					"cityCode": 11,
-					"distance": 141911.28831590968,
-					"population": 228673
+					"name": "Sivas",
+					"cityCode": 58,
+					"distance": 152838,
+					"population": 634924
 				}
 			],
 			"airports": [
 				{
-					"distance": 69986.66002728605,
-					"name": "Uşak Havalimanı",
-					"code": "USQ",
+					"distance": 37685,
+					"name": "Erhaç Havalimanı",
+					"code": "MLX",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							29.4717,
-							38.6815
-						]
+						"coordinates": [38.091, 38.4354]
 					}
 				},
 				{
-					"distance": 88690.94728473942,
-					"name": "Zafer Havalimanı",
-					"code": "KZR",
+					"distance": 82405,
+					"name": "Adıyaman Havalimanı",
+					"code": "ADF",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							30.0183,
-							39.4242
-						]
+						"coordinates": [38.4691, 37.7314]
 					}
 				},
 				{
-					"distance": 105054.71173977273,
-					"name": "Balıkesir Merkez Havalimanı",
-					"code": "BZI",
+					"distance": 103968,
+					"name": "Kahramanmaraş Havalimanı",
+					"code": "KCM",
 					"coordinates": {
 						"type": "Point",
-						"coordinates": [
-							27.926,
-							39.6193
-						]
+						"coordinates": [36.9473, 37.5374]
 					}
 				}
 			]
-		},
-		"rev": null,
-		"date_time": "2025-09-29 14:33:33",
-		"created_at": 1759145613,
-		"location_tz": "Europe/Istanbul"
+		}
 	}
 ]
